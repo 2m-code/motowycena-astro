@@ -1,10 +1,40 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { business, services, serviceUrl } from '@data/business';
-import { Phone, MessageCircle, Award, Clock, MapPin } from 'lucide-react';
+import {
+  Phone,
+  MessageCircle,
+  Award,
+  Clock,
+  MapPin,
+  Car,
+  Wrench,
+  ClipboardCheck,
+  FileText,
+  ShoppingCart,
+  BadgeCheck,
+  Settings,
+  Scale,
+  ShieldCheck,
+  BadgePercent,
+  Gavel,
+} from 'lucide-react';
 import ContactForm from '@components/forms/ContactForm.tsx';
 
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const serviceIcons = [
+  Car,
+  Wrench,
+  ClipboardCheck,
+  FileText,
+  ShoppingCart,
+  BadgeCheck,
+  Settings,
+  Scale,
+  ShieldCheck,
+  BadgePercent,
+  Gavel,
+];
 ---
 
 <BaseLayout
@@ -13,24 +43,26 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   keywords={['rzeczoznawca samochodowy', 'wycena pojazdu', 'biegły sądowy', 'wycena celno-skarbowa', 'ekspertyza pojazdu']}
 >
   <!-- HERO -->
-  <section class="relative overflow-hidden bg-brand-900 text-white">
+  <section class="relative isolate overflow-hidden bg-brand-900 text-white">
     <img
       src="/uploads/black-bmw-m3-coupe-car.png"
       alt="Czarny samochód sportowy użyty na stronie Motowycena"
       loading="eager"
       decoding="async"
-      class="absolute bottom-0 right-0 hidden w-[58rem] max-w-[68%] opacity-35 lg:block"
+      class="absolute bottom-0 right-[-5rem] z-0 hidden w-[64rem] max-w-[74%] opacity-70 saturate-90 contrast-110 lg:block"
     />
-    <div class="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-800/95 to-brand-600/80"></div>
-    <div class="container relative mx-auto px-4 max-w-7xl py-20 lg:py-28">
+    <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_78%_42%,rgba(49,95,148,0.24),transparent_36%),linear-gradient(105deg,#071522_0%,#0b1d2e_48%,rgba(7,21,34,0.58)_100%)]"></div>
+    <div class="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(7,21,34,0.96)_0%,rgba(7,21,34,0.78)_47%,rgba(7,21,34,0.25)_100%)]"></div>
+    <div class="absolute inset-x-0 bottom-0 z-0 h-px bg-white/10"></div>
+    <div class="container relative z-10 mx-auto max-w-7xl px-4 py-20 lg:py-28">
       <div class="max-w-3xl">
-        <p class="text-brand-100 text-sm font-semibold uppercase tracking-wider mb-3">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-sky-200">
           Certyfikat {business.certificate}
         </p>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+        <h1 class="mb-6 max-w-3xl text-4xl font-bold leading-[1.05] text-white md:text-5xl lg:text-6xl">
           Rzeczoznawca Techniki Samochodowej
         </h1>
-        <p class="text-lg md:text-xl text-brand-50 mb-8 leading-relaxed">
+        <p class="mb-8 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-xl">
           Profesjonalne wyceny pojazdów, ekspertyzy powypadkowe, wyceny celno-skarbowe
           oraz opinie biegłego sądowego i skarbowego. Działam w Wielkopolsce, na Dolnym
           Śląsku oraz w całej Polsce.
@@ -38,14 +70,14 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         <div class="flex flex-wrap gap-3">
           <a
             href={`tel:${business.contact.phone}`}
-            class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
+            class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white shadow-xl shadow-brand-950/25 transition hover:bg-brand-500"
           >
             <Phone size={18} aria-hidden="true" />
             {business.contact.phoneDisplay}
           </a>
           <a
             href="#kontakt"
-            class="inline-flex items-center gap-2 bg-brand-600/40 hover:bg-brand-600/60 backdrop-blur text-white border border-white/30 font-semibold px-6 py-3 rounded-lg transition"
+            class="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur transition hover:bg-white/10"
           >
             <MessageCircle size={18} aria-hidden="true" />
             Wyślij zapytanie
@@ -56,28 +88,34 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   </section>
 
   <!-- USP STRIPE -->
-  <section class="bg-gray-50 border-y border-gray-200">
-    <div class="container mx-auto px-4 max-w-7xl py-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="flex items-center gap-3">
-          <Award className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
+  <section class="border-y border-slate-200 bg-white">
+    <div class="container mx-auto max-w-7xl px-4 py-7">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div class="flex items-center gap-4">
+          <span class="grid h-14 w-14 flex-shrink-0 place-items-center rounded-full border border-slate-200 bg-brand-50 text-brand-700">
+            <Award size={28} aria-hidden="true" />
+          </span>
           <div>
-            <p class="font-semibold">Certyfikat {business.certificate}</p>
-            <p class="text-sm text-gray-600">Wpisany do rejestru rzeczoznawców</p>
+            <p class="font-semibold text-slate-950">Certyfikat {business.certificate}</p>
+            <p class="text-sm text-slate-600">Wpisany do rejestru rzeczoznawców</p>
           </div>
         </div>
-        <div class="flex items-center gap-3">
-          <Clock className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
+        <div class="flex items-center gap-4">
+          <span class="grid h-14 w-14 flex-shrink-0 place-items-center rounded-full border border-slate-200 bg-brand-50 text-brand-700">
+            <Clock size={28} aria-hidden="true" />
+          </span>
           <div>
-            <p class="font-semibold">Termin 24-48h</p>
-            <p class="text-sm text-gray-600">Szybkie ekspertyzy bez zbędnego czekania</p>
+            <p class="font-semibold text-slate-950">Termin 24-48h</p>
+            <p class="text-sm text-slate-600">Szybkie ekspertyzy bez zbędnego czekania</p>
           </div>
         </div>
-        <div class="flex items-center gap-3">
-          <MapPin className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
+        <div class="flex items-center gap-4">
+          <span class="grid h-14 w-14 flex-shrink-0 place-items-center rounded-full border border-slate-200 bg-brand-50 text-brand-700">
+            <MapPin size={28} aria-hidden="true" />
+          </span>
           <div>
-            <p class="font-semibold">Cała Polska</p>
-            <p class="text-sm text-gray-600">Wielkopolska, Dolny Śląsk i pozostałe regiony</p>
+            <p class="font-semibold text-slate-950">Cała Polska</p>
+            <p class="text-sm text-slate-600">Wielkopolska, Dolny Śląsk i pozostałe regiony</p>
           </div>
         </div>
       </div>
@@ -85,46 +123,56 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   </section>
 
   <!-- USŁUGI -->
-  <section id="uslugi" class="py-16 lg:py-20">
-    <div class="container mx-auto px-4 max-w-7xl">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Oferta usług</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
+  <section id="uslugi" class="bg-[#f7f8f8] py-16 lg:py-20">
+    <div class="container mx-auto max-w-7xl px-4">
+      <div class="mx-auto mb-12 max-w-3xl text-center">
+        <h2 class="mb-4 text-3xl font-bold text-slate-950 md:text-4xl">Oferta usług</h2>
+        <div class="mx-auto mb-5 h-1 w-12 rounded-full bg-brand-600"></div>
+        <p class="text-slate-600">
           Pełny zakres usług rzeczoznawcy techniki samochodowej – od wyceny rynkowej
           po opinie biegłego sądowego.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {services.map((service) => (
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {services.map((service, index) => {
+          const ServiceIcon = serviceIcons[index % serviceIcons.length];
+          return (
           <a
             href={serviceUrl(service.slug)}
-            class="block bg-white border border-gray-200 hover:border-brand-500 rounded-xl p-6 transition shadow-sm hover:shadow-md group"
+            class="group block rounded-xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-950/[0.02] transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-xl hover:shadow-slate-950/[0.06]"
           >
-            <h3 class="font-semibold text-lg mb-2 group-hover:text-brand-700 transition">
+            <span class="mb-5 grid h-10 w-10 place-items-center rounded-lg border border-brand-100 bg-brand-50 text-brand-700 transition group-hover:border-brand-200 group-hover:bg-brand-100">
+              <ServiceIcon size={21} aria-hidden="true" />
+            </span>
+            <h3 class="mb-3 font-semibold text-slate-950 transition group-hover:text-brand-700">
               {service.name}
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            <p class="mb-5 text-sm leading-relaxed text-slate-600">
               {service.shortDesc}
             </p>
-            <p class="text-sm text-brand-700 font-semibold">Czytaj więcej →</p>
+            <p class="text-sm font-semibold text-brand-700">Czytaj więcej →</p>
           </a>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
 
   <!-- KONTAKT -->
-  <section id="kontakt" class="bg-gray-50 py-16 lg:py-20">
-    <div class="container mx-auto px-4 max-w-4xl">
-      <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Skontaktuj się</h2>
-        <p class="text-gray-600">
-          Opisz krótko swoją sprawę – odezwę się w ciągu 24h, zazwyczaj znacznie szybciej.
-        </p>
-      </div>
-      <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
-        <ContactForm client:idle turnstileSiteKey={turnstileSiteKey} />
+  <section id="kontakt" class="border-t border-slate-200 bg-white py-16 lg:py-20">
+    <div class="container mx-auto max-w-7xl px-4">
+      <div class="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+        <div>
+          <h2 class="mb-4 text-3xl font-bold text-slate-950 md:text-4xl">Skontaktuj się</h2>
+          <div class="mb-5 h-1 w-12 rounded-full bg-brand-600"></div>
+          <p class="max-w-md leading-relaxed text-slate-600">
+            Opisz krótko swoją sprawę – odezwę się w ciągu 24h, zazwyczaj znacznie szybciej.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-950/[0.04] md:p-8">
+          <ContactForm client:idle turnstileSiteKey={turnstileSiteKey} />
+        </div>
       </div>
       {turnstileSiteKey && (
         <script

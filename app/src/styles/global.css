@@ -2,15 +2,15 @@
 
 /* --- Custom theme tokens --- */
 @theme {
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #1e3a8a;
-  --color-brand-600: #1e40af;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e3a8a;
-  --color-brand-900: #172554;
+  --color-brand-50: #f3f7fb;
+  --color-brand-100: #e3edf7;
+  --color-brand-500: #315f94;
+  --color-brand-600: #234a7a;
+  --color-brand-700: #183a66;
+  --color-brand-800: #102b4d;
+  --color-brand-900: #071522;
 
-  --color-accent: #dc2626; /* czerwony akcent (motoryzacja) */
+  --color-accent: #b6433b; /* stonowany czerwony akcent (motoryzacja) */
 
   /* System font stack = ZERO requests, ZERO CLS, błyskawiczne pierwsze renderowanie.
      Każdy system już ma świetne fonty (San Francisco / Segoe UI / Roboto / Ubuntu).
@@ -48,6 +48,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Anti-FOUC: pokazuje treść od razu z systemowym fontem. */
+  background: #f7f8f8;
+  color: #101828;
+}
+
+::selection {
+  background: #cfe0f2;
+  color: #071522;
 }
 
 /* --- A11y: skip link --- */

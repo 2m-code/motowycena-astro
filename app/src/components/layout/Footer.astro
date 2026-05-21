@@ -3,23 +3,23 @@ import { business, services, serviceUrl } from '@data/business';
 import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 ---
 
-<footer id="footer-nav" class="bg-gray-900 text-gray-300 mt-20">
-  <div class="container mx-auto px-4 max-w-7xl py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<footer id="footer-nav" class="mt-0 bg-brand-900 text-slate-300">
+  <div class="container mx-auto max-w-7xl px-4 py-12">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
       <!-- Firma -->
       <div>
-        <h3 class="text-white font-bold text-lg mb-4">{business.name}</h3>
-        <p class="text-sm leading-relaxed mb-2">{business.legalName}</p>
-        <p class="text-xs text-gray-400">Certyfikat: {business.certificate}</p>
+        <h3 class="mb-4 text-lg font-bold text-white">{business.name}</h3>
+        <p class="mb-2 text-sm leading-relaxed">{business.legalName}</p>
+        <p class="text-xs text-slate-400">Certyfikat: {business.certificate}</p>
       </div>
 
       <!-- Usługi -->
       <div>
-        <h3 class="text-white font-semibold mb-4">Usługi</h3>
+        <h3 class="mb-4 font-semibold text-white">Usługi</h3>
         <ul class="space-y-2 text-sm">
           {services.slice(0, 6).map((s) => (
             <li>
-              <a href={serviceUrl(s.slug)} class="hover:text-white transition">{s.name}</a>
+              <a href={serviceUrl(s.slug)} class="transition hover:text-white">{s.name}</a>
             </li>
           ))}
         </ul>
@@ -27,42 +27,42 @@ import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 
       <!-- Linki -->
       <div>
-        <h3 class="text-white font-semibold mb-4">Informacje</h3>
+        <h3 class="mb-4 font-semibold text-white">Informacje</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="/realizacje/" class="hover:text-white transition">Realizacje</a></li>
-          <li><a href="/biegly-sadowy/" class="hover:text-white transition">Biegły sądowy</a></li>
-          <li><a href="/biegly-skarbowy/" class="hover:text-white transition">Biegły skarbowy</a></li>
-          <li><a href="/pomoc-prawna/" class="hover:text-white transition">Pomoc prawna</a></li>
-          <li><a href="/rzeczoznawca-ostrow-wielkopolski/" class="hover:text-white transition">Ostrów Wielkopolski</a></li>
-          <li><a href="/kontakt/" class="hover:text-white transition">Kontakt</a></li>
-          <li><a href="/polityka-prywatnosci/" class="hover:text-white transition">Polityka prywatności</a></li>
+          <li><a href="/realizacje/" class="transition hover:text-white">Realizacje</a></li>
+          <li><a href="/biegly-sadowy/" class="transition hover:text-white">Biegły sądowy</a></li>
+          <li><a href="/biegly-skarbowy/" class="transition hover:text-white">Biegły skarbowy</a></li>
+          <li><a href="/pomoc-prawna/" class="transition hover:text-white">Pomoc prawna</a></li>
+          <li><a href="/rzeczoznawca-ostrow-wielkopolski/" class="transition hover:text-white">Ostrów Wielkopolski</a></li>
+          <li><a href="/kontakt/" class="transition hover:text-white">Kontakt</a></li>
+          <li><a href="/polityka-prywatnosci/" class="transition hover:text-white">Polityka prywatności</a></li>
         </ul>
       </div>
 
       <!-- Kontakt -->
       <div>
-        <h3 class="text-white font-semibold mb-4">Dane kontaktowe</h3>
+        <h3 class="mb-4 font-semibold text-white">Dane kontaktowe</h3>
         <ul class="space-y-3 text-sm">
           <li class="flex items-start gap-2">
-            <Phone size={16} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
-            <a href={`tel:${business.contact.phone}`} class="hover:text-white transition">
+            <Phone size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
+            <a href={`tel:${business.contact.phone}`} class="transition hover:text-white">
               {business.contact.phoneDisplay}
             </a>
           </li>
           <li class="flex items-start gap-2">
-            <MessageCircle size={16} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
-            <a href={`https://wa.me/${business.contact.whatsapp.replace(/[^0-9]/g, '')}`} class="hover:text-white transition">
+            <MessageCircle size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
+            <a href={`https://wa.me/${business.contact.whatsapp.replace(/[^0-9]/g, '')}`} class="transition hover:text-white">
               WhatsApp: {business.contact.phoneDisplay}
             </a>
           </li>
           <li class="flex items-start gap-2">
-            <Mail size={16} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
-            <a href={`mailto:${business.contact.email}`} class="hover:text-white transition break-all">
+            <Mail size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
+            <a href={`mailto:${business.contact.email}`} class="break-all transition hover:text-white">
               {business.contact.email}
             </a>
           </li>
           <li class="flex items-start gap-2">
-            <MapPin size={16} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
+            <MapPin size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
             <address class="not-italic">
               {business.address.street}<br />
               {business.address.postalCode} {business.address.city}
@@ -72,16 +72,16 @@ import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
       </div>
     </div>
 
-    <div class="border-t border-gray-800 mt-10 pt-8">
-      <h3 class="text-white font-semibold mb-3">Obszar działania</h3>
-      <div class="grid gap-3 text-sm leading-relaxed text-gray-400 md:grid-cols-3">
-        <p><strong class="text-gray-300">Wielkopolska:</strong> {business.serviceAreas.wielkopolska}.</p>
-        <p><strong class="text-gray-300">Dolnośląskie:</strong> {business.serviceAreas.dolnoslaskie}.</p>
-        <p><strong class="text-gray-300">Cała Polska:</strong> {business.serviceAreas.nationwide}.</p>
+    <div class="mt-10 border-t border-white/10 pt-8">
+      <h3 class="mb-3 font-semibold text-white">Obszar działania</h3>
+      <div class="grid gap-3 text-sm leading-relaxed text-slate-400 md:grid-cols-3">
+        <p><strong class="text-slate-300">Wielkopolska:</strong> {business.serviceAreas.wielkopolska}.</p>
+        <p><strong class="text-slate-300">Dolnośląskie:</strong> {business.serviceAreas.dolnoslaskie}.</p>
+        <p><strong class="text-slate-300">Cała Polska:</strong> {business.serviceAreas.nationwide}.</p>
       </div>
     </div>
 
-    <div class="border-t border-gray-800 mt-8 pt-6 text-xs text-gray-500 flex flex-col md:flex-row justify-between gap-4">
+    <div class="mt-8 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-xs text-slate-500 md:flex-row">
       <p>© {new Date().getFullYear()} {business.legalName}. Wszelkie prawa zastrzeżone.</p>
       <p>
         Powered by {business.name}

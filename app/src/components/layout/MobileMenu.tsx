@@ -61,7 +61,7 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
         ref={buttonRef}
         type="button"
         onClick={() => setOpen(true)}
-        className="lg:hidden p-2 -mr-2 text-gray-900 hover:text-brand-700 transition"
+        className="-mr-2 rounded-xl p-2 text-slate-900 transition hover:bg-slate-100 hover:text-brand-700 lg:hidden"
         aria-label="Otwórz menu"
         aria-expanded={open}
         aria-controls={panelId}
@@ -84,14 +84,14 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
             role="dialog"
             aria-modal="true"
             aria-label="Menu nawigacji"
-            className="fixed inset-y-0 right-0 z-50 w-[88%] max-w-sm bg-white shadow-2xl flex flex-col"
+            className="fixed inset-y-0 right-0 z-50 flex w-[88%] max-w-sm flex-col bg-white shadow-2xl"
           >
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between border-b border-slate-200 p-4">
               <span className="font-bold text-lg text-brand-700">Menu</span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="p-2 -mr-2 text-gray-700 hover:text-gray-900 transition"
+                className="-mr-2 rounded-xl p-2 text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
                 aria-label="Zamknij menu"
               >
                 <X size={24} aria-hidden="true" />
@@ -104,13 +104,13 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
                   <a
                     ref={firstLinkRef}
                     href="/"
-                    className="block px-3 py-3 text-base font-medium hover:bg-gray-50 rounded-lg"
+                    className="block rounded-xl px-3 py-3 text-base font-medium text-slate-800 hover:bg-brand-50"
                   >
                     Strona główna
                   </a>
                 </li>
                 <li className="pt-3">
-                  <p className="px-3 text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">
+                  <p className="mb-1 px-3 text-xs font-bold uppercase tracking-wider text-slate-500">
                     Usługi
                   </p>
                   <ul className="space-y-0.5">
@@ -118,7 +118,7 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
                       <li key={s.slug}>
                         <a
                           href={`/${s.slug}/`}
-                          className="block px-3 py-2.5 text-sm hover:bg-gray-50 rounded-lg"
+                          className="block rounded-xl px-3 py-2.5 text-sm text-slate-700 hover:bg-brand-50"
                         >
                           {s.name}
                         </a>
@@ -126,10 +126,10 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
                     ))}
                   </ul>
                 </li>
-                <li className="pt-3 border-t border-gray-200 mt-3">
+                <li className="mt-3 border-t border-slate-200 pt-3">
                   <a
                     href="/realizacje/"
-                    className="block px-3 py-3 text-base font-medium hover:bg-gray-50 rounded-lg"
+                    className="block rounded-xl px-3 py-3 text-base font-medium text-slate-800 hover:bg-brand-50"
                   >
                     Realizacje
                   </a>
@@ -137,7 +137,7 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
                 <li>
                   <a
                     href="/kontakt/"
-                    className="block px-3 py-3 text-base font-medium hover:bg-gray-50 rounded-lg"
+                    className="block rounded-xl px-3 py-3 text-base font-medium text-slate-800 hover:bg-brand-50"
                   >
                     Kontakt
                   </a>
@@ -145,10 +145,10 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
               </ul>
             </nav>
 
-            <div className="p-4 border-t border-gray-200 space-y-2 bg-gray-50">
+            <div className="space-y-2 border-t border-slate-200 bg-slate-50 p-4">
               <a
                 href={`tel:${phone}`}
-                className="flex items-center justify-center gap-2 w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-3 rounded-lg transition"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-3 font-semibold text-white transition hover:bg-brand-800"
               >
                 <Phone size={18} aria-hidden="true" />
                 {phoneDisplay}
@@ -157,7 +157,7 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-3 rounded-lg transition"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 font-semibold text-white transition hover:bg-emerald-700"
               >
                 <MessageCircle size={18} aria-hidden="true" />
                 WhatsApp

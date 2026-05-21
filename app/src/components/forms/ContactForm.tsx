@@ -12,6 +12,7 @@
  * Walidacja serwerowa w functions/api/contact.ts jest niezależna i obowiązkowa.
  */
 import { useState, useRef, type ComponentProps } from 'react';
+import { Send } from 'lucide-react';
 
 type FormSubmitHandler = NonNullable<ComponentProps<'form'>['onSubmit']>;
 
@@ -98,12 +99,12 @@ export default function ContactForm({ turnstileSiteKey }: Props) {
   if (status === 'success') {
     return (
       <div
-        className="rounded-lg bg-green-50 border border-green-200 p-6 text-center"
+        className="rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center"
         role="status"
         aria-live="polite"
       >
-        <h3 className="text-lg font-semibold text-green-800 mb-2">Dziękuję za wiadomość!</h3>
-        <p className="text-sm text-green-700">Odezwę się w ciągu 24h, zazwyczaj dużo szybciej.</p>
+        <h3 className="mb-2 text-lg font-semibold text-emerald-900">Dziękuję za wiadomość!</h3>
+        <p className="text-sm text-emerald-800">Odezwę się w ciągu 24h, zazwyczaj dużo szybciej.</p>
       </div>
     );
   }
@@ -116,7 +117,7 @@ export default function ContactForm({ turnstileSiteKey }: Props) {
       action="/api/contact/"
       method="POST"
       onSubmit={handleSubmit}
-      className="space-y-4"
+      className="space-y-5"
       noValidate
     >
       {/* Honeypot – niewidoczny dla użytkownika, łapie boty */}
@@ -127,7 +128,7 @@ export default function ContactForm({ turnstileSiteKey }: Props) {
         </label>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid gap-4 md:grid-cols-2">
         <Field
           id="name"
           name="name"
@@ -161,8 +162,8 @@ export default function ContactForm({ turnstileSiteKey }: Props) {
       />
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium mb-1">
-          Wiadomość <span className="text-red-500">*</span>
+        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-slate-800">
+          Wiadomość <span className="text-accent">*</span>
         </label>
         <textarea
           id="message"
@@ -171,37 +172,37 @@ export default function ContactForm({ turnstileSiteKey }: Props) {
           required
           minLength={10}
           maxLength={2000}
-          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 shadow-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? 'message-error' : undefined}
           placeholder="Opisz krótko czego dotyczy zapytanie (marka/model, rocznik, cel wyceny)..."
         />
         {errors.message && (
-          <p id="message-error" className="text-red-600 text-xs mt-1" role="alert">
+          <p id="message-error" className="mt-1 text-xs text-red-700" role="alert">
             {errors.message}
           </p>
         )}
       </div>
 
       <div>
-        <label className="flex items-start gap-2 text-xs text-gray-600">
+        <label className="flex items-start gap-2 text-xs leading-relaxed text-slate-600">
           <input
             type="checkbox"
             name="consent"
             required
-            className="mt-0.5"
+            className="mt-0.5 rounded border-slate-300 text-brand-700 focus:ring-brand-500"
             aria-invalid={!!errors.consent}
           />
           <span>
             Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na zapytanie zgodnie z{' '}
-            <a href="/polityka-prywatnosci/" className="text-brand-700 underline">
+            <a href="/polityka-prywatnosci/" className="text-brand-700 underline underline-offset-2">
               polityką prywatności
             </a>
             . <span className="text-red-500">*</span>
           </span>
         </label>
         {errors.consent && (
-          <p className="text-red-600 text-xs mt-1" role="alert">
+          <p className="mt-1 text-xs text-red-700" role="alert">
             {errors.consent}
           </p>
         )}
@@ -215,13 +216,14 @@ export default function ContactForm({ turnstileSiteKey }: Props) {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-semibold px-8 py-3 rounded-lg transition"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-700 px-8 py-3 font-semibold text-white shadow-lg shadow-brand-900/15 transition hover:bg-brand-800 disabled:bg-slate-400 md:w-auto"
       >
+        <Send size={17} aria-hidden="true" />
         {status === 'sending' ? 'Wysyłanie…' : 'Wyślij zapytanie'}
       </button>
 
       {status === 'error' && (
-        <p className="text-red-600 text-sm" role="alert">
+        <p className="text-sm text-red-700" role="alert">
           Coś poszło nie tak. Zadzwoń lub napisz na WhatsApp – ten kanał działa zawsze.
         </p>
       )}
@@ -256,8 +258,8 @@ function Field({
 }: FieldProps) {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium mb-1">
-        {label} {required && <span className="text-red-500">*</span>}
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-slate-800">
+        {label} {required && <span className="text-accent">*</span>}
       </label>
       <input
         id={id}
@@ -268,12 +270,12 @@ function Field({
         minLength={minLength}
         maxLength={maxLength}
         pattern={pattern}
-        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+        className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 shadow-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
       />
       {error && (
-        <p id={`${id}-error`} className="text-red-600 text-xs mt-1" role="alert">
+        <p id={`${id}-error`} className="mt-1 text-xs text-red-700" role="alert">
           {error}
         </p>
       )}
