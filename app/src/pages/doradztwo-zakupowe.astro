@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+
+const heroLead = 'Profesjonalne doradztwo i sprawdzenie pojazdu przed zakupem. Unikniesz ukrytych wad, powypadkowości i przepłacenia.';
+const introParagraph = 'Doradztwo zakupowe to kompleksowe wsparcie kupującego - od weryfikacji ogłoszenia, przez sprawdzenie pojazdu, po negocjacje z sprzedającym. Sprawdzamy stan techniczny, historię pojazdu, autentyczność dokumentów oraz porównujemy cenę z rynkiem.';
+const benefits = [
+  'Profesjonalne oględziny przed zakupem',
+  'Sprawdzenie historii w bazach (CEPIK, autoDNA)',
+  'Weryfikacja autentyczności dokumentów',
+  'Identyfikacja powypadkowości i ukrytych wad',
+  'Doradztwo w negocjacji ceny',
+];
+const faq = [
+  {
+    question: 'Czy muszę być na miejscu oględzin?',
+    answer: 'Nie - możesz przekazać sprawę w pełni nam. Otrzymasz raport ze zdjęciami, opinią i rekomendacją (kupować / negocjować / odpuścić).',
+  },
+  {
+    question: 'Sprawdzacie auta na giełdach i u prywatnych sprzedających?',
+    answer: 'Tak - dojeżdżamy do każdego sprzedającego w naszym obszarze działania.',
+  },
+];
+---
+
+<BaseLayout
+  title="Doradztwo zakupowe – Sprawdzenie auta przed zakupem"
+  description="Profesjonalne doradztwo i sprawdzenie pojazdu przed zakupem przez rzeczoznawcę. Unikniesz powypadkowości i ukrytych wad. Sprawdzenie historii w CEPIK."
+  keywords={['doradztwo zakupu auta', 'sprawdzenie samochodu', 'pomoc przy zakupie', 'sprawdzenie powypadkowości']}
+>
+  <ServicePageTemplate
+    serviceSlug="doradztwo-zakupowe"
+    serviceName="Doradztwo zakupowe"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    faq={faq}
+    priceRange="400-1200 PLN"
+  />
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+}
+
+const { images } = Astro.props;
+---
+
+{images.length === 1 ? (
+  <figure class="mt-8 overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
+    <img
+      src={images[0].src}
+      alt={images[0].alt}
+      loading="lazy"
+      decoding="async"
+      class="h-auto w-full object-cover"
+    />
+  </figure>
+) : (
+  <div class="mt-8 grid gap-3 sm:grid-cols-2">
+    {images.map((image) => (
+      <figure class="overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
+        <img
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          decoding="async"
+          class="h-52 w-full object-cover"
+        />
+      </figure>
+    ))}
+  </div>
+)}

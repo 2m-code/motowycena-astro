@@ -1,0 +1,229 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { loadReport } from '@lib/perf/storage';
+import type { Verdict } from '@lib/perf/types';
+
+export const prerender = false;
+
+const { host, id } = Astro.params;
+if (!host || !id) return Astro.redirect('/reports/');
+
+const report = await loadReport(host, id);
+if (!report) {
+  return new Response('Raport nie znaleziony', { status: 404 });
+}
+
+const verdictColor = (v: Verdict): string => {
+  if (v === 'good') return 'bg-green-100 text-green-900 border-green-300';
+  if (v === 'needs-work') return 'bg-amber-100 text-amber-900 border-amber-300';
+  return 'bg-red-100 text-red-900 border-red-300';
+};
+
+const verdictDot = (v: Verdict): string => {
+  if (v === 'good') return 'bg-green-500';
+  if (v === 'needs-work') return 'bg-amber-500';
+  return 'bg-red-500';
+};
+
+const fmtMs = (v: number) => `${Math.round(v)} ms`;
+const fmtKb = (v: number) => `${(v / 1024).toFixed(1)} KB`;
+const fmtCls = (v: number) => v.toFixed(3);
+
+const metrics = [
+  { key: 'lcp', label: 'LCP', unit: 'ms', desc: 'Largest Contentful Paint' },
+  { key: 'cls', label: 'CLS', unit: '', desc: 'Cumulative Layout Shift (session window)' },
+  { key: 'fcp', label: 'FCP', unit: 'ms', desc: 'First Contentful Paint' },
+  { key: 'ttfb', label: 'TTFB', unit: 'ms', desc: 'Time to First Byte' },
+  { key: 'tbtProxy', label: 'TBT*', unit: 'ms', desc: 'Total Blocking Time (lab proxy)' },
+] as const;
+---
+
+<Layout title={`Raport: ${report.url} – Perf Audit`}>
+  <section class="mb-6">
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-2">
+      <a href="/reports/" class="hover:underline">← Historia</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-1 break-all">
+      {report.url}
+    </h1>
+    <p class="text-sm text-gray-600">
+      Profil: <code class="bg-gray-100 px-2 py-0.5 rounded text-xs">{report.profile.label}</code>
+      &nbsp;·&nbsp; {report.runs} runów
+      &nbsp;·&nbsp; {new Date(report.startedAt).toLocaleString('pl-PL')}
+      &nbsp;·&nbsp; trwało {(report.durationMs / 1000).toFixed(1)}s
+    </p>
+  </section>
+
+  <!-- Plain language summary -->
+  <section class="mb-8 bg-brand-500 text-white p-6 rounded-xl">
+    <h2 class="font-semibold mb-2 flex items-center gap-2">
+      <span class="text-2xl">💬</span> Po ludzku
+    </h2>
+    <p class="leading-relaxed">{report.plainLanguage}</p>
+  </section>
+
+  <!-- Core metrics grid -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-3">Core Web Vitals (p75)</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+      {metrics.map((m) => {
+        const stat = (report.aggregate as any)[m.key];
+        const verdict = report.aggregate.verdicts[m.key];
+        const fmt = m.unit === 'ms' ? fmtMs : m.key === 'cls' ? fmtCls : (v: number) => v.toFixed(1);
+        return (
+          <div class={`border rounded-xl p-4 ${verdictColor(verdict)}`}>
+            <div class="flex items-center gap-2 mb-1">
+              <div class={`w-2 h-2 rounded-full ${verdictDot(verdict)}`}></div>
+              <span class="text-xs uppercase tracking-wide font-semibold">{m.label}</span>
+            </div>
+            <div class="text-2xl font-bold font-mono">{fmt(stat.p75)}</div>
+            <div class="text-xs opacity-70 mt-1">{m.desc}</div>
+            <div class="text-xs mt-2 font-mono opacity-60">
+              p50 {fmt(stat.p50)} · p95 {fmt(stat.p95)}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- Diagnostics -->
+  {report.diagnostics.length > 0 && (
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-3">Diagnostyka ({report.diagnostics.length})</h2>
+      <div class="space-y-2">
+        {report.diagnostics.map((d) => {
+          const sevColor =
+            d.severity === 'critical' ? 'border-red-300 bg-red-50' :
+            d.severity === 'warning' ? 'border-amber-300 bg-amber-50' :
+            'border-blue-300 bg-blue-50';
+          const sevLabel =
+            d.severity === 'critical' ? '🚨 KRYTYCZNE' :
+            d.severity === 'warning' ? '⚠️  OSTRZEŻENIE' :
+            'ℹ️ INFO';
+          return (
+            <div class={`border rounded-lg p-4 ${sevColor}`}>
+              <div class="flex items-center gap-2 text-xs font-semibold mb-1">
+                <span>{sevLabel}</span>
+                <span class="text-gray-500">·</span>
+                <span class="text-gray-500 uppercase">{d.category}</span>
+              </div>
+              <h3 class="font-semibold mb-1">{d.title}</h3>
+              <p class="text-sm text-gray-700">{d.description}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  <!-- Security headers -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-3">Security headers</h2>
+    <div class="bg-white border border-gray-200 rounded-xl p-5">
+      <ul class="space-y-1 text-sm font-mono">
+        <li>{report.security.hsts ? '✅' : '❌'} Strict-Transport-Security</li>
+        <li>{report.security.csp ? '✅' : '❌'} Content-Security-Policy</li>
+        <li>{report.security.xContentTypeOptions ? '✅' : '❌'} X-Content-Type-Options: nosniff</li>
+        <li>{report.security.referrerPolicy ? '✅' : '❌'} Referrer-Policy</li>
+        <li>{report.security.xFrameOptions ? '✅' : '❌'} X-Frame-Options</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- All samples -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-3">Wszystkie pomiary ({report.aggregate.samples.length})</h2>
+    <div class="bg-white border border-gray-200 rounded-xl overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-left text-xs uppercase text-gray-500">
+          <tr>
+            <th class="px-3 py-2">#</th>
+            <th class="px-3 py-2 text-right">LCP</th>
+            <th class="px-3 py-2 text-right">CLS</th>
+            <th class="px-3 py-2 text-right">FCP</th>
+            <th class="px-3 py-2 text-right">TTFB</th>
+            <th class="px-3 py-2 text-right">TBT*</th>
+            <th class="px-3 py-2 text-right">Transfer</th>
+            <th class="px-3 py-2 text-right">Status</th>
+          </tr>
+        </thead>
+        <tbody class="font-mono text-xs">
+          {report.aggregate.samples.map((s, i) => (
+            <tr class="border-t border-gray-100">
+              <td class="px-3 py-2">{i + 1}</td>
+              <td class="px-3 py-2 text-right">{fmtMs(s.lcp)}</td>
+              <td class="px-3 py-2 text-right">{fmtCls(s.cls)}</td>
+              <td class="px-3 py-2 text-right">{fmtMs(s.fcp)}</td>
+              <td class="px-3 py-2 text-right">{fmtMs(s.ttfb)}</td>
+              <td class="px-3 py-2 text-right">{fmtMs(s.tbtProxy)}</td>
+              <td class="px-3 py-2 text-right">{fmtKb(s.transferSize)}</td>
+              <td class="px-3 py-2 text-right">{s.httpStatus}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Representative LCP element -->
+  {report.representative.lcpElement && (
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-3">Largest Contentful Paint element</h2>
+      <div class="bg-white border border-gray-200 rounded-xl p-5">
+        <p class="text-sm">
+          <span class="text-gray-500">Selector:</span>
+          <code class="bg-gray-100 px-2 py-1 rounded ml-1">{report.representative.lcpElement.selector}</code>
+        </p>
+        {report.representative.lcpElement.url && (
+          <p class="text-sm mt-2">
+            <span class="text-gray-500">URL:</span>
+            <code class="bg-gray-100 px-2 py-1 rounded ml-1 break-all">{report.representative.lcpElement.url}</code>
+          </p>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- Top resources -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-3">Top 10 najcięższych zasobów</h2>
+    <div class="bg-white border border-gray-200 rounded-xl overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-left text-xs uppercase text-gray-500">
+          <tr>
+            <th class="px-3 py-2">Typ</th>
+            <th class="px-3 py-2 text-right">Rozmiar</th>
+            <th class="px-3 py-2 text-right">Czas</th>
+            <th class="px-3 py-2">URL</th>
+          </tr>
+        </thead>
+        <tbody class="font-mono text-xs">
+          {[...report.representative.resources]
+            .filter((r) => r.size > 0)
+            .sort((a, b) => b.size - a.size)
+            .slice(0, 10)
+            .map((r) => (
+              <tr class="border-t border-gray-100">
+                <td class="px-3 py-2">{r.type}</td>
+                <td class="px-3 py-2 text-right">{fmtKb(r.size)}</td>
+                <td class="px-3 py-2 text-right">{Math.round(r.duration)}ms</td>
+                <td class="px-3 py-2 text-gray-600 max-w-md truncate" title={r.name}>{r.name}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Raw JSON download -->
+  <section class="mb-8">
+    <a
+      href={`/api/reports/${encodeURIComponent(report.host)}/${report.id}`}
+      class="inline-block text-sm bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300"
+      download={`report-${report.id}.json`}
+    >
+      📥 Pobierz pełny JSON
+    </a>
+  </section>
+</Layout>

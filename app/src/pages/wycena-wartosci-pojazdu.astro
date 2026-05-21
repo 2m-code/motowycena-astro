@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+
+const heroLead = 'Profesjonalna wycena rynkowej wartości pojazdu wykonana przez certyfikowanego rzeczoznawcę. Akceptowana przez sądy, urzędy, banki i ubezpieczycieli.';
+
+const introParagraph = 'Wycena wartości pojazdu to oficjalny dokument określający aktualną wartość rynkową samochodu w określonym momencie. Wykorzystywana jest w sprawach sądowych, spadkowych, przy sprzedaży pojazdu, rozliczeniach majątkowych oraz w postępowaniach z ubezpieczycielami. Każda wycena bazuje na analizie rynku, stanie technicznym pojazdu oraz jego historii.';
+
+const benefits = [
+  'Dokument akceptowany przez sądy i urzędy',
+  'Wycena zgodna z metodologią DEKRA / EUROTAX',
+  'Certyfikat rzeczoznawcy RS001771',
+  'Pełna dokumentacja fotograficzna',
+  'Termin realizacji 24-48h',
+];
+
+const processSteps = [
+  { title: 'Kontakt', description: 'Zadzwoń lub wyślij dane pojazdu (marka, model, VIN, rok).' },
+  { title: 'Wycena wstępna', description: 'Otrzymasz orientacyjny koszt i czas realizacji.' },
+  { title: 'Oględziny', description: 'Spotkanie z rzeczoznawcą - oględziny pojazdu i dokumentacja.' },
+  { title: 'Raport', description: 'Otrzymujesz pełny raport wyceny w PDF + wersja papierowa.' },
+];
+
+const faq = [
+  {
+    question: 'Ile kosztuje wycena wartości pojazdu?',
+    answer: 'Koszt zależy od typu pojazdu i celu wyceny. Wycena standardowa zaczyna się od kilkuset złotych. Po przesłaniu danych pojazdu otrzymasz dokładną wycenę.',
+  },
+  {
+    question: 'Jak długo trwa wycena?',
+    answer: 'Standardowa wycena trwa 24-48h od momentu oględzin pojazdu. W pilnych sprawach możliwy jest tryb ekspresowy.',
+  },
+  {
+    question: 'Czy wycena jest akceptowana w sądzie?',
+    answer: 'Tak. Wyceny wykonywane są zgodnie z obowiązującymi standardami i akceptowane przez sądy, urzędy, banki oraz ubezpieczycieli.',
+  },
+  {
+    question: 'Czy muszę przyjechać do siedziby z pojazdem?',
+    answer: 'Nie. Rzeczoznawca dojeżdża do pojazdu na terenie Wielkopolski, Dolnego Śląska oraz większych miast w całej Polsce.',
+  },
+];
+---
+
+<BaseLayout
+  title="Wycena wartości pojazdu – Rzeczoznawca certyfikowany"
+  description="Profesjonalna wycena wartości pojazdu przez certyfikowanego rzeczoznawcę (RS001771). Akceptowana w sądach, urzędach i przez ubezpieczycieli. Termin 24-48h."
+  keywords={['wycena pojazdu', 'wycena auta', 'wartość rynkowa samochodu', 'rzeczoznawca samochodowy']}
+>
+  <ServicePageTemplate
+    serviceSlug="wycena-wartosci-pojazdu"
+    serviceName="Wycena wartości pojazdu"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="200-800 PLN"
+  >
+    <Fragment slot="extra-content">
+      <div class="mt-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
+        <h3 class="font-bold text-gray-900 mb-4">Kiedy przydaje się wycena wartości?</h3>
+        <ul class="grid gap-3 text-gray-700 sm:grid-cols-2">
+          <li>Ubezpieczenie AC (AUTO CASCO) i ustalenie sumy ubezpieczenia.</li>
+          <li>Weryfikacja szkody całkowitej po kolizji.</li>
+          <li>Finansowanie zakupu kredytem lub leasingiem.</li>
+          <li>Rozliczenia akcyzy, PCC3 / PCC-3, spadku, podziału majątku lub sprawy sądowej.</li>
+        </ul>
+      </div>
+      <figure class="mt-8 overflow-hidden rounded-xl border border-gray-200 bg-brand-50">
+        <img
+          src="/uploads/black-bmw-m3-coupe-car.png"
+          alt="Samochód sportowy - wycena wartości pojazdu"
+          loading="lazy"
+          decoding="async"
+          class="w-full object-contain p-6"
+        />
+      </figure>
+    </Fragment>
+  </ServicePageTemplate>
+</BaseLayout>

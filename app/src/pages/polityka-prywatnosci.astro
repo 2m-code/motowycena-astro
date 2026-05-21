@@ -1,0 +1,85 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SchemaBreadcrumb from '@components/seo/SchemaBreadcrumb.astro';
+import { business } from '@data/business';
+---
+
+<BaseLayout
+  title="Polityka prywatności – Motowycena"
+  description="Polityka prywatności serwisu motowycena.pl. Informacje o przetwarzaniu danych osobowych zgodnie z RODO."
+  noindex={false}
+>
+  <SchemaBreadcrumb
+    items={[
+      { name: 'Strona główna', url: `${business.url}/` },
+      { name: 'Polityka prywatności', url: `${business.url}/polityka-prywatnosci/` },
+    ]}
+  />
+
+  <section class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4 max-w-3xl">
+      <nav aria-label="okruszki" class="text-sm text-gray-600 mb-4">
+        <a href="/" class="hover:underline">Strona główna</a>
+        <span class="mx-2">/</span>
+        <span>Polityka prywatności</span>
+      </nav>
+      <h1 class="text-4xl font-bold">Polityka prywatności</h1>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="container mx-auto px-4 max-w-3xl prose prose-lg">
+      <h2>1. Administrator danych</h2>
+      <p>
+        Administratorem danych osobowych jest {business.legalName},
+        z siedzibą {business.address.street}, {business.address.postalCode} {business.address.city}.
+        Kontakt: {business.contact.email}, {business.contact.phoneDisplay}.
+      </p>
+
+      <h2>2. Zakres przetwarzanych danych</h2>
+      <p>Przetwarzamy następujące dane przekazane przez Państwa w formularzu kontaktowym lub innym kanałem:</p>
+      <ul>
+        <li>imię i nazwisko</li>
+        <li>adres email</li>
+        <li>numer telefonu</li>
+        <li>treść wiadomości</li>
+        <li>dane pojazdu (jeśli zostały przekazane)</li>
+      </ul>
+
+      <h2>3. Cel i podstawa prawna przetwarzania</h2>
+      <p>Dane przetwarzane są w celu:</p>
+      <ul>
+        <li>udzielenia odpowiedzi na zapytanie (art. 6 ust. 1 lit. b RODO)</li>
+        <li>realizacji usługi rzeczoznawczej (art. 6 ust. 1 lit. b RODO)</li>
+        <li>wystawienia dokumentu księgowego (art. 6 ust. 1 lit. c RODO)</li>
+      </ul>
+
+      <h2>4. Okres przechowywania</h2>
+      <p>Dane są przechowywane przez okres niezbędny do realizacji celu, nie dłużej niż wymaga tego prawo (np. obowiązki księgowe - 5 lat).</p>
+
+      <h2>5. Prawa osoby, której dane dotyczą</h2>
+      <p>Każda osoba ma prawo do:</p>
+      <ul>
+        <li>dostępu do swoich danych</li>
+        <li>sprostowania danych</li>
+        <li>usunięcia danych (prawo do bycia zapomnianym)</li>
+        <li>ograniczenia przetwarzania</li>
+        <li>przenoszenia danych</li>
+        <li>wniesienia sprzeciwu</li>
+        <li>wniesienia skargi do Prezesa UODO</li>
+      </ul>
+
+      <h2>6. Pliki cookies</h2>
+      <p>
+        Strona wykorzystuje pliki cookies w celu zapewnienia poprawnego działania serwisu
+        oraz analizy statystyk (analityka cookieless, zgodna z RODO).
+      </p>
+
+      <hr />
+
+      <p class="text-sm text-gray-500">
+        Ostatnia aktualizacja: maj 2026.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

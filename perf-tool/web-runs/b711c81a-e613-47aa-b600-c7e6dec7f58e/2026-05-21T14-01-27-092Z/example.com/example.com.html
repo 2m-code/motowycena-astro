@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Performance audit - https://example.com</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --text: #17202a;
+      --muted: #657080;
+      --line: #d8dee8;
+      --good: #0f7b4f;
+      --warn: #9a6700;
+      --bad: #b42318;
+      --info: #315f8c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    header, main { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    header { padding-top: 32px; }
+    h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: 0; }
+    h2 { margin: 32px 0 12px; font-size: 20px; letter-spacing: 0; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left-width: 5px;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .card.good { border-left-color: var(--good); }
+    .card.needs-work { border-left-color: var(--warn); }
+    .card.poor { border-left-color: var(--bad); }
+    .card.info { border-left-color: var(--info); }
+    .label { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .value { font-size: 26px; font-weight: 700; margin: 4px 0; }
+    .plain {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      margin: 8px 0 26px;
+    }
+    .plain h2 { margin-top: 0; }
+    .plain h3 { margin: 14px 0 6px; font-size: 15px; }
+    .plain .lead { font-size: 18px; font-weight: 700; margin: 0 0 12px; }
+    .plain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .plain ul { margin: 0 0 8px; padding-left: 20px; }
+    .plain li { margin: 5px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    th { background: #eef2f7; }
+    tr:last-child td { border-bottom: 0; }
+    tr.pass td:first-child { color: var(--good); font-weight: 700; }
+    tr.warn td:first-child { color: var(--warn); font-weight: 700; }
+    tr.fail td:first-child { color: var(--bad); font-weight: 700; }
+    .url {
+      font-family: Consolas, "Courier New", monospace;
+      overflow-wrap: anywhere;
+      font-size: 12px;
+    }
+    pre {
+      background: #111827;
+      color: #f8fafc;
+      padding: 14px;
+      border-radius: 8px;
+      overflow: auto;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Performance audit</h1>
+    <div class="muted">https://example.com</div>
+    <div class="muted">Profile: no-throttle (Current machine / no throttling) / Runs OK: 1/1 / 2026-05-21T14:01:30.441Z</div>
+    <div class="grid"><section class="card good">
+        <div class="label">LCP</div>
+        <div class="value">988 ms</div>
+        <div class="muted">p50 988 ms / p95 988 ms</div>
+      </section>
+<section class="card good">
+        <div class="label">CLS</div>
+        <div class="value">0.000</div>
+        <div class="muted">p50 0.000 / p95 0.000</div>
+      </section>
+<section class="card good">
+        <div class="label">FCP</div>
+        <div class="value">988 ms</div>
+        <div class="muted">p50 988 ms / p95 988 ms</div>
+      </section>
+<section class="card good">
+        <div class="label">TTFB</div>
+        <div class="value">25 ms</div>
+        <div class="muted">p50 25 ms / p95 25 ms</div>
+      </section>
+<section class="card good">
+        <div class="label">TBT*</div>
+        <div class="value">0 ms</div>
+        <div class="muted">p50 0 ms / p95 0 ms</div>
+      </section>
+<section class="card info">
+        <div class="label">Transfer</div>
+        <div class="value">1.2 KB</div>
+        <div class="muted">p50 1.2 KB / p95 1.2 KB</div>
+      </section>
+<section class="card info">
+        <div class="label">Requests</div>
+        <div class="value">2</div>
+        <div class="muted">p50 2 / p95 2</div>
+      </section>
+<section class="card info">
+        <div class="label">Third-party</div>
+        <div class="value">0 KB</div>
+        <div class="muted">p50 0 KB / p95 0 KB</div>
+      </section></div>
+  </header>
+  <main>
+    <section class="plain">
+      <h2>Po ludzku</h2>
+      <p class="lead">Strona dziala, ale sa 2 rzeczy do poprawy w budzecie.</p>
+      <div class="plain-grid">
+        <div>
+          <h3>Wynik w prostych slowach</h3>
+          <ul><li>LCP p75: 988 ms (dobrze)</li>
+<li>CLS p75: 0.000 (dobrze)</li>
+<li>TTFB p75: 25 ms (dobrze)</li>
+<li>TBT* p75: 0 ms (dobrze)</li>
+<li>Transfer p75: 1.2 KB</li>
+<li>Requesty p75: 2</li></ul>
+        </div>
+        <div>
+          <h3>Co poprawic najpierw</h3>
+          <ul><li>Dodaj meta description: to jest opis pod tytulem w Google. Bez tego Google sam zgaduje opis strony.</li>
+<li>Najwiekszy pojedynczy zasob w tym pomiarze: image, 0.6 KB. URL: https://example.com/favicon.ico</li></ul>
+        </div>
+      </div>
+      <div class="plain-grid">
+        <div>
+          <h3>Co jest dobre</h3>
+          <ul><li>Najwiekszy widoczny element strony pojawia sie szybko: 988 ms.</li>
+<li>Strona prawie nie skacze podczas ladowania: CLS 0.000.</li>
+<li>Przegladarka nie jest dlugo blokowana JavaScriptem: TBT* 0 ms.</li>
+<li>Calkowity transfer jest jeszcze rozsadny: 1.2 KB.</li></ul>
+        </div>
+        <div>
+          <h3>Co boli</h3>
+          <ul><li>requireMetaDescription: false / limit true - Brakuje opisu strony dla Google.</li>
+<li>requireCanonical: false / limit true - Brakuje canonical URL, czyli informacji ktory adres jest glowna wersja strony.</li>
+<li>minMetaDescriptionLength: 0 / limit 70 - Opis dla Google jest za krotki.</li></ul>
+        </div>
+      </div>
+      <h3>Mini-slownik</h3>
+      <ul><li>LCP = kiedy uzytkownik widzi najwiekszy wazny element strony, zwykle hero, naglowek albo duzy obraz.</li>
+<li>CLS = czy strona skacze podczas ladowania. Nisko znaczy stabilnie.</li>
+<li>TTFB = ile czekamy na pierwszy bajt z serwera. Wysoko znaczy problem z hostingiem, backendem albo CDN.</li>
+<li>TBT* = ile JavaScript blokuje przegladarke w labie. To przyblizenie responsywnosci, nie oficjalny INP.</li>
+<li>p75 = wynik, ktory jest lepszy dla 75% pomiarow. Google patrzy podobnie na dane terenowe.</li></ul>
+    </section>
+
+    <h2>Budget: FAIL</h2>
+    <table>
+      <thead><tr><th>Status</th><th>Category</th><th>Check</th><th>Actual</th><th>Limit</th><th>Meaning</th></tr></thead>
+      <tbody><tr class="pass">
+        <td>PASS</td>
+        <td>metrics</td>
+        <td>lcpP75</td>
+        <td>988.1</td>
+        <td>2500</td>
+        <td>LCP p75 should stay under the Core Web Vitals good threshold.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>metrics</td>
+        <td>clsP75</td>
+        <td>0</td>
+        <td>0.1</td>
+        <td>CLS p75 should stay below visible layout shift risk.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>metrics</td>
+        <td>fcpP75</td>
+        <td>988.1</td>
+        <td>1800</td>
+        <td>FCP p75 controls when users first see content.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>metrics</td>
+        <td>ttfbP75</td>
+        <td>24.8</td>
+        <td>800</td>
+        <td>TTFB p75 tells whether server/CDN response is slow.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>metrics</td>
+        <td>tbtProxyP75</td>
+        <td>0</td>
+        <td>200</td>
+        <td>TBT* p75 is a lab proxy for responsiveness.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>metrics</td>
+        <td>loadP75</td>
+        <td>158</td>
+        <td>5000</td>
+        <td>Load event p75 should not drift too high.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>resources</td>
+        <td>totalTransferKBP75</td>
+        <td>1.168</td>
+        <td>750</td>
+        <td>Total transferred KB p75.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>resources</td>
+        <td>scriptKBP75</td>
+        <td>0</td>
+        <td>180</td>
+        <td>JavaScript transfer KB p75.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>resources</td>
+        <td>stylesheetKBP75</td>
+        <td>0</td>
+        <td>100</td>
+        <td>CSS transfer KB p75.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>resources</td>
+        <td>imageKBP75</td>
+        <td>0.584</td>
+        <td>450</td>
+        <td>Image transfer KB p75.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>resources</td>
+        <td>fontKBP75</td>
+        <td>0</td>
+        <td>120</td>
+        <td>Font transfer KB p75.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>resources</td>
+        <td>thirdPartyKBP75</td>
+        <td>0</td>
+        <td>250</td>
+        <td>Third-party transfer KB p75.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>resources</td>
+        <td>resourceCountP75</td>
+        <td>2</td>
+        <td>70</td>
+        <td>Request count p75.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>seo</td>
+        <td>requireTitle</td>
+        <td>true</td>
+        <td>true</td>
+        <td>Document should have a title.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>seo</td>
+        <td>maxTitleLength</td>
+        <td>14</td>
+        <td>65</td>
+        <td>Title should be concise enough for SERP display.</td>
+      </tr>
+<tr class="fail">
+        <td>FAIL</td>
+        <td>seo</td>
+        <td>requireMetaDescription</td>
+        <td>false</td>
+        <td>true</td>
+        <td>Meta description improves SERP snippet control.</td>
+      </tr>
+<tr class="warn">
+        <td>WARN</td>
+        <td>seo</td>
+        <td>minMetaDescriptionLength</td>
+        <td>0</td>
+        <td>70</td>
+        <td>Very short descriptions waste SERP space.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>seo</td>
+        <td>maxMetaDescriptionLength</td>
+        <td>0</td>
+        <td>170</td>
+        <td>Long descriptions may be truncated in SERP.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>seo</td>
+        <td>requireExactlyOneH1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>Use exactly one primary H1.</td>
+      </tr>
+<tr class="fail">
+        <td>FAIL</td>
+        <td>seo</td>
+        <td>requireCanonical</td>
+        <td>false</td>
+        <td>true</td>
+        <td>Canonical URL helps avoid duplicate indexing.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>seo</td>
+        <td>maxImagesMissingAlt</td>
+        <td>0</td>
+        <td>0</td>
+        <td>Missing alt hurts accessibility and image SEO.</td>
+      </tr>
+<tr class="pass">
+        <td>PASS</td>
+        <td>security</td>
+        <td>httpsRecommended</td>
+        <td>true</td>
+        <td>true</td>
+        <td>HTTPS recommended.</td>
+      </tr></tbody>
+    </table>
+
+    <h2>LCP element</h2>
+    <pre>{
+  &quot;value&quot;: 988.1000000238419,
+  &quot;renderTime&quot;: 988.1000000238419,
+  &quot;loadTime&quot;: 0,
+  &quot;size&quot;: 15644,
+  &quot;url&quot;: null,
+  &quot;tagName&quot;: &quot;P&quot;,
+  &quot;selector&quot;: &quot;html &gt; body &gt; div &gt; p:nth-of-type(1)&quot;,
+  &quot;text&quot;: &quot;This domain is for use in documentation examples without needing permission. Avoid use in operations.&quot;
+}</pre>
+
+    <h2>Top resources by transfer</h2>
+    <table>
+      <thead><tr><th>Type</th><th>Size</th><th>Duration</th><th>Status</th><th>URL</th></tr></thead>
+      <tbody><tr>
+        <td>image</td>
+        <td>0.6 KB</td>
+        <td>34 ms</td>
+        <td>404</td>
+        <td class="url">https://example.com/favicon.ico</td>
+      </tr></tbody>
+    </table>
+
+    <h2>Third-party origins</h2>
+    <table>
+      <thead><tr><th>Origin</th><th>Requests</th><th>Transfer</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>SEO snapshot</h2>
+    <pre>{
+  &quot;finalUrl&quot;: &quot;https://example.com/&quot;,
+  &quot;lang&quot;: &quot;en&quot;,
+  &quot;title&quot;: &quot;Example Domain&quot;,
+  &quot;titleLength&quot;: 14,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;descriptionLength&quot;: 0,
+  &quot;canonical&quot;: &quot;&quot;,
+  &quot;robots&quot;: &quot;&quot;,
+  &quot;viewport&quot;: &quot;width=device-width, initial-scale=1&quot;,
+  &quot;h1Count&quot;: 1,
+  &quot;h1Texts&quot;: [
+    &quot;Example Domain&quot;
+  ],
+  &quot;imageCount&quot;: 0,
+  &quot;imagesMissingAlt&quot;: 0,
+  &quot;internalLinks&quot;: 0,
+  &quot;externalLinks&quot;: 1,
+  &quot;jsonLdCount&quot;: 0,
+  &quot;jsonLdTypes&quot;: [],
+  &quot;jsonLdErrors&quot;: [],
+  &quot;domNodes&quot;: 11
+}</pre>
+
+    <h2>Security headers</h2>
+    <pre>{
+  &quot;https&quot;: true,
+  &quot;hsts&quot;: false,
+  &quot;csp&quot;: false,
+  &quot;xContentTypeOptions&quot;: false,
+  &quot;referrerPolicy&quot;: false,
+  &quot;permissionsPolicy&quot;: false,
+  &quot;clickjackingProtection&quot;: false,
+  &quot;compression&quot;: &quot;br&quot;,
+  &quot;cacheControl&quot;: &quot;&quot;
+}</pre>
+
+    <h2>CrUX field data</h2>
+    <pre>{
+  &quot;status&quot;: &quot;not requested&quot;
+}</pre>
+  </main>
+</body>
+</html>

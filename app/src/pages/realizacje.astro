@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SchemaBreadcrumb from '@components/seo/SchemaBreadcrumb.astro';
+import { business } from '@data/business';
+import { Phone } from 'lucide-react';
+
+const cases = [
+  {
+    title: 'Wycena szkody Dodge Ram',
+    category: 'Wycena szkody',
+    summary: 'Ocena uszkodzeń pojazdu i przygotowanie dokumentacji rzeczoznawczej po szkodzie.',
+    images: [
+      '/uploads/realizacje/dodge-ram-1.jpg',
+      '/uploads/realizacje/dodge-ram-2.jpg',
+      '/uploads/realizacje/dodge-ram-3.jpg',
+      '/uploads/realizacje/dodge-ram-4.jpg',
+      '/uploads/realizacje/dodge-ram-5.jpg',
+    ],
+  },
+  {
+    title: 'Wycena celno-skarbowa BMW',
+    category: 'Wycena celno-skarbowa',
+    summary: 'Wycena pojazdu sprowadzonego z zagranicy na potrzeby rozliczenia celno-skarbowego.',
+    images: [
+      '/uploads/realizacje/bmw-celno-skarbowa-1.png',
+      '/uploads/realizacje/bmw-celno-skarbowa-2.png',
+      '/uploads/realizacje/bmw-celno-skarbowa-3.png',
+      '/uploads/realizacje/bmw-celno-skarbowa-4.png',
+      '/uploads/realizacje/bmw-celno-skarbowa-5.png',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Realizacje – Wyceny i ekspertyzy pojazdów"
+  description="Przykłady realizacji rzeczoznawcy techniki samochodowej. Wyceny pojazdów, ekspertyzy powypadkowe, sprawy celno-skarbowe i sądowe."
+  keywords={['realizacje rzeczoznawca', 'case study wycena', 'portfolio motowycena']}
+>
+  <SchemaBreadcrumb
+    items={[
+      { name: 'Strona główna', url: `${business.url}/` },
+      { name: 'Realizacje', url: `${business.url}/realizacje/` },
+    ]}
+  />
+
+  <section class="bg-gradient-to-br from-brand-900 to-brand-700 text-white py-16">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <nav aria-label="okruszki" class="text-sm text-brand-100 mb-4">
+        <a href="/" class="hover:underline">Strona główna</a>
+        <span class="mx-2">/</span>
+        <span>Realizacje</span>
+      </nav>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Realizacje</h1>
+      <p class="text-brand-100 max-w-2xl">
+        Przykłady zrealizowanych spraw - wyceny, ekspertyzy, opinie sądowe.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="grid gap-6 lg:grid-cols-2">
+        {cases.map((c, idx) => (
+          <article class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+            <div class="grid grid-cols-2 gap-2 bg-brand-50 p-3">
+              {c.images.map((image, imageIndex) => (
+                <img
+                  src={image}
+                  alt={`${c.title} - zdjęcie ${imageIndex + 1}`}
+                  loading={idx === 0 && imageIndex === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  class={imageIndex === 0
+                    ? 'col-span-2 h-56 w-full rounded-lg object-cover'
+                    : 'h-28 w-full rounded-lg object-cover'}
+                />
+              ))}
+            </div>
+            <div class="p-6">
+              <p class="text-xs uppercase tracking-wider text-brand-600 font-semibold mb-2">{c.category}</p>
+              <h2 class="font-semibold text-lg mb-2">{c.title}</h2>
+              <p class="text-sm text-gray-600">{c.summary}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-12 text-center bg-gray-50 rounded-2xl p-10">
+        <h2 class="text-2xl font-bold mb-3">Twoja sprawa może być następna</h2>
+        <p class="text-gray-600 mb-6">Każda sprawa jest inna - skontaktuj się i opisz swoją sytuację.</p>
+        <a
+          href={`tel:${business.contact.phone}`}
+          class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-lg transition"
+        >
+          <Phone size={18} aria-hidden="true" />
+          {business.contact.phoneDisplay}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Blokujemy endpointy API i panele
+Disallow: /api/
+
+# Sitemap (Astro generuje automatycznie po build)
+Sitemap: https://www.motowycena.pl/sitemap-index.xml

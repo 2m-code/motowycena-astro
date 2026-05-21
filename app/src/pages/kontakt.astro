@@ -1,0 +1,157 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { business } from '@data/business';
+import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, AlertCircle } from 'lucide-react';
+import ContactForm from '@components/forms/ContactForm.tsx';
+import SchemaBreadcrumb from '@components/seo/SchemaBreadcrumb.astro';
+
+// Stan no-JS fallback: endpoint robi 303 redirect z ?sent=1 lub ?error=1
+const sent = Astro.url.searchParams.get('sent') === '1';
+const errored = Astro.url.searchParams.get('error') === '1';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<BaseLayout
+  title="Kontakt – Rzeczoznawca samochodowy Rafał Pelczar"
+  description="Skontaktuj się z certyfikowanym rzeczoznawcą techniki samochodowej. Telefon, WhatsApp, email, formularz online. Wielkopolska, Dolny Śląsk, cała Polska."
+  keywords={['kontakt rzeczoznawca', 'motowycena kontakt', 'rafał pelczar']}
+>
+  <SchemaBreadcrumb
+    items={[
+      { name: 'Strona główna', url: `${business.url}/` },
+      { name: 'Kontakt', url: `${business.url}/kontakt/` },
+    ]}
+  />
+
+  {turnstileSiteKey && (
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    />
+  )}
+
+  <section class="bg-gradient-to-br from-brand-900 to-brand-700 text-white py-16">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <nav aria-label="okruszki" class="text-sm text-brand-100 mb-4">
+        <a href="/" class="hover:underline">Strona główna</a>
+        <span class="mx-2">/</span>
+        <span>Kontakt</span>
+      </nav>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Kontakt</h1>
+      <p class="text-brand-100 max-w-2xl">
+        Wybierz najwygodniejszą formę kontaktu. Odpowiadam najczęściej w ciągu kilku godzin.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Dane kontaktowe -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6">Dane kontaktowe</h2>
+
+          <ul class="space-y-6">
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center">
+                <Phone className="text-brand-700" size={24} aria-hidden="true" />
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Telefon</p>
+                <a href={`tel:${business.contact.phone}`} class="text-lg font-semibold hover:text-brand-700">
+                  {business.contact.phoneDisplay}
+                </a>
+              </div>
+            </li>
+
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
+                <MessageCircle className="text-green-600" size={24} aria-hidden="true" />
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 mb-1">WhatsApp</p>
+                <a
+                  href={`https://wa.me/${business.contact.whatsapp.replace(/[^0-9]/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-lg font-semibold hover:text-green-700"
+                >
+                  {business.contact.phoneDisplay}
+                </a>
+              </div>
+            </li>
+
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center">
+                <Mail className="text-brand-700" size={24} aria-hidden="true" />
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Email</p>
+                <a href={`mailto:${business.contact.email}`} class="text-lg font-semibold hover:text-brand-700 break-all">
+                  {business.contact.email}
+                </a>
+              </div>
+            </li>
+
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center">
+                <MapPin className="text-brand-700" size={24} aria-hidden="true" />
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Siedziba</p>
+                <address class="not-italic text-lg font-semibold">
+                  {business.address.street}<br />
+                  {business.address.postalCode} {business.address.city}
+                </address>
+              </div>
+            </li>
+          </ul>
+
+          <div class="mt-8 p-6 bg-brand-50 rounded-xl border border-brand-100">
+            <p class="text-sm text-brand-900">
+              <strong>Certyfikat rzeczoznawcy:</strong> {business.certificate}
+            </p>
+          </div>
+        </div>
+
+        <!-- Formularz -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6">Formularz kontaktowy</h2>
+
+          <!-- No-JS fallback: komunikaty po 303 redirect z endpointu -->
+          {sent && (
+            <div class="mb-6 rounded-lg bg-green-50 border border-green-200 p-4 flex gap-3" role="status">
+              <CheckCircle2 className="text-green-600 flex-shrink-0 mt-0.5" size={20} aria-hidden="true" />
+              <div>
+                <p class="font-semibold text-green-900">Dziękuję za wiadomość!</p>
+                <p class="text-sm text-green-700">Odezwę się w ciągu 24h, zazwyczaj dużo szybciej.</p>
+              </div>
+            </div>
+          )}
+          {errored && (
+            <div class="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 flex gap-3" role="alert">
+              <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} aria-hidden="true" />
+              <div>
+                <p class="font-semibold text-red-900">Coś poszło nie tak.</p>
+                <p class="text-sm text-red-700">Zadzwoń lub napisz na WhatsApp – ten kanał działa zawsze.</p>
+              </div>
+            </div>
+          )}
+
+          <div class="bg-gray-50 rounded-xl p-6 md:p-8">
+            <ContactForm client:idle turnstileSiteKey={turnstileSiteKey} />
+          </div>
+
+          <noscript>
+            <p class="text-xs text-gray-500 mt-3">
+              JavaScript jest wyłączony – formularz wyśle się normalnym POST.
+              Po wysłaniu nastąpi przeładowanie strony z potwierdzeniem.
+            </p>
+          </noscript>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

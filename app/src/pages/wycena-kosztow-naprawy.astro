@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+import ImageGallery from '@components/sections/ImageGallery.astro';
+
+const heroLead = 'Rzetelna wycena kosztów naprawy pojazdu po szkodzie komunikacyjnej lub mechanicznej. Wsparcie w sporach z ubezpieczycielami.';
+const introParagraph = 'Wycena kosztów naprawy określa realny koszt przywrócenia pojazdu do stanu sprzed szkody. Wykorzystywana jest przy rozliczeniach z OC sprawcy, w sporach z ubezpieczycielem oraz w postępowaniach sądowych. Bazuje na analizie technicznej uszkodzeń, cennikach części i robocizny.';
+const benefits = [
+  'Wycena wg cen autoryzowanych i nieautoryzowanych serwisów',
+  'Identyfikacja zaniżeń odszkodowania',
+  'Pomoc w sporze z ubezpieczycielem',
+  'Pełna dokumentacja fotograficzna szkody',
+  'Wycena akceptowana w sądzie',
+];
+const processSteps = [
+  { title: 'Zgłoszenie', description: 'Prześlij dokumentację szkody (zdjęcia, kosztorys ubezpieczyciela).' },
+  { title: 'Oględziny', description: 'Spotkanie i dokumentacja uszkodzeń pojazdu.' },
+  { title: 'Analiza', description: 'Weryfikacja zaniżeń, kalkulacja realnego kosztu naprawy.' },
+  { title: 'Raport', description: 'Otrzymujesz raport gotowy do złożenia u ubezpieczyciela lub w sądzie.' },
+];
+const faq = [
+  {
+    question: 'Czy mogę zlecić wycenę gdy mam już kosztorys od ubezpieczyciela?',
+    answer: 'Tak, to najczęstszy przypadek. Wykonujemy niezależną wycenę porównawczą która często wykazuje zaniżenia o 20-50%.',
+  },
+  {
+    question: 'Czy mogę użyć wyceny w sądzie?',
+    answer: 'Tak. Raport sporządzony przez certyfikowanego rzeczoznawcę jest pełnoprawnym dowodem w postępowaniu sądowym.',
+  },
+  {
+    question: 'Jak długo trwa wycena szkody?',
+    answer: 'Od oględzin do otrzymania raportu mija zwykle 2-3 dni robocze.',
+  },
+];
+---
+
+<BaseLayout
+  title="Wycena kosztów naprawy pojazdu – Ekspertyza powypadkowa"
+  description="Profesjonalna wycena kosztów naprawy pojazdu po szkodzie. Identyfikacja zaniżeń odszkodowania. Certyfikowany rzeczoznawca (RS001771), termin 24-48h."
+  keywords={['wycena naprawy', 'koszty naprawy auta', 'ekspertyza powypadkowa', 'zaniżenie odszkodowania']}
+>
+  <ServicePageTemplate
+    serviceSlug="wycena-kosztow-naprawy"
+    serviceName="Wycena kosztów naprawy"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="300-1000 PLN"
+  >
+    <ImageGallery
+      slot="extra-content"
+      images={[
+        { src: '/uploads/services/wycena-kosztow-naprawy.png', alt: 'Przykład kalkulacji kosztów naprawy pojazdu' },
+      ]}
+    />
+  </ServicePageTemplate>
+</BaseLayout>

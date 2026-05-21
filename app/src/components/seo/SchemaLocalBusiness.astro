@@ -1,0 +1,72 @@
+---
+import { business } from '@data/business';
+
+/**
+ * LocalBusiness Schema.org – rich snippet w Google dla lokalnego biznesu.
+ * Wstawiamy na KAŻDEJ stronie (w layoucie) - to baza dla całej strony.
+ */
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'ProfessionalService'],
+  '@id': `${business.url}/#business`,
+  name: business.legalName,
+  alternateName: business.name,
+  description: 'Certyfikowany rzeczoznawca techniki samochodowej. Wyceny pojazdów, ekspertyzy powypadkowe, doradztwo zakupowe, opinie biegłego sądowego i skarbowego.',
+  url: business.url,
+  logo: `${business.url}${business.logo}`,
+  image: `${business.url}${business.logo}`,
+  telephone: business.contact.phone,
+  email: business.contact.email,
+  priceRange: '$$',
+  founder: {
+    '@type': 'Person',
+    name: business.founder.name,
+    jobTitle: business.founder.jobTitle,
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'certification',
+      identifier: business.certificate,
+      name: 'Certyfikat Rzeczoznawcy Samochodowego',
+    },
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    postalCode: business.address.postalCode,
+    addressCountry: business.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: business.geo.latitude,
+    longitude: business.geo.longitude,
+  },
+  areaServed: business.areaServed.map((area) => ({
+    '@type': area.type,
+    name: area.name,
+  })),
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: business.openingHours.monday?.open,
+      closes: business.openingHours.monday?.close,
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Saturday',
+      opens: business.openingHours.saturday?.open,
+      closes: business.openingHours.saturday?.close,
+    },
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: business.contact.phone,
+    contactType: 'customer service',
+    availableLanguage: ['Polish'],
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

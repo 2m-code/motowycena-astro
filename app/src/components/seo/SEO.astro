@@ -1,0 +1,76 @@
+---
+/**
+ * Komponent SEO – wstawia wszystkie meta tagi, OG, Twitter Cards, canonical.
+ * Używany na każdej stronie przez BaseLayout.
+ */
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  keywords?: string[];
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.href,
+  ogImage = '/og-default.svg',
+  ogType = 'website',
+  noindex = false,
+  keywords = [],
+} = Astro.props;
+
+const fullTitle = title.endsWith('Motowycena') ? title : `${title} | Motowycena`;
+const fullOgImage = ogImage.startsWith('http') ? ogImage : `${Astro.site}${ogImage.replace(/^\//, '')}`;
+const canonicalUrl = canonical.endsWith('/') ? canonical : `${canonical}/`;
+---
+
+<!-- Podstawowe meta -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+{keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+<link rel="canonical" href={canonicalUrl} />
+
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+{!noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
+
+<!-- Viewport i mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1e3a8a" />
+<meta name="format-detection" content="telephone=yes" />
+
+<!-- Language -->
+<meta http-equiv="content-language" content="pl-PL" />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content="Motowycena" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={fullOgImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="pl_PL" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImage} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.svg" />
+<link rel="manifest" href="/manifest.webmanifest" />
+
+<!-- Sitemap -->
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- DNS prefetch dla domen z których ładujemy zasoby gdy potrzeba.
+     Cloudflare Turnstile + Cloudflare Insights = jedyne zewnętrzne hosty. -->
+<link rel="dns-prefetch" href="https://challenges.cloudflare.com" />
+<link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />

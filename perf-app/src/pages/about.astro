@@ -1,0 +1,89 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Jak to działa – Perf Audit">
+  <section class="prose prose-sm max-w-3xl">
+    <h1>Jak to działa</h1>
+
+    <h2>Architektura</h2>
+    <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-xs"><code>{`Browser (klient)
+  │
+  │ 1. POST /api/audit  {url, profileId, runs}
+  │ <- 202 {jobId}
+  │
+  │ 2. EventSource('/api/audit/{id}/events')
+  │ <- SSE: progress events na żywo
+  │
+  │ 3. Redirect → /reports/{host}/{id}/
+  ▼
+
+Astro server (Node.js / SSR)
+  │
+  ├── src/pages/api/audit.ts        ← POST tworzy job
+  │     │
+  │     ├── createJob() w pamięci
+  │     └── runAudit() w tle (nie czeka)
+  │
+  ├── src/lib/perf/audit.ts         ← orchestrator
+  │     │
+  │     ├── runSingleMeasurement()  ← 1 puppeteer run
+  │     │     │
+  │     │     ├── puppeteer.launch (cached browser)
+  │     │     ├── CPU/Network throttle (CDP)
+  │     │     ├── inject PerformanceObserver
+  │     │     ├── page.goto(url)
+  │     │     └── collectFromPage()
+  │     │
+  │     ├── aggregateSamples()       ← p50/p75/p95
+  │     ├── buildDiagnostics()       ← rule-based
+  │     └── saveReport()             ← data/reports/...
+  │
+  └── EventEmitter per job
+        ↑
+        └── pushProgress() z runAudit
+             ↓
+             SSE stream do klienta`}</code></pre>
+
+    <h2>Co używamy</h2>
+    <ul>
+      <li><strong>Astro 5</strong> w trybie <code>output: 'server'</code> + adapter <code>@astrojs/node</code></li>
+      <li><strong>React 19</strong> jako wyspy interaktywne (form, live progress)</li>
+      <li><strong>Puppeteer</strong> – headless Chrome, własna instancja (~150MB)</li>
+      <li><strong>Chrome DevTools Protocol</strong> – CPU/Network throttling, response headers</li>
+      <li><strong>PerformanceObserver</strong> (W3C) – LCP, CLS (session window), FCP, long tasks</li>
+      <li><strong>Server-Sent Events</strong> – streaming progress bez WebSocketów</li>
+      <li><strong>EventEmitter</strong> + in-memory Map – job queue (do produkcji: Redis)</li>
+      <li><strong>Filesystem</strong> – persystencja raportów (JSON w data/reports/&lt;host&gt;/)</li>
+    </ul>
+
+    <h2>Czego NIE używamy</h2>
+    <ul>
+      <li>AI / LLM – pomiar to deterministyczna matematyka</li>
+      <li>Cloud APIs – wszystko działa lokalnie</li>
+      <li>Lighthouse jako black-box – mamy własne, prostsze implementacje</li>
+      <li>Cookies / tracking – zero telemetrii</li>
+    </ul>
+
+    <h2>Co warto wiedzieć</h2>
+    <p><strong>Lab vs Field:</strong> to są dane <em>laboratoryjne</em> (Puppeteer udaje urządzenie).
+    Oficjalne Core Web Vitals Google liczy z <em>field data</em> (Chrome User Experience Report)
+    od prawdziwych użytkowników. Lab = świetne do dev/CI, field = ostateczna prawda.</p>
+
+    <p><strong>INP nie jest tu mierzony:</strong> oficjalny Core Web Vital dla responsywności
+    wymaga prawdziwych interakcji użytkownika. Jako proxy używamy <strong>TBT*</strong>
+    (Total Blocking Time) - sumę długich tasków &gt; 50ms po FCP.</p>
+
+    <p><strong>CLS to session window:</strong> nie suma wszystkich shiftów, tylko maksymalna
+    z "sesji" (shifty w odstępach &lt; 1s, sesja max 5s). Implementacja zgodna z
+    <a href="https://web.dev/articles/cls" target="_blank" rel="noopener">web.dev/articles/cls</a>.</p>
+
+    <p><strong>Jeden run nie wystarcza:</strong> Web Vitals są stochastyczne (cache, JIT, GC).
+    Domyślnie robimy 3 runy, dla statystycznie stabilnych wyników użyj 9-11.</p>
+
+    <h2>CLI bez UI</h2>
+    <p>Wszystko można też zrobić z linii poleceń:</p>
+    <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-xs"><code>node bin/audit.mjs --url https://www.motowycena.pl --runs 5 --profile mobile-slow4g</code></pre>
+    <p>CLI używa dokładnie tych samych modułów z <code>src/lib/perf/</code> co web UI.</p>
+  </section>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import { business } from '@data/business';
+
+export interface Props {
+  name: string;
+  description: string;
+  url?: string;
+  priceRange?: string;
+}
+
+const { name, description, url = Astro.url.href, priceRange = '$$' } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${url}#service`,
+  serviceType: name,
+  name,
+  description,
+  url,
+  provider: { '@id': `${business.url}/#business` },
+  areaServed: business.areaServed.map((area) => ({
+    '@type': area.type,
+    name: area.name,
+  })),
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'PLN',
+    priceRange,
+    availability: 'https://schema.org/InStock',
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

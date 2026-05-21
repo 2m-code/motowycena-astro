@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+import ImageGallery from '@components/sections/ImageGallery.astro';
+
+const heroLead = 'Profesjonalna wycena celno-skarbowa pojazdów sprowadzanych z zagranicy. Akceptowana w urzędach celno-skarbowych w całej Polsce.';
+const introParagraph = 'Wycena celno-skarbowa to dokument niezbędny przy rejestracji pojazdu sprowadzonego z zagranicy. Określa wartość pojazdu na potrzeby naliczenia akcyzy oraz podatku VAT. Wycena musi być wykonana przez uprawnionego rzeczoznawcę i bazować na metodologii akceptowanej przez urząd skarbowy.';
+const benefits = [
+  'Akceptowane w UCS w całej Polsce',
+  'Metodologia zgodna z wymogami urzędu',
+  'Termin 24-48h',
+  'Wycena uwzględnia stan techniczny i historię pojazdu',
+  'Pomoc w wyjaśnieniach z urzędem (jeśli zajdzie potrzeba)',
+];
+const processSteps = [
+  { title: 'Dokumenty', description: 'Prześlij dane pojazdu (VIN, faktura zakupu, dokumenty z zagranicy).' },
+  { title: 'Oględziny', description: 'Spotkanie z pojazdem - dokumentacja stanu technicznego.' },
+  { title: 'Wycena', description: 'Sporządzenie wyceny zgodnie z metodologią UCS.' },
+  { title: 'Dokument', description: 'Otrzymujesz wycenę gotową do złożenia w urzędzie.' },
+];
+const faq = [
+  {
+    question: 'Czy ta wycena jest na pewno akceptowana w urzędzie skarbowym?',
+    answer: 'Tak. Wykonywana jest zgodnie z wymogami metodologicznymi UCS. W praktyce nie odnotowaliśmy odrzucenia wyceny.',
+  },
+  {
+    question: 'Sprowadzam auto z Niemiec/Holandii/USA - czy to robi różnicę?',
+    answer: 'Nie - wycena dotyczy stanu i wartości pojazdu, niezależnie od kraju pochodzenia. Uwzględniamy specyfikę rynku źródłowego.',
+  },
+  {
+    question: 'Ile kosztuje wycena celno-skarbowa?',
+    answer: 'Standardowa wycena to koszt rzędu 300-600 zł. Dokładną ofertę otrzymasz po przesłaniu danych pojazdu.',
+  },
+];
+---
+
+<BaseLayout
+  title="Wycena celno-skarbowa pojazdu – Rzeczoznawca"
+  description="Profesjonalna wycena celno-skarbowa pojazdów z zagranicy. Akceptowana w urzędach celno-skarbowych. Certyfikowany rzeczoznawca (RS001771), termin 24-48h."
+  keywords={['wycena celno-skarbowa', 'wycena do urzędu skarbowego', 'akcyza samochodowa', 'sprowadzanie aut']}
+>
+  <ServicePageTemplate
+    serviceSlug="wycena-celno-skarbowa"
+    serviceName="Wycena celno-skarbowa"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="300-600 PLN"
+  >
+    <ImageGallery
+      slot="extra-content"
+      images={[
+        { src: '/uploads/services/wycena-celno-skarbowa-1.jpg', alt: 'Pojazd do wyceny celno-skarbowej - widok z przodu' },
+        { src: '/uploads/services/wycena-celno-skarbowa-2.jpg', alt: 'Pojazd do wyceny celno-skarbowej - dokumentacja fotograficzna' },
+        { src: '/uploads/services/wycena-celno-skarbowa-3.jpg', alt: 'Pojazd sprowadzony z zagranicy do wyceny akcyzy' },
+      ]}
+    />
+  </ServicePageTemplate>
+</BaseLayout>

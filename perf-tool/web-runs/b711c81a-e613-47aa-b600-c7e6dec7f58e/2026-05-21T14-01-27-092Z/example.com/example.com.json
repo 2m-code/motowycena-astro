@@ -1,0 +1,785 @@
+{
+  "meta": {
+    "tool": "motowycena-advanced-performance-audit",
+    "version": "1.0.0",
+    "auditedAt": "2026-05-21T14:01:30.441Z",
+    "url": "https://example.com",
+    "profile": "no-throttle",
+    "profileLabel": "Current machine / no throttling",
+    "runsRequested": 1,
+    "runsOk": 1,
+    "runsFailed": 0,
+    "notes": [
+      "TBT* is a lab proxy for responsiveness, not official INP.",
+      "Official INP needs field data or real user interactions.",
+      "Resource transfer sizes use Resource Timing plus CDP encodedDataLength fallback."
+    ]
+  },
+  "aggregate": {
+    "runsOk": 1,
+    "runsFailed": 0,
+    "metrics": {
+      "lcp": {
+        "count": 1,
+        "min": 988.1000000238419,
+        "max": 988.1000000238419,
+        "avg": 988.1000000238419,
+        "stdev": 0,
+        "p50": 988.1000000238419,
+        "p75": 988.1000000238419,
+        "p95": 988.1000000238419
+      },
+      "cls": {
+        "count": 1,
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "stdev": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0
+      },
+      "fcp": {
+        "count": 1,
+        "min": 988.1000000238419,
+        "max": 988.1000000238419,
+        "avg": 988.1000000238419,
+        "stdev": 0,
+        "p50": 988.1000000238419,
+        "p75": 988.1000000238419,
+        "p95": 988.1000000238419
+      },
+      "fp": {
+        "count": 1,
+        "min": 988.1000000238419,
+        "max": 988.1000000238419,
+        "avg": 988.1000000238419,
+        "stdev": 0,
+        "p50": 988.1000000238419,
+        "p75": 988.1000000238419,
+        "p95": 988.1000000238419
+      },
+      "observedInp": {
+        "count": 0,
+        "min": null,
+        "max": null,
+        "avg": null,
+        "stdev": null,
+        "p50": null,
+        "p75": null,
+        "p95": null
+      },
+      "tbtProxy": {
+        "count": 1,
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "stdev": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0
+      },
+      "ttfb": {
+        "count": 1,
+        "min": 24.80000001192093,
+        "max": 24.80000001192093,
+        "avg": 24.80000001192093,
+        "stdev": 0,
+        "p50": 24.80000001192093,
+        "p75": 24.80000001192093,
+        "p95": 24.80000001192093
+      },
+      "dns": {
+        "count": 1,
+        "min": 11.199999988079071,
+        "max": 11.199999988079071,
+        "avg": 11.199999988079071,
+        "stdev": 0,
+        "p50": 11.199999988079071,
+        "p75": 11.199999988079071,
+        "p95": 11.199999988079071
+      },
+      "tcp": {
+        "count": 1,
+        "min": 47.5,
+        "max": 47.5,
+        "avg": 47.5,
+        "stdev": 0,
+        "p50": 47.5,
+        "p75": 47.5,
+        "p95": 47.5
+      },
+      "tls": {
+        "count": 1,
+        "min": 35.69999998807907,
+        "max": 35.69999998807907,
+        "avg": 35.69999998807907,
+        "stdev": 0,
+        "p50": 35.69999998807907,
+        "p75": 35.69999998807907,
+        "p95": 35.69999998807907
+      },
+      "request": {
+        "count": 1,
+        "min": 24.80000001192093,
+        "max": 24.80000001192093,
+        "avg": 24.80000001192093,
+        "stdev": 0,
+        "p50": 24.80000001192093,
+        "p75": 24.80000001192093,
+        "p95": 24.80000001192093
+      },
+      "response": {
+        "count": 1,
+        "min": 6.900000035762787,
+        "max": 6.900000035762787,
+        "avg": 6.900000035762787,
+        "stdev": 0,
+        "p50": 6.900000035762787,
+        "p75": 6.900000035762787,
+        "p95": 6.900000035762787
+      },
+      "domContentLoaded": {
+        "count": 1,
+        "min": 157.60000002384186,
+        "max": 157.60000002384186,
+        "avg": 157.60000002384186,
+        "stdev": 0,
+        "p50": 157.60000002384186,
+        "p75": 157.60000002384186,
+        "p95": 157.60000002384186
+      },
+      "load": {
+        "count": 1,
+        "min": 158,
+        "max": 158,
+        "avg": 158,
+        "stdev": 0,
+        "p50": 158,
+        "p75": 158,
+        "p95": 158
+      },
+      "wallClockMs": {
+        "count": 1,
+        "min": 2215,
+        "max": 2215,
+        "avg": 2215,
+        "stdev": 0,
+        "p50": 2215,
+        "p75": 2215,
+        "p95": 2215
+      },
+      "totalTransferKB": {
+        "count": 1,
+        "min": 1.16796875,
+        "max": 1.16796875,
+        "avg": 1.16796875,
+        "stdev": 0,
+        "p50": 1.16796875,
+        "p75": 1.16796875,
+        "p95": 1.16796875
+      },
+      "totalDecodedKB": {
+        "count": 1,
+        "min": 1.099609375,
+        "max": 1.099609375,
+        "avg": 1.099609375,
+        "stdev": 0,
+        "p50": 1.099609375,
+        "p75": 1.099609375,
+        "p95": 1.099609375
+      },
+      "resourceCount": {
+        "count": 1,
+        "min": 2,
+        "max": 2,
+        "avg": 2,
+        "stdev": 0,
+        "p50": 2,
+        "p75": 2,
+        "p95": 2
+      },
+      "scriptKB": {
+        "count": 1,
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "stdev": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0
+      },
+      "stylesheetKB": {
+        "count": 1,
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "stdev": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0
+      },
+      "imageKB": {
+        "count": 1,
+        "min": 0.583984375,
+        "max": 0.583984375,
+        "avg": 0.583984375,
+        "stdev": 0,
+        "p50": 0.583984375,
+        "p75": 0.583984375,
+        "p95": 0.583984375
+      },
+      "fontKB": {
+        "count": 1,
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "stdev": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0
+      },
+      "fetchKB": {
+        "count": 1,
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "stdev": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0
+      },
+      "thirdPartyKB": {
+        "count": 1,
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "stdev": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0
+      }
+    }
+  },
+  "budget": {
+    "passed": false,
+    "failed": true,
+    "failedCount": 2,
+    "warningCount": 1,
+    "checks": [
+      {
+        "category": "metrics",
+        "name": "lcpP75",
+        "actual": 988.1000000238419,
+        "limit": 2500,
+        "pass": true,
+        "severity": "error",
+        "help": "LCP p75 should stay under the Core Web Vitals good threshold."
+      },
+      {
+        "category": "metrics",
+        "name": "clsP75",
+        "actual": 0,
+        "limit": 0.1,
+        "pass": true,
+        "severity": "error",
+        "help": "CLS p75 should stay below visible layout shift risk."
+      },
+      {
+        "category": "metrics",
+        "name": "fcpP75",
+        "actual": 988.1000000238419,
+        "limit": 1800,
+        "pass": true,
+        "severity": "error",
+        "help": "FCP p75 controls when users first see content."
+      },
+      {
+        "category": "metrics",
+        "name": "ttfbP75",
+        "actual": 24.80000001192093,
+        "limit": 800,
+        "pass": true,
+        "severity": "error",
+        "help": "TTFB p75 tells whether server/CDN response is slow."
+      },
+      {
+        "category": "metrics",
+        "name": "tbtProxyP75",
+        "actual": 0,
+        "limit": 200,
+        "pass": true,
+        "severity": "error",
+        "help": "TBT* p75 is a lab proxy for responsiveness."
+      },
+      {
+        "category": "metrics",
+        "name": "loadP75",
+        "actual": 158,
+        "limit": 5000,
+        "pass": true,
+        "severity": "error",
+        "help": "Load event p75 should not drift too high."
+      },
+      {
+        "category": "resources",
+        "name": "totalTransferKBP75",
+        "actual": 1.16796875,
+        "limit": 750,
+        "pass": true,
+        "severity": "error",
+        "help": "Total transferred KB p75."
+      },
+      {
+        "category": "resources",
+        "name": "scriptKBP75",
+        "actual": 0,
+        "limit": 180,
+        "pass": true,
+        "severity": "error",
+        "help": "JavaScript transfer KB p75."
+      },
+      {
+        "category": "resources",
+        "name": "stylesheetKBP75",
+        "actual": 0,
+        "limit": 100,
+        "pass": true,
+        "severity": "error",
+        "help": "CSS transfer KB p75."
+      },
+      {
+        "category": "resources",
+        "name": "imageKBP75",
+        "actual": 0.583984375,
+        "limit": 450,
+        "pass": true,
+        "severity": "error",
+        "help": "Image transfer KB p75."
+      },
+      {
+        "category": "resources",
+        "name": "fontKBP75",
+        "actual": 0,
+        "limit": 120,
+        "pass": true,
+        "severity": "error",
+        "help": "Font transfer KB p75."
+      },
+      {
+        "category": "resources",
+        "name": "thirdPartyKBP75",
+        "actual": 0,
+        "limit": 250,
+        "pass": true,
+        "severity": "error",
+        "help": "Third-party transfer KB p75."
+      },
+      {
+        "category": "resources",
+        "name": "resourceCountP75",
+        "actual": 2,
+        "limit": 70,
+        "pass": true,
+        "severity": "error",
+        "help": "Request count p75."
+      },
+      {
+        "category": "seo",
+        "name": "requireTitle",
+        "actual": true,
+        "limit": true,
+        "pass": true,
+        "severity": "error",
+        "help": "Document should have a title."
+      },
+      {
+        "category": "seo",
+        "name": "maxTitleLength",
+        "actual": 14,
+        "limit": 65,
+        "pass": true,
+        "severity": "warning",
+        "help": "Title should be concise enough for SERP display."
+      },
+      {
+        "category": "seo",
+        "name": "requireMetaDescription",
+        "actual": false,
+        "limit": true,
+        "pass": false,
+        "severity": "error",
+        "help": "Meta description improves SERP snippet control."
+      },
+      {
+        "category": "seo",
+        "name": "minMetaDescriptionLength",
+        "actual": 0,
+        "limit": 70,
+        "pass": false,
+        "severity": "warning",
+        "help": "Very short descriptions waste SERP space."
+      },
+      {
+        "category": "seo",
+        "name": "maxMetaDescriptionLength",
+        "actual": 0,
+        "limit": 170,
+        "pass": true,
+        "severity": "warning",
+        "help": "Long descriptions may be truncated in SERP."
+      },
+      {
+        "category": "seo",
+        "name": "requireExactlyOneH1",
+        "actual": 1,
+        "limit": 1,
+        "pass": true,
+        "severity": "error",
+        "help": "Use exactly one primary H1."
+      },
+      {
+        "category": "seo",
+        "name": "requireCanonical",
+        "actual": false,
+        "limit": true,
+        "pass": false,
+        "severity": "error",
+        "help": "Canonical URL helps avoid duplicate indexing."
+      },
+      {
+        "category": "seo",
+        "name": "maxImagesMissingAlt",
+        "actual": 0,
+        "limit": 0,
+        "pass": true,
+        "severity": "warning",
+        "help": "Missing alt hurts accessibility and image SEO."
+      },
+      {
+        "category": "security",
+        "name": "httpsRecommended",
+        "actual": true,
+        "limit": true,
+        "pass": true,
+        "severity": "warning",
+        "help": "HTTPS recommended."
+      }
+    ]
+  },
+  "crux": null,
+  "diagnostics": {
+    "lcpElement": {
+      "value": 988.1000000238419,
+      "renderTime": 988.1000000238419,
+      "loadTime": 0,
+      "size": 15644,
+      "url": null,
+      "tagName": "P",
+      "selector": "html > body > div > p:nth-of-type(1)",
+      "text": "This domain is for use in documentation examples without needing permission. Avoid use in operations."
+    },
+    "topResources": [
+      {
+        "url": "https://example.com/favicon.ico",
+        "type": "image",
+        "status": 404,
+        "kb": 0.6,
+        "duration": 34,
+        "protocol": "h2",
+        "cacheControl": ""
+      }
+    ],
+    "slowResources": [
+      {
+        "url": "https://example.com/favicon.ico",
+        "type": "image",
+        "status": 404,
+        "kb": 0.6,
+        "duration": 34,
+        "protocol": "h2",
+        "cacheControl": ""
+      }
+    ],
+    "renderBlocking": [],
+    "thirdPartyOrigins": [],
+    "statusProblems": [
+      {
+        "url": "https://example.com/favicon.ico",
+        "type": "image",
+        "status": 404,
+        "kb": 0.6,
+        "duration": 34,
+        "protocol": "h2",
+        "cacheControl": ""
+      }
+    ],
+    "longTasksTop": [],
+    "failedRequests": [],
+    "consoleMessages": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 ()"
+      }
+    ],
+    "seo": {
+      "finalUrl": "https://example.com/",
+      "lang": "en",
+      "title": "Example Domain",
+      "titleLength": 14,
+      "description": "",
+      "descriptionLength": 0,
+      "canonical": "",
+      "robots": "",
+      "viewport": "width=device-width, initial-scale=1",
+      "h1Count": 1,
+      "h1Texts": [
+        "Example Domain"
+      ],
+      "imageCount": 0,
+      "imagesMissingAlt": 0,
+      "internalLinks": 0,
+      "externalLinks": 1,
+      "jsonLdCount": 0,
+      "jsonLdTypes": [],
+      "jsonLdErrors": [],
+      "domNodes": 11
+    },
+    "security": {
+      "https": true,
+      "hsts": false,
+      "csp": false,
+      "xContentTypeOptions": false,
+      "referrerPolicy": false,
+      "permissionsPolicy": false,
+      "clickjackingProtection": false,
+      "compression": "br",
+      "cacheControl": ""
+    }
+  },
+  "plainLanguage": {
+    "headline": "Strona dziala, ale sa 2 rzeczy do poprawy w budzecie.",
+    "verdict": [
+      "LCP p75: 988 ms (dobrze)",
+      "CLS p75: 0.000 (dobrze)",
+      "TTFB p75: 25 ms (dobrze)",
+      "TBT* p75: 0 ms (dobrze)",
+      "Transfer p75: 1.2 KB",
+      "Requesty p75: 2"
+    ],
+    "good": [
+      "Najwiekszy widoczny element strony pojawia sie szybko: 988 ms.",
+      "Strona prawie nie skacze podczas ladowania: CLS 0.000.",
+      "Przegladarka nie jest dlugo blokowana JavaScriptem: TBT* 0 ms.",
+      "Calkowity transfer jest jeszcze rozsadny: 1.2 KB."
+    ],
+    "problems": [
+      "requireMetaDescription: false / limit true - Brakuje opisu strony dla Google.",
+      "requireCanonical: false / limit true - Brakuje canonical URL, czyli informacji ktory adres jest glowna wersja strony.",
+      "minMetaDescriptionLength: 0 / limit 70 - Opis dla Google jest za krotki."
+    ],
+    "nextActions": [
+      "Dodaj meta description: to jest opis pod tytulem w Google. Bez tego Google sam zgaduje opis strony.",
+      "Najwiekszy pojedynczy zasob w tym pomiarze: image, 0.6 KB. URL: https://example.com/favicon.ico"
+    ],
+    "dictionary": [
+      "LCP = kiedy uzytkownik widzi najwiekszy wazny element strony, zwykle hero, naglowek albo duzy obraz.",
+      "CLS = czy strona skacze podczas ladowania. Nisko znaczy stabilnie.",
+      "TTFB = ile czekamy na pierwszy bajt z serwera. Wysoko znaczy problem z hostingiem, backendem albo CDN.",
+      "TBT* = ile JavaScript blokuje przegladarke w labie. To przyblizenie responsywnosci, nie oficjalny INP.",
+      "p75 = wynik, ktory jest lepszy dla 75% pomiarow. Google patrzy podobnie na dane terenowe."
+    ]
+  },
+  "samples": [
+    {
+      "runIndex": 1,
+      "error": null,
+      "screenshot": null,
+      "main": {
+        "url": "https://example.com/",
+        "status": 200,
+        "headers": {
+          "age": "9248",
+          "allow": "GET, HEAD",
+          "cf-cache-status": "HIT",
+          "cf-ray": "9ff41d1ec9bdc4fa-WAW",
+          "content-encoding": "br",
+          "content-type": "text/html",
+          "date": "Thu, 21 May 2026 14:01:33 GMT",
+          "last-modified": "Thu, 14 May 2026 05:31:28 GMT",
+          "server": "cloudflare"
+        },
+        "fromCache": false,
+        "fromServiceWorker": false
+      },
+      "metrics": {
+        "lcp": 988.1000000238419,
+        "cls": 0,
+        "fcp": 988.1000000238419,
+        "fp": 988.1000000238419,
+        "observedInp": null,
+        "tbtProxy": 0,
+        "ttfb": 24.80000001192093,
+        "dns": 11.199999988079071,
+        "tcp": 47.5,
+        "tls": 35.69999998807907,
+        "request": 24.80000001192093,
+        "response": 6.900000035762787,
+        "domContentLoaded": 157.60000002384186,
+        "load": 158,
+        "wallClockMs": 2215,
+        "totalTransferKB": 1.16796875,
+        "totalDecodedKB": 1.099609375,
+        "resourceCount": 2,
+        "scriptKB": 0,
+        "stylesheetKB": 0,
+        "imageKB": 0.583984375,
+        "fontKB": 0,
+        "fetchKB": 0,
+        "thirdPartyKB": 0
+      },
+      "lcpElement": {
+        "value": 988.1000000238419,
+        "renderTime": 988.1000000238419,
+        "loadTime": 0,
+        "size": 15644,
+        "url": null,
+        "tagName": "P",
+        "selector": "html > body > div > p:nth-of-type(1)",
+        "text": "This domain is for use in documentation examples without needing permission. Avoid use in operations."
+      },
+      "clsShifts": [],
+      "longTasks": [],
+      "observedInp": null,
+      "resources": [
+        {
+          "name": "https://example.com/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 175.5,
+          "duration": 33.700000047683716,
+          "transferSize": 598,
+          "encodedBodySize": 298,
+          "decodedBodySize": 528,
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "responseEnd": 209.20000004768372,
+          "type": "image",
+          "status": 404,
+          "mimeType": "text/html",
+          "protocol": "h2",
+          "transferKB": 0.583984375,
+          "decodedKB": 0.515625,
+          "origin": "https://example.com",
+          "isThirdParty": false,
+          "cacheControl": "",
+          "contentEncoding": "br"
+        }
+      ],
+      "resourceGroups": {
+        "byType": {
+          "document": {
+            "count": 1,
+            "kb": 0.583984375,
+            "decodedKB": 0
+          },
+          "script": {
+            "count": 0,
+            "kb": 0,
+            "decodedKB": 0
+          },
+          "stylesheet": {
+            "count": 0,
+            "kb": 0,
+            "decodedKB": 0
+          },
+          "image": {
+            "count": 1,
+            "kb": 0.583984375,
+            "decodedKB": 0.515625
+          },
+          "font": {
+            "count": 0,
+            "kb": 0,
+            "decodedKB": 0
+          },
+          "fetch": {
+            "count": 0,
+            "kb": 0,
+            "decodedKB": 0
+          },
+          "other": {
+            "count": 0,
+            "kb": 0,
+            "decodedKB": 0
+          }
+        },
+        "byOrigin": [
+          {
+            "origin": "https://example.com",
+            "count": 1,
+            "kb": 0.583984375
+          }
+        ],
+        "totalTransferKB": 1.16796875,
+        "totalDecodedKB": 1.099609375,
+        "thirdPartyKB": 0
+      },
+      "seo": {
+        "finalUrl": "https://example.com/",
+        "lang": "en",
+        "title": "Example Domain",
+        "titleLength": 14,
+        "description": "",
+        "descriptionLength": 0,
+        "canonical": "",
+        "robots": "",
+        "viewport": "width=device-width, initial-scale=1",
+        "h1Count": 1,
+        "h1Texts": [
+          "Example Domain"
+        ],
+        "imageCount": 0,
+        "imagesMissingAlt": 0,
+        "internalLinks": 0,
+        "externalLinks": 1,
+        "jsonLdCount": 0,
+        "jsonLdTypes": [],
+        "jsonLdErrors": [],
+        "domNodes": 11
+      },
+      "security": {
+        "https": true,
+        "hsts": false,
+        "csp": false,
+        "xContentTypeOptions": false,
+        "referrerPolicy": false,
+        "permissionsPolicy": false,
+        "clickjackingProtection": false,
+        "compression": "br",
+        "cacheControl": ""
+      },
+      "pageMetrics": {
+        "Timestamp": 456442.242885,
+        "Documents": 4,
+        "Frames": 2,
+        "JSEventListeners": 0,
+        "Nodes": 31,
+        "LayoutCount": 3,
+        "RecalcStyleCount": 3,
+        "LayoutDuration": 0.034263,
+        "RecalcStyleDuration": 0.000695,
+        "ScriptDuration": 0.001188,
+        "TaskDuration": 0.114949,
+        "JSHeapUsedSize": 1147304,
+        "JSHeapTotalSize": 2510848
+      },
+      "failedRequests": [],
+      "consoleMessages": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 ()"
+        }
+      ]
+    }
+  ]
+}

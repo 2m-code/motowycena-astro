@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+import ImageGallery from '@components/sections/ImageGallery.astro';
+
+const heroLead = 'Wsparcie ekspertyzowe w sprawach sądowych, odszkodowawczych i konsumenckich dotyczących pojazdów. Współpraca z kancelariami prawnymi.';
+const introParagraph = 'Pomoc prawna w sprawach motoryzacyjnych obejmuje sporządzanie ekspertyz na potrzeby postępowań sądowych, odszkodowawczych i konsumenckich. Współpracujemy z kancelariami prawnymi w całej Polsce oraz reprezentujemy interesy klientów indywidualnych w sporach z ubezpieczycielami, dealerami i sprzedającymi. Każda ekspertyza może być wykorzystana jako materiał dowodowy w postępowaniu sądowym lub w negocjacjach pozasądowych.';
+const benefits = [
+  'Ekspertyzy na potrzeby procesów sądowych (cywilnych i karnych)',
+  'Wsparcie w sporach z ubezpieczycielem (OC, AC, NW)',
+  'Reklamacje pojazdów nowych i używanych (rękojmia, gwarancja)',
+  'Współpraca z kancelariami prawnymi w całej Polsce',
+  'Reprezentacja w postępowaniach skarbowych i celno-skarbowych',
+  'Konsultacje wstępne przed wystąpieniem na drogę sądową',
+];
+
+const processSteps = [
+  { title: 'Konsultacja', description: 'Bezpłatna analiza sprawy – ocena szans i zakresu potrzebnej ekspertyzy.' },
+  { title: 'Dokumenty', description: 'Przekazujesz dokumenty (kosztorysy, faktury, korespondencję z ubezpieczycielem).' },
+  { title: 'Ekspertyza', description: 'Sporządzamy ekspertyzę z konkretnymi wnioskami i wyliczeniami.' },
+  { title: 'Reprezentacja', description: 'W razie potrzeby wspieramy w korespondencji z drugą stroną i stawiamy się na rozprawach.' },
+];
+
+const faq = [
+  {
+    question: 'Co konkretnie mogę zyskać dzięki ekspertyzie rzeczoznawcy?',
+    answer: 'Najczęściej: dochodzenie pełnego odszkodowania (typowe zaniżenie OC to 20–50%), wycofanie reklamowanego pojazdu, wygranie sporu z dealerem o ukryte wady, obniżenie zobowiązań skarbowych. Ekspertyza to dokument który ma realną wagę w postępowaniach.',
+  },
+  {
+    question: 'Czy współpracujecie z kancelariami prawnymi?',
+    answer: 'Tak, regularnie. Sporządzamy ekspertyzy na zlecenie kancelarii dla ich klientów, a także uczestniczymy jako biegły w prowadzonych przez nie postępowaniach.',
+  },
+  {
+    question: 'Czy muszę mieć już prawnika żeby skorzystać z waszej pomocy?',
+    answer: 'Nie. Część spraw można rozwiązać pozasądowo, sama ekspertyza często wystarcza do uzyskania dopłaty od ubezpieczyciela. W razie potrzeby polecimy sprawdzoną kancelarię prawną.',
+  },
+  {
+    question: 'Ile kosztuje pomoc prawna w sprawie motoryzacyjnej?',
+    answer: 'Sama ekspertyza to koszt 400–1500 zł zależnie od skomplikowania. Konsultacja wstępna jest bezpłatna. Koszt prawnika ustalany jest indywidualnie z kancelarią.',
+  },
+];
+---
+
+<BaseLayout
+  title="Pomoc prawna w sprawach motoryzacyjnych – Rzeczoznawca"
+  description="Profesjonalne wsparcie ekspertyzowe w sprawach sądowych, odszkodowawczych i konsumenckich. Współpraca z kancelariami prawnymi w całej Polsce."
+  keywords={['pomoc prawna motoryzacja', 'odszkodowanie OC', 'sprawa sądowa pojazd', 'reklamacja samochodu']}
+>
+  <ServicePageTemplate
+    serviceSlug="pomoc-prawna"
+    serviceName="Pomoc prawna"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="400-1500 PLN"
+  >
+    <ImageGallery
+      slot="extra-content"
+      images={[
+        { src: '/uploads/services/pomoc-prawna.jpg', alt: 'Dokumenty sprawy prawnej dotyczącej pojazdu' },
+      ]}
+    />
+  </ServicePageTemplate>
+</BaseLayout>

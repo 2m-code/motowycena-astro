@@ -1,0 +1,80 @@
+---
+// ⚠️ UWAGA: URL zawiera "-2" celowo - tak jest na obecnej stronie motowycena.pl
+// NIE zmieniamy slug żeby nie stracić pozycji w Google!
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+
+const heroLead = 'Wyceny, ekspertyzy i opisy stanu technicznego pojazdów zabytkowych oraz młodzieżowych (youngtimer). Specjalistyczne podejście do kolekcjonerskich aut.';
+const introParagraph = 'Wycena pojazdów zabytkowych wymaga specjalistycznej wiedzy o rynku kolekcjonerskim, oryginalności podzespołów oraz historii konkretnego egzemplarza. Wykonujemy wyceny dla celów ubezpieczeniowych, podatkowych, spadkowych i kolekcjonerskich. Specjalizujemy się w pojazdach historycznych (>30 lat) oraz młodzieżowych (youngtimer, 20-30 lat). Każda wycena uwzględnia oryginalność, stan zachowania, historię oraz aktualną sytuację rynkową.';
+const benefits = [
+  'Znajomość rynku kolekcjonerskiego (aukcje, kluby, fora)',
+  'Weryfikacja oryginalności podzespołów (numerów silnika, ramy, VIN)',
+  'Dokumentacja stanu i historii pojazdu',
+  'Wyceny dla celów ubezpieczeniowych (Allianz, PZU, Concordia)',
+  'Doradztwo przy rejestracji jako zabytek (białe tablice)',
+  'Wsparcie przy aukcjach krajowych i międzynarodowych',
+];
+
+const processSteps = [
+  { title: 'Wywiad', description: 'Rozmowa o pojeździe – historia, posiadane dokumenty, cel wyceny.' },
+  { title: 'Oględziny', description: 'Pełne oględziny pojazdu, weryfikacja numerów, ocena oryginalności.' },
+  { title: 'Analiza rynku', description: 'Porównanie z transakcjami na aukcjach krajowych i międzynarodowych.' },
+  { title: 'Wycena', description: 'Sporządzamy raport zawierający wycenę, opis stanu i rekomendacje.' },
+];
+
+const faq = [
+  {
+    question: 'Czym różni się wycena pojazdu zabytkowego od zwykłej wyceny?',
+    answer: 'Pojazd zabytkowy ma wartość kolekcjonerską która często nie ma nic wspólnego z wartością "samochodu używanego". Liczy się oryginalność, historia, znanie pochodzenia (provenience), rzadkość modelu. Wycena bazuje na transakcjach aukcyjnych i wiedzy o rynku kolekcjonerskim.',
+  },
+  {
+    question: 'Czy wykonujecie wyceny do polisy kolekcjonerskiej?',
+    answer: 'Tak. Współpracujemy z Allianz, PZU, Concordia i innymi towarzystwami oferującymi polisy dla zabytków. Wycena jest akceptowana jako podstawa sumy ubezpieczenia.',
+  },
+  {
+    question: 'Mam auto powyżej 30 lat – jakie warunki muszę spełnić żeby zarejestrować je jako zabytek?',
+    answer: 'Pojazd musi mieć co najmniej 30 lat, być w stanie zgodnym z oryginałem i posiadać atestację rzeczoznawcy. Sporządzamy dokumenty wymagane do rejestracji na białych tablicach i pomagamy w procedurze.',
+  },
+  {
+    question: 'Czy obsługujecie również youngtimery (auta z lat 90./2000.)?',
+    answer: 'Tak. Youngtimer to bardzo dynamiczny rynek – wykonujemy wyceny dla zarówno kolekcjonerów inwestujących w przyszłe zabytki, jak i dla osób sprzedających/kupujących takie pojazdy.',
+  },
+];
+---
+
+<BaseLayout
+  title="Wycena pojazdów zabytkowych i youngtimer"
+  description="Profesjonalne wyceny pojazdów zabytkowych i youngtimer przez certyfikowanego rzeczoznawcę. Akceptacja przez ubezpieczycieli kolekcjonerskich. Pełna dokumentacja."
+  keywords={['wycena zabytku', 'pojazd historyczny', 'youngtimer', 'rzeczoznawca auta zabytkowe']}
+>
+  <ServicePageTemplate
+    serviceSlug="pojazdy-zabytkowe-2"
+    serviceName="Pojazdy zabytkowe"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="500-2000 PLN"
+  >
+    <Fragment slot="extra-content">
+      <div class="mt-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
+        <h3 class="font-bold text-gray-900 mb-4">Kryteria pojazdu zabytkowego</h3>
+        <ul class="space-y-2 text-gray-700">
+          <li>Najczęściej wymagany jest wiek minimum 25 lat i zakończenie produkcji modelu co najmniej 15 lat temu.</li>
+          <li>Istotny jest wysoki udział zachowanych oryginalnych części, zwłaszcza głównych podzespołów.</li>
+          <li>Młodszy egzemplarz może zostać uznany za zabytkowy, jeśli jest unikalny, historycznie ważny lub dokumentuje rozwój techniki.</li>
+        </ul>
+      </div>
+      <div class="mt-6 rounded-xl border border-brand-100 bg-brand-50 p-6">
+        <h3 class="font-bold text-brand-900 mb-3">Dokumenty do WUOZ i zwolnienie z akcyzy</h3>
+        <p class="text-gray-700 leading-relaxed">
+          Przygotowujemy dokumentację do WUOZ, czyli urzędu pod nazwą Wojewódzki Urząd Ochrony Zabytków,
+          w tym dokument określany jako biała karta
+          i opinię dla konserwatora. Pomagamy też przy dokumentach potrzebnych do zwolnienia
+          pojazdu historycznego z akcyzy.
+        </p>
+      </div>
+    </Fragment>
+  </ServicePageTemplate>
+</BaseLayout>

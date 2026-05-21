@@ -1,0 +1,36 @@
+{
+  "metrics": {
+    "lcpP75": 2500,
+    "clsP75": 0.1,
+    "fcpP75": 1800,
+    "ttfbP75": 800,
+    "tbtProxyP75": 200,
+    "loadP75": 5000
+  },
+  "resources": {
+    "totalTransferKBP75": 750,
+    "scriptKBP75": 180,
+    "stylesheetKBP75": 100,
+    "imageKBP75": 450,
+    "fontKBP75": 120,
+    "thirdPartyKBP75": 250,
+    "resourceCountP75": 70
+  },
+  "seo": {
+    "requireTitle": true,
+    "maxTitleLength": 65,
+    "requireMetaDescription": true,
+    "minMetaDescriptionLength": 70,
+    "maxMetaDescriptionLength": 170,
+    "requireExactlyOneH1": true,
+    "requireCanonical": true,
+    "maxImagesMissingAlt": 0
+  },
+  "security": {
+    "requireHttps": true,
+    "requireHsts": true,
+    "requireCsp": false,
+    "requireXContentTypeOptions": true,
+    "requireReferrerPolicy": true
+  }
+}

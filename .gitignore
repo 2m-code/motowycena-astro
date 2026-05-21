@@ -1,0 +1,42 @@
+# Build output
+app/dist/
+app/.astro/
+app/.wrangler/
+
+# Dependencies
+**/node_modules/
+
+# Env (sekrety!)
+**/.env
+**/.env.local
+**/.env.*.local
+!**/.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Claude / local tooling
+.claude/
+**/.claude/
+memory/
+
+# Python (z generate-pdf.py)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Misc
+*.tmp
+*.swp

@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+
+const heroLead = 'Ekspertyzy zmian konstrukcyjnych pojazdów – dokumenty wymagane do rejestracji modyfikacji w wydziale komunikacji.';
+const introParagraph = 'Każda istotna zmiana konstrukcyjna pojazdu (zabudowa, instalacja gazowa, hak holowniczy, zmiana napędu, zmiany w nadwoziu) wymaga ekspertyzy rzeczoznawcy oraz wpisu w dowodzie rejestracyjnym. Wykonujemy pełną dokumentację techniczną akceptowaną w wydziale komunikacji w całej Polsce. Każda ekspertyza zawiera ocenę zgodności z przepisami homologacyjnymi i wskazania dla wydziału komunikacji.';
+const benefits = [
+  'Dokumenty akceptowane w wydziale komunikacji w całej Polsce',
+  'Doradztwo przed wykonaniem zmian (uniknięcie błędów)',
+  'Pełna dokumentacja techniczna z opisem zmiany',
+  'Pomoc w procedurze rejestracji modyfikacji',
+  'Doświadczenie z różnymi typami zmian (zabudowy, gaz, hak, napęd)',
+  'Termin realizacji 3–7 dni',
+];
+
+const processSteps = [
+  { title: 'Konsultacja', description: 'Opisujesz planowaną/wykonaną zmianę, otrzymujesz ofertę i czas realizacji.' },
+  { title: 'Oględziny', description: 'Sprawdzamy pojazd po wykonaniu zmiany – dokumentacja zdjęciowa i pomiary.' },
+  { title: 'Ekspertyza', description: 'Sporządzamy dokumentację techniczną i ocenę zgodności ze przepisami homologacyjnymi.' },
+  { title: 'Rejestracja', description: 'Z dokumentem idziesz do wydziału komunikacji żeby uzyskać wpis w dowodzie rejestracyjnym.' },
+];
+
+const faq = [
+  {
+    question: 'Jakie zmiany wymagają ekspertyzy rzeczoznawcy?',
+    answer: 'Najczęściej: instalacja gazowa LPG/CNG, hak holowniczy, zmiana zabudowy (np. z osobowego na ciężarowy), zmiana napędu (np. konwersja na elektryczny), zmiany w nadwoziu (dach panoramiczny, soft-top), zmiana liczby miejsc.',
+  },
+  {
+    question: 'Mogę zrobić ekspertyzę PRZED wykonaniem zmiany żeby uniknąć błędów?',
+    answer: 'Tak, gorąco polecamy. Konsultacja przed-modyfikacyjna pozwala uniknąć kosztownych błędów (np. zmian niespełniających wymogów homologacyjnych, których wydział komunikacji nie zarejestruje).',
+  },
+  {
+    question: 'Czy każdy wydział komunikacji akceptuje wasze ekspertyzy?',
+    answer: 'Tak. Ekspertyza sporządzona przez rzeczoznawcę z certyfikatem (RS001771) jest dokumentem urzędowym akceptowanym w wydziałach komunikacji w całej Polsce.',
+  },
+  {
+    question: 'Ile trwa cała procedura zmiany konstrukcyjnej?',
+    answer: 'Sama ekspertyza to 3–7 dni. Wpis w wydziale komunikacji trwa zwykle do 14 dni. Łącznie 2–3 tygodnie od oględzin do nowego dowodu rejestracyjnego.',
+  },
+];
+---
+
+<BaseLayout
+  title="Zmiany konstrukcyjne pojazdu – Ekspertyza rzeczoznawcy"
+  description="Ekspertyzy zmian konstrukcyjnych pojazdów do rejestracji w wydziale komunikacji. Hak, gaz, zabudowa, zmiana napędu. Certyfikowany rzeczoznawca (RS001771)."
+  keywords={['zmiany konstrukcyjne', 'zmiana zabudowy', 'rejestracja po przeróbce', 'ekspertyza zmiany']}
+>
+  <ServicePageTemplate
+    serviceSlug="zmiany-konstrukcyjne"
+    serviceName="Zmiany konstrukcyjne"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="400-1500 PLN"
+  />
+</BaseLayout>

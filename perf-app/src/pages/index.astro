@@ -1,0 +1,41 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import AuditForm from '@components/AuditForm.tsx';
+---
+
+<Layout title="Perf Audit – Nowy pomiar">
+  <section class="mb-8">
+    <h1 class="text-3xl font-bold mb-2">⚡ Performance Audit</h1>
+    <p class="text-gray-600 max-w-2xl">
+      Własne narzędzie do mierzenia wydajności strony. Headless Chrome,
+      PerformanceObserver API, throttling jak w Lighthouse. Bez AI,
+      bez cloud APIs - tylko Puppeteer na twojej maszynie.
+    </p>
+  </section>
+
+  <AuditForm client:load />
+
+  <section class="mt-10 grid sm:grid-cols-3 gap-4 text-sm">
+    <div class="bg-white rounded-lg border border-gray-200 p-4">
+      <h3 class="font-semibold mb-1">Co mierzymy</h3>
+      <p class="text-gray-600">
+        LCP, CLS (session window), FCP, TTFB, TBT proxy, transfer size,
+        long tasks, resource breakdown, security headers.
+      </p>
+    </div>
+    <div class="bg-white rounded-lg border border-gray-200 p-4">
+      <h3 class="font-semibold mb-1">Statystyki</h3>
+      <p class="text-gray-600">
+        Wiele runów per URL, percentyle p50/p75/p95, verdict
+        (good/needs-work/poor) wg progów Google Core Web Vitals.
+      </p>
+    </div>
+    <div class="bg-white rounded-lg border border-gray-200 p-4">
+      <h3 class="font-semibold mb-1">Live progress</h3>
+      <p class="text-gray-600">
+        Server-Sent Events streamują wyniki każdego runu na żywo.
+        Możesz patrzeć jak liczby się pojawiają.
+      </p>
+    </div>
+  </section>
+</Layout>

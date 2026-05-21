@@ -1,0 +1,19 @@
+{
+  "name": "motowycena-perf-tool",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "simple": "node 01-simple-lighthouse.mjs",
+    "custom": "node 02-puppeteer-custom.mjs",
+    "batch": "node 03-batch-stats.mjs",
+    "compare": "node 04-compare-sites.mjs",
+    "audit": "node 05-advanced-audit.mjs",
+    "server": "node server.mjs"
+  },
+  "dependencies": {
+    "lighthouse": "^12.3.0",
+    "puppeteer": "^23.10.0",
+    "chrome-launcher": "^1.1.2"
+  }
+}

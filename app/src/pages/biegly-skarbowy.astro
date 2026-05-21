@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+
+const heroLead = 'Usługi biegłego skarbowego z zakresu techniki samochodowej. Opinie na potrzeby postępowań skarbowych i celno-skarbowych.';
+const introParagraph = 'Biegły skarbowy to specjalista powoływany przez organy podatkowe lub celno-skarbowe (UCS) do oceny technicznej oraz wyceny pojazdów. Sporządzamy opinie wykorzystywane w postępowaniach kontrolnych, sprawach akcyzowych, podatku VAT od pojazdów oraz przy ustalaniu wartości środków trwałych. Każda opinia bazuje na obowiązującej metodologii i jest akceptowana przez organy skarbowe w całej Polsce.';
+const benefits = [
+  'Doświadczenie w postępowaniach skarbowych i celno-skarbowych',
+  'Opinie akceptowane przez urzędy w całej Polsce',
+  'Specjalizacja: akcyza, VAT, podatek od środków trwałych',
+  'Współpraca z kancelariami podatkowymi i biurami rachunkowymi',
+  'Pomoc w wyjaśnieniach z urzędem (w razie zastrzeżeń)',
+  'Certyfikat RS001771 – rzeczoznawca z uprawnieniami',
+];
+
+const processSteps = [
+  { title: 'Zlecenie', description: 'Otrzymujemy dane pojazdu i dokumenty (faktura, dokumenty z zagranicy, decyzje urzędu).' },
+  { title: 'Analiza', description: 'Sprawdzamy dane techniczne pojazdu, jego historię i wymogi konkretnego organu skarbowego.' },
+  { title: 'Wycena', description: 'Sporządzamy opinię/wycenę zgodną z metodologią akceptowaną przez organy skarbowe.' },
+  { title: 'Wsparcie', description: 'W razie potrzeby reagujemy na pytania urzędu i bronimy wniosków zawartych w opinii.' },
+];
+
+const faq = [
+  {
+    question: 'Czy moja opinia będzie zaakceptowana przez urząd skarbowy?',
+    answer: 'Tak. Opinie sporządzane są zgodnie z metodologią akceptowaną przez urzędy skarbowe i celno-skarbowe. W praktyce nie odnotowaliśmy odrzucenia opinii w UCS.',
+  },
+  {
+    question: 'Czy występujecie przed organem podatkowym jako biegły?',
+    answer: 'Tak. Możemy stawiać się w urzędzie skarbowym lub UCS w charakterze biegłego, składając wyjaśnienia do sporządzonej opinii.',
+  },
+  {
+    question: 'Ile kosztuje opinia biegłego skarbowego?',
+    answer: 'Standardowa opinia kosztuje 400–1500 zł w zależności od skomplikowania sprawy i objętości materiału. Dokładną wycenę otrzymasz po analizie sprawy.',
+  },
+  {
+    question: 'Sprowadziłem auto z USA – czy mogę zlecić wycenę do akcyzy?',
+    answer: 'Tak. To jeden z naszych głównych obszarów specjalizacji – wyceny pojazdów sprowadzanych z zagranicy do celów naliczenia akcyzy.',
+  },
+];
+---
+
+<BaseLayout
+  title="Biegły Skarbowy – Rzeczoznawca techniki samochodowej"
+  description="Usługi biegłego skarbowego z zakresu techniki samochodowej. Opinie na potrzeby postępowań skarbowych, akcyzowych i VAT. Certyfikat RS001771."
+  keywords={['biegły skarbowy', 'rzeczoznawca skarbowy', 'wycena do skarbówki', 'opinia biegłego skarbowego']}
+>
+  <ServicePageTemplate
+    serviceSlug="biegly-skarbowy"
+    serviceName="Biegły Skarbowy"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="400-1500 PLN"
+  />
+</BaseLayout>

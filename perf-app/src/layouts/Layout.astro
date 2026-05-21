@@ -1,0 +1,43 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Performance audit tool' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="min-h-screen bg-gray-50 text-gray-900">
+    <header class="bg-white border-b border-gray-200">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="/" class="font-bold text-lg text-brand-600 hover:text-brand-700">
+          ⚡ Perf Audit
+        </a>
+        <nav class="flex gap-1 text-sm">
+          <a href="/" class="px-3 py-1.5 rounded hover:bg-gray-100">Nowy audit</a>
+          <a href="/reports/" class="px-3 py-1.5 rounded hover:bg-gray-100">Historia</a>
+          <a href="/about/" class="px-3 py-1.5 rounded hover:bg-gray-100">Jak to działa</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+
+    <footer class="max-w-6xl mx-auto px-4 py-6 text-center text-xs text-gray-500">
+      Astro + Puppeteer + Chrome DevTools Protocol. Bez AI. Open source. Tylko twoja maszyna i Chromium.
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+---
+/**
+ * Custom 404 - Astro generuje to przy `output: 'static'` jako `dist/404.html`,
+ * a Cloudflare Pages automatycznie serwuje ten plik dla nieistniejących ścieżek.
+ *
+ * Strategia: konwersyjna, nie tylko "nie znaleziono".
+ *   - jasny komunikat
+ *   - linki do najważniejszych usług
+ *   - CTA telefon i WhatsApp (na wypadek gdyby ktoś szukał konkretnej informacji)
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { business, services, serviceUrl } from '@data/business';
+import { Phone, MessageCircle, Home, Search } from 'lucide-react';
+---
+
+<BaseLayout
+  title="Strona nie istnieje (404)"
+  description="Strona o tym adresie nie istnieje. Wybierz interesującą Cię usługę z listy lub skontaktuj się bezpośrednio."
+  noindex={true}
+>
+  <section class="min-h-[60vh] bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500 text-white flex items-center">
+    <div class="container mx-auto px-4 max-w-3xl py-16 text-center">
+      <p class="text-brand-100 text-6xl md:text-8xl font-black mb-4 tracking-tight" aria-hidden="true">404</p>
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">Strona, której szukasz, nie istnieje</h1>
+      <p class="text-brand-50 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+        Adres mógł zostać przeniesiony lub wpisany z literówką. Skorzystaj z linków poniżej
+        albo zadzwoń – zazwyczaj odpowiadam w ciągu kilku minut.
+      </p>
+
+      <div class="flex flex-wrap gap-3 justify-center mb-12">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
+        >
+          <Home size={18} aria-hidden="true" />
+          Strona główna
+        </a>
+        <a
+          href={`tel:${business.contact.phone}`}
+          class="inline-flex items-center gap-2 bg-brand-600/40 hover:bg-brand-600/60 backdrop-blur text-white border border-white/30 font-semibold px-6 py-3 rounded-lg transition"
+        >
+          <Phone size={18} aria-hidden="true" />
+          {business.contact.phoneDisplay}
+        </a>
+        <a
+          href={`https://wa.me/${business.contact.whatsapp.replace(/[^0-9]/g, '')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg transition"
+        >
+          <MessageCircle size={18} aria-hidden="true" />
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <h2 class="text-2xl md:text-3xl font-bold mb-3 text-center">
+        Może szukasz jednej z naszych usług?
+      </h2>
+      <p class="text-gray-600 text-center mb-10 max-w-2xl mx-auto flex items-center justify-center gap-2">
+        <Search size={18} className="text-brand-600" aria-hidden="true" />
+        Pełna lista usług rzeczoznawcy techniki samochodowej:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {services.map((s) => (
+          <a
+            href={serviceUrl(s.slug)}
+            class="block bg-white border border-gray-200 hover:border-brand-500 rounded-xl p-5 transition shadow-sm hover:shadow-md group"
+          >
+            <h3 class="font-semibold mb-2 group-hover:text-brand-700 transition">
+              {s.name}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{s.shortDesc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

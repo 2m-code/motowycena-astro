@@ -1,0 +1,196 @@
+---
+import SchemaService from '@components/seo/SchemaService.astro';
+import SchemaBreadcrumb from '@components/seo/SchemaBreadcrumb.astro';
+import SchemaFAQ from '@components/seo/SchemaFAQ.astro';
+import { business, services, serviceUrl } from '@data/business';
+import { Phone, MessageCircle, CheckCircle2 } from 'lucide-react';
+
+/**
+ * Wspólny template dla wszystkich stron usług.
+ * Każda strona usługi przekazuje swoje dane - reszta jest spójna.
+ * Korzyść: jedna zmiana designu = wszystkie strony usług zmienione.
+ */
+export interface FAQEntry {
+  question: string;
+  answer: string;
+}
+
+export interface Props {
+  serviceSlug: string;
+  serviceName: string;
+  heroLead: string;
+  introParagraph: string;
+  benefits: string[];
+  processSteps?: { title: string; description: string }[];
+  faq?: FAQEntry[];
+  priceRange?: string;
+}
+
+const {
+  serviceSlug,
+  serviceName,
+  heroLead,
+  introParagraph,
+  benefits,
+  processSteps,
+  faq,
+  priceRange,
+} = Astro.props;
+
+const otherServices = services.filter((s) => s.slug !== serviceSlug).slice(0, 3);
+const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
+---
+
+<SchemaService
+  name={serviceName}
+  description={introParagraph}
+  url={pageUrl}
+  priceRange={priceRange}
+/>
+<SchemaBreadcrumb
+  items={[
+    { name: 'Strona główna', url: `${business.url}/` },
+    { name: 'Usługi', url: `${business.url}/#uslugi` },
+    { name: serviceName, url: pageUrl },
+  ]}
+/>
+{faq && faq.length > 0 && <SchemaFAQ items={faq} />}
+
+<!-- HERO -->
+<section class="bg-gradient-to-br from-brand-900 to-brand-700 text-white py-16 lg:py-20">
+  <div class="container mx-auto px-4 max-w-5xl">
+    <nav aria-label="okruszki" class="text-sm text-brand-100 mb-4">
+      <a href="/" class="hover:underline">Strona główna</a>
+      <span class="mx-2">/</span>
+      <span>{serviceName}</span>
+    </nav>
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">{serviceName}</h1>
+    <p class="text-lg md:text-xl text-brand-50 leading-relaxed max-w-3xl">{heroLead}</p>
+
+    <div class="flex flex-wrap gap-3 mt-8">
+      <a
+        href={`tel:${business.contact.phone}`}
+        class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-5 py-2.5 rounded-lg transition"
+      >
+        <Phone size={16} aria-hidden="true" />
+        {business.contact.phoneDisplay}
+      </a>
+      <a
+        href="/kontakt/"
+        class="inline-flex items-center gap-2 bg-brand-600/40 hover:bg-brand-600/60 border border-white/30 backdrop-blur text-white font-semibold px-5 py-2.5 rounded-lg transition"
+      >
+        <MessageCircle size={16} aria-hidden="true" />
+        Wyślij zapytanie
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO + BENEFITS -->
+<section class="py-16">
+  <div class="container mx-auto px-4 max-w-5xl">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">Czym jest {serviceName.toLowerCase()}?</h2>
+        <p class="text-gray-700 text-lg leading-relaxed mb-6">{introParagraph}</p>
+
+        <slot name="extra-content" />
+      </div>
+
+      <aside class="lg:sticky lg:top-24 lg:self-start">
+        <div class="bg-brand-50 border border-brand-100 rounded-xl p-6">
+          <h3 class="font-bold text-brand-900 mb-4">Co zyskujesz</h3>
+          <ul class="space-y-3">
+            {benefits.map((benefit) => (
+              <li class="flex gap-2 text-sm">
+                <CheckCircle2 className="text-brand-600 flex-shrink-0 mt-0.5" size={18} aria-hidden="true" />
+                <span>{benefit}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS STEPS (opcjonalnie) -->
+{processSteps && processSteps.length > 0 && (
+  <section class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <h2 class="text-2xl md:text-3xl font-bold mb-10 text-center">Jak to działa</h2>
+      <ol class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {processSteps.map((step, idx) => (
+          <li class="bg-white rounded-xl p-6 shadow-sm">
+            <div class="w-10 h-10 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center mb-4">
+              {idx + 1}
+            </div>
+            <h3 class="font-semibold mb-2">{step.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+)}
+
+<!-- FAQ (opcjonalnie) -->
+{faq && faq.length > 0 && (
+  <section class="py-16">
+    <div class="container mx-auto px-4 max-w-3xl">
+      <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Najczęstsze pytania</h2>
+      <div class="space-y-3">
+        {faq.map((item) => (
+          <details class="group bg-gray-50 rounded-lg p-5 cursor-pointer">
+            <summary class="font-semibold list-none flex justify-between items-center">
+              {item.question}
+              <span class="text-brand-600 group-open:rotate-45 transition-transform text-xl">+</span>
+            </summary>
+            <p class="text-gray-700 mt-3 leading-relaxed">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- CROSS-LINK do innych usług (wewnętrzne linkowanie = SEO boost) -->
+<section class="bg-gray-50 py-16">
+  <div class="container mx-auto px-4 max-w-5xl">
+    <h2 class="text-2xl font-bold mb-8">Może Cię również zainteresować</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      {otherServices.map((s) => (
+        <a
+          href={serviceUrl(s.slug)}
+          class="block bg-white border border-gray-200 hover:border-brand-500 rounded-xl p-5 transition shadow-sm hover:shadow-md"
+        >
+          <h3 class="font-semibold mb-2">{s.name}</h3>
+          <p class="text-sm text-gray-600">{s.shortDesc}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="bg-brand-700 text-white py-16">
+  <div class="container mx-auto px-4 max-w-3xl text-center">
+    <h2 class="text-3xl font-bold mb-4">Potrzebujesz wyceny?</h2>
+    <p class="text-brand-100 mb-8 text-lg">Zadzwoń lub wyślij wiadomość – odpowiedź najczęściej w ciągu kilku godzin.</p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a
+        href={`tel:${business.contact.phone}`}
+        class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
+      >
+        <Phone size={18} aria-hidden="true" />
+        {business.contact.phoneDisplay}
+      </a>
+      <a
+        href="/kontakt/"
+        class="inline-flex items-center gap-2 bg-brand-800 hover:bg-brand-900 text-white font-semibold px-6 py-3 rounded-lg transition border border-white/20"
+      >
+        Formularz kontaktowy
+      </a>
+    </div>
+  </div>
+</section>

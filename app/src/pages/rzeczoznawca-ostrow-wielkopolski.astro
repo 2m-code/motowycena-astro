@@ -1,0 +1,229 @@
+---
+/**
+ * Local SEO landing page – Ostrów Wielkopolski (najbliższe miasto, priorytet #1).
+ *
+ * Siedziba klienta (Garki) leży w gminie Odolanów, powiat ostrowski - czyli to jest
+ * "miasto domowe" rzeczoznawcy. Targetujemy frazy:
+ *   - "rzeczoznawca samochodowy Ostrów Wielkopolski"
+ *   - "rzeczoznawca Ostrów Wlkp"
+ *   - "wycena auta Ostrów Wielkopolski"
+ *   - "biegły sądowy Ostrów"
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SchemaBreadcrumb from '@components/seo/SchemaBreadcrumb.astro';
+import { business, services, serviceUrl } from '@data/business';
+import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide-react';
+---
+
+<BaseLayout
+  title="Rzeczoznawca samochodowy Ostrów Wlkp. – Wyceny"
+  description="Certyfikowany rzeczoznawca samochodowy w Ostrowie Wielkopolskim. Wyceny pojazdów, ekspertyzy powypadkowe i celno-skarbowe z dojazdem."
+  keywords={[
+    'rzeczoznawca samochodowy ostrów wielkopolski',
+    'rzeczoznawca ostrów wlkp',
+    'wycena auta ostrów',
+    'biegły sądowy ostrów wielkopolski',
+    'ekspertyza pojazdu ostrów',
+    'wycena pojazdu powiat ostrowski',
+  ]}
+>
+  <SchemaBreadcrumb
+    items={[
+      { name: 'Strona główna', url: `${business.url}/` },
+      { name: 'Rzeczoznawca Ostrów Wielkopolski', url: `${business.url}/rzeczoznawca-ostrow-wielkopolski/` },
+    ]}
+  />
+
+  <!-- Dodatkowe Schema: Service z areaServed: City Ostrów Wlkp -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Wyceny i ekspertyzy pojazdów',
+    name: 'Rzeczoznawca samochodowy Ostrów Wielkopolski',
+    provider: { '@id': `${business.url}/#business` },
+    areaServed: {
+      '@type': 'City',
+      name: 'Ostrów Wielkopolski',
+      containedInPlace: { '@type': 'AdministrativeArea', name: 'Powiat ostrowski' },
+    },
+    url: `${business.url}/rzeczoznawca-ostrow-wielkopolski/`,
+  })} />
+
+  <!-- HERO -->
+  <section class="bg-gradient-to-br from-brand-900 to-brand-700 text-white py-16 lg:py-20">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <nav aria-label="okruszki" class="text-sm text-brand-100 mb-4">
+        <a href="/" class="hover:underline">Strona główna</a>
+        <span class="mx-2">/</span>
+        <span>Rzeczoznawca Ostrów Wielkopolski</span>
+      </nav>
+
+      <p class="text-brand-100 text-sm font-semibold uppercase tracking-wider mb-3">
+        Ostrów Wielkopolski i powiat ostrowski
+      </p>
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+        Rzeczoznawca samochodowy<br /> <span>Ostrów Wielkopolski</span>
+      </h1>
+      <p class="text-lg md:text-xl text-brand-50 leading-relaxed max-w-3xl mb-8">
+        Certyfikowany rzeczoznawca techniki samochodowej z siedzibą w okolicach Ostrowa
+        Wielkopolskiego. Wykonuję wyceny pojazdów, ekspertyzy powypadkowe oraz opinie
+        biegłego sądowego i skarbowego na terenie miasta i całego powiatu ostrowskiego.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <a
+          href={`tel:${business.contact.phone}`}
+          class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
+        >
+          <Phone size={18} aria-hidden="true" />
+          {business.contact.phoneDisplay}
+        </a>
+        <a
+          href={`https://wa.me/${business.contact.whatsapp.replace(/[^0-9]/g, '')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg transition"
+        >
+          <MessageCircle size={18} aria-hidden="true" />
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP STRIPE -->
+  <section class="bg-gray-50 border-y border-gray-200">
+    <div class="container mx-auto px-4 max-w-5xl py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex items-center gap-3">
+          <MapPin className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
+          <div>
+            <p class="font-semibold">Siedziba w powiecie</p>
+            <p class="text-sm text-gray-600">Gmina Odolanów, dojazd 24/7</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <Award className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
+          <div>
+            <p class="font-semibold">Certyfikat {business.certificate}</p>
+            <p class="text-sm text-gray-600">Wpisany do rejestru rzeczoznawców</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <Clock className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
+          <div>
+            <p class="font-semibold">Termin 24-48h</p>
+            <p class="text-sm text-gray-600">Bez zbędnego czekania</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DLACZEGO LOKALNIE -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">
+        Dlaczego lokalny rzeczoznawca z Ostrowa Wlkp.?
+      </h2>
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          Wybór rzeczoznawcy działającego lokalnie w Ostrowie Wielkopolskim i okolicach ma
+          kilka praktycznych zalet. Pierwsza – krótki czas dojazdu i niski koszt
+          oględzin. Druga – znajomość lokalnego rynku motoryzacyjnego: komisów, ASO,
+          stacji diagnostycznych, a także typowych cen pojazdów w regionie. Trzecia –
+          dyspozycyjność: w nagłych przypadkach (szkoda komunikacyjna, sprawa sądowa)
+          mogę pojawić się tego samego dnia.
+        </p>
+        <p>
+          Wykonuję wyceny pojazdów na potrzeby ubezpieczycieli, urzędów skarbowych, sądów
+          oraz osób prywatnych w Ostrowie Wlkp., Odolanowie, Raszkowie, Sośniach, Sieroszewicach,
+          Przygodzicach i Nowych Skalmierzycach. Obsługuję także powiat ostrowski w całości
+          oraz sąsiednie powiaty – kaliski, jarociński, krotoszyński i pleszewski.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- USŁUGI W OSTROWIE -->
+  <section class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <h2 class="text-2xl md:text-3xl font-bold mb-3 text-center">
+        Pełny zakres usług w Ostrowie Wielkopolskim
+      </h2>
+      <p class="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+        Wszystkie usługi rzeczoznawcy techniki samochodowej dostępne dla klientów z
+        Ostrowa Wlkp. i powiatu ostrowskiego.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {services.map((s) => (
+          <a
+            href={serviceUrl(s.slug)}
+            class="block bg-white border border-gray-200 hover:border-brand-500 rounded-xl p-5 transition shadow-sm hover:shadow-md group"
+          >
+            <h3 class="font-semibold mb-2 group-hover:text-brand-700 transition">
+              {s.name}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{s.shortDesc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSŁUGIWANE MIEJSCOWOŚCI -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Obszar działania w powiecie ostrowskim</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+        {[
+          'Ostrów Wielkopolski',
+          'Odolanów',
+          'Raszków',
+          'Sośnie',
+          'Sieroszewice',
+          'Przygodzice',
+          'Nowe Skalmierzyce',
+          'Garki',
+          'Granowiec',
+          'Czarnylas',
+          'Daniszyn',
+          'Lewkowiec',
+        ].map((place) => (
+          <div class="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
+            <CheckCircle2 className="text-brand-600 flex-shrink-0" size={16} aria-hidden="true" />
+            <span>{place}</span>
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-gray-600 mt-4">
+        Nie widzisz swojej miejscowości? Zadzwoń – dojeżdżam także poza powiat ostrowski.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-brand-700 text-white py-16">
+    <div class="container mx-auto px-4 max-w-3xl text-center">
+      <h2 class="text-3xl font-bold mb-4">Potrzebujesz rzeczoznawcy w Ostrowie?</h2>
+      <p class="text-brand-100 mb-8 text-lg">
+        Zadzwoń lub napisz na WhatsApp. Odpowiedź najczęściej w ciągu kilku godzin.
+      </p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a
+          href={`tel:${business.contact.phone}`}
+          class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
+        >
+          <Phone size={18} aria-hidden="true" />
+          {business.contact.phoneDisplay}
+        </a>
+        <a
+          href="/kontakt/"
+          class="inline-flex items-center gap-2 bg-brand-800 hover:bg-brand-900 text-white font-semibold px-6 py-3 rounded-lg transition border border-white/20"
+        >
+          Formularz kontaktowy
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

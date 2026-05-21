@@ -1,0 +1,309 @@
+[
+  {
+    "meta": {
+      "tool": "motowycena-advanced-performance-audit",
+      "version": "1.0.0",
+      "auditedAt": "2026-05-21T14:01:30.441Z",
+      "url": "https://example.com",
+      "profile": "no-throttle",
+      "profileLabel": "Current machine / no throttling",
+      "runsRequested": 1,
+      "runsOk": 1,
+      "runsFailed": 0,
+      "notes": [
+        "TBT* is a lab proxy for responsiveness, not official INP.",
+        "Official INP needs field data or real user interactions.",
+        "Resource transfer sizes use Resource Timing plus CDP encodedDataLength fallback."
+      ]
+    },
+    "aggregate": {
+      "runsOk": 1,
+      "runsFailed": 0,
+      "metrics": {
+        "lcp": {
+          "count": 1,
+          "min": 988.1000000238419,
+          "max": 988.1000000238419,
+          "avg": 988.1000000238419,
+          "stdev": 0,
+          "p50": 988.1000000238419,
+          "p75": 988.1000000238419,
+          "p95": 988.1000000238419
+        },
+        "cls": {
+          "count": 1,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        },
+        "fcp": {
+          "count": 1,
+          "min": 988.1000000238419,
+          "max": 988.1000000238419,
+          "avg": 988.1000000238419,
+          "stdev": 0,
+          "p50": 988.1000000238419,
+          "p75": 988.1000000238419,
+          "p95": 988.1000000238419
+        },
+        "fp": {
+          "count": 1,
+          "min": 988.1000000238419,
+          "max": 988.1000000238419,
+          "avg": 988.1000000238419,
+          "stdev": 0,
+          "p50": 988.1000000238419,
+          "p75": 988.1000000238419,
+          "p95": 988.1000000238419
+        },
+        "observedInp": {
+          "count": 0,
+          "min": null,
+          "max": null,
+          "avg": null,
+          "stdev": null,
+          "p50": null,
+          "p75": null,
+          "p95": null
+        },
+        "tbtProxy": {
+          "count": 1,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        },
+        "ttfb": {
+          "count": 1,
+          "min": 24.80000001192093,
+          "max": 24.80000001192093,
+          "avg": 24.80000001192093,
+          "stdev": 0,
+          "p50": 24.80000001192093,
+          "p75": 24.80000001192093,
+          "p95": 24.80000001192093
+        },
+        "dns": {
+          "count": 1,
+          "min": 11.199999988079071,
+          "max": 11.199999988079071,
+          "avg": 11.199999988079071,
+          "stdev": 0,
+          "p50": 11.199999988079071,
+          "p75": 11.199999988079071,
+          "p95": 11.199999988079071
+        },
+        "tcp": {
+          "count": 1,
+          "min": 47.5,
+          "max": 47.5,
+          "avg": 47.5,
+          "stdev": 0,
+          "p50": 47.5,
+          "p75": 47.5,
+          "p95": 47.5
+        },
+        "tls": {
+          "count": 1,
+          "min": 35.69999998807907,
+          "max": 35.69999998807907,
+          "avg": 35.69999998807907,
+          "stdev": 0,
+          "p50": 35.69999998807907,
+          "p75": 35.69999998807907,
+          "p95": 35.69999998807907
+        },
+        "request": {
+          "count": 1,
+          "min": 24.80000001192093,
+          "max": 24.80000001192093,
+          "avg": 24.80000001192093,
+          "stdev": 0,
+          "p50": 24.80000001192093,
+          "p75": 24.80000001192093,
+          "p95": 24.80000001192093
+        },
+        "response": {
+          "count": 1,
+          "min": 6.900000035762787,
+          "max": 6.900000035762787,
+          "avg": 6.900000035762787,
+          "stdev": 0,
+          "p50": 6.900000035762787,
+          "p75": 6.900000035762787,
+          "p95": 6.900000035762787
+        },
+        "domContentLoaded": {
+          "count": 1,
+          "min": 157.60000002384186,
+          "max": 157.60000002384186,
+          "avg": 157.60000002384186,
+          "stdev": 0,
+          "p50": 157.60000002384186,
+          "p75": 157.60000002384186,
+          "p95": 157.60000002384186
+        },
+        "load": {
+          "count": 1,
+          "min": 158,
+          "max": 158,
+          "avg": 158,
+          "stdev": 0,
+          "p50": 158,
+          "p75": 158,
+          "p95": 158
+        },
+        "wallClockMs": {
+          "count": 1,
+          "min": 2215,
+          "max": 2215,
+          "avg": 2215,
+          "stdev": 0,
+          "p50": 2215,
+          "p75": 2215,
+          "p95": 2215
+        },
+        "totalTransferKB": {
+          "count": 1,
+          "min": 1.16796875,
+          "max": 1.16796875,
+          "avg": 1.16796875,
+          "stdev": 0,
+          "p50": 1.16796875,
+          "p75": 1.16796875,
+          "p95": 1.16796875
+        },
+        "totalDecodedKB": {
+          "count": 1,
+          "min": 1.099609375,
+          "max": 1.099609375,
+          "avg": 1.099609375,
+          "stdev": 0,
+          "p50": 1.099609375,
+          "p75": 1.099609375,
+          "p95": 1.099609375
+        },
+        "resourceCount": {
+          "count": 1,
+          "min": 2,
+          "max": 2,
+          "avg": 2,
+          "stdev": 0,
+          "p50": 2,
+          "p75": 2,
+          "p95": 2
+        },
+        "scriptKB": {
+          "count": 1,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        },
+        "stylesheetKB": {
+          "count": 1,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        },
+        "imageKB": {
+          "count": 1,
+          "min": 0.583984375,
+          "max": 0.583984375,
+          "avg": 0.583984375,
+          "stdev": 0,
+          "p50": 0.583984375,
+          "p75": 0.583984375,
+          "p95": 0.583984375
+        },
+        "fontKB": {
+          "count": 1,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        },
+        "fetchKB": {
+          "count": 1,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        },
+        "thirdPartyKB": {
+          "count": 1,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        }
+      }
+    },
+    "budget": {
+      "passed": false,
+      "failedCount": 2,
+      "warningCount": 1
+    },
+    "plainLanguage": {
+      "headline": "Strona dziala, ale sa 2 rzeczy do poprawy w budzecie.",
+      "verdict": [
+        "LCP p75: 988 ms (dobrze)",
+        "CLS p75: 0.000 (dobrze)",
+        "TTFB p75: 25 ms (dobrze)",
+        "TBT* p75: 0 ms (dobrze)",
+        "Transfer p75: 1.2 KB",
+        "Requesty p75: 2"
+      ],
+      "good": [
+        "Najwiekszy widoczny element strony pojawia sie szybko: 988 ms.",
+        "Strona prawie nie skacze podczas ladowania: CLS 0.000.",
+        "Przegladarka nie jest dlugo blokowana JavaScriptem: TBT* 0 ms.",
+        "Calkowity transfer jest jeszcze rozsadny: 1.2 KB."
+      ],
+      "problems": [
+        "requireMetaDescription: false / limit true - Brakuje opisu strony dla Google.",
+        "requireCanonical: false / limit true - Brakuje canonical URL, czyli informacji ktory adres jest glowna wersja strony.",
+        "minMetaDescriptionLength: 0 / limit 70 - Opis dla Google jest za krotki."
+      ],
+      "nextActions": [
+        "Dodaj meta description: to jest opis pod tytulem w Google. Bez tego Google sam zgaduje opis strony.",
+        "Najwiekszy pojedynczy zasob w tym pomiarze: image, 0.6 KB. URL: https://example.com/favicon.ico"
+      ],
+      "dictionary": [
+        "LCP = kiedy uzytkownik widzi najwiekszy wazny element strony, zwykle hero, naglowek albo duzy obraz.",
+        "CLS = czy strona skacze podczas ladowania. Nisko znaczy stabilnie.",
+        "TTFB = ile czekamy na pierwszy bajt z serwera. Wysoko znaczy problem z hostingiem, backendem albo CDN.",
+        "TBT* = ile JavaScript blokuje przegladarke w labie. To przyblizenie responsywnosci, nie oficjalny INP.",
+        "p75 = wynik, ktory jest lepszy dla 75% pomiarow. Google patrzy podobnie na dane terenowe."
+      ]
+    },
+    "paths": {
+      "json": "C:\\Users\\ewakr\\Downloads\\motowycena-cloned\\perf-tool\\web-runs\\b711c81a-e613-47aa-b600-c7e6dec7f58e\\2026-05-21T14-01-27-092Z\\example.com\\example.com.json",
+      "markdown": "C:\\Users\\ewakr\\Downloads\\motowycena-cloned\\perf-tool\\web-runs\\b711c81a-e613-47aa-b600-c7e6dec7f58e\\2026-05-21T14-01-27-092Z\\example.com\\example.com.md",
+      "html": "C:\\Users\\ewakr\\Downloads\\motowycena-cloned\\perf-tool\\web-runs\\b711c81a-e613-47aa-b600-c7e6dec7f58e\\2026-05-21T14-01-27-092Z\\example.com\\example.com.html"
+    }
+  }
+]

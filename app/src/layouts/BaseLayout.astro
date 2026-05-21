@@ -1,0 +1,78 @@
+---
+import '@/styles/global.css';
+import SEO from '@components/seo/SEO.astro';
+import SchemaLocalBusiness from '@components/seo/SchemaLocalBusiness.astro';
+import Header from '@components/layout/Header.astro';
+import Footer from '@components/layout/Footer.astro';
+import WhatsAppButton from '@components/layout/WhatsAppButton.tsx';
+import CookieBanner from '@components/layout/CookieBanner.tsx';
+import { ClientRouter } from 'astro:transitions';
+import { business } from '@data/business';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  keywords?: string[];
+}
+
+const { title, description, canonical, ogImage, noindex, keywords } = Astro.props;
+
+// Cloudflare Web Analytics – darmowe, bez cookies, RODO-friendly.
+// Beacon ładuje się tylko jeśli token jest ustawiony (np. nie w devie).
+const cfAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      noindex={noindex}
+      keywords={keywords}
+    />
+    <!-- Schema LocalBusiness na każdej stronie - baza dla całej witryny -->
+    <SchemaLocalBusiness />
+
+    {/* View Transitions API - płynne przejścia między stronami bez SPA overhead.
+        Astro re-używa head/scripts/CSS pomiędzy nawigacjami = szybsze klikanie. */}
+    <ClientRouter />
+  </head>
+
+  <body class="bg-white text-gray-900 antialiased">
+    <a href="#main" class="skip-link">Przejdź do treści głównej</a>
+
+    <Header />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Pływający WhatsApp - React island, hydratacja w idle -->
+    <WhatsAppButton
+      client:idle
+      phone={business.contact.whatsapp}
+      message="Dzień dobry, chciałbym zapytać o wycenę pojazdu."
+    />
+
+    <!-- Cookie banner - React island, hydratacja w idle (po LCP) -->
+    <CookieBanner client:idle />
+
+    {/* Cloudflare Web Analytics – warunkowy beacon. Bez cookies, lekki (<2 KB). */}
+    {cfAnalyticsToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}
+      />
+    )}
+  </body>
+</html>

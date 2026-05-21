@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+import ImageGallery from '@components/sections/ImageGallery.astro';
+
+const heroLead = 'Szczegółowa ocena stanu technicznego pojazdu z pełną dokumentacją. Niezależna opinia certyfikowanego rzeczoznawcy.';
+const introParagraph = 'Opis stanu technicznego to dokument obrazujący kondycję pojazdu w danym momencie - kompleksowa ocena nadwozia, podwozia, układu napędowego, elektroniki i elementów eksploatacyjnych. Często wymagany przy ubezpieczeniach, sprzedaży kolekcjonerskich pojazdów oraz w postępowaniach sądowych.';
+const benefits = [
+  'Pełna dokumentacja fotograficzna 100+ zdjęć',
+  'Ocena każdego głównego podzespołu',
+  'Identyfikacja ukrytych wad',
+  'Akceptowane przez ubezpieczycieli i banki',
+  'Termin 24-48h',
+];
+const faq = [
+  {
+    question: 'Czym różni się od standardowego przeglądu w ASO?',
+    answer: 'Opis stanu technicznego jest dokumentem urzędowym - niezależną opinią rzeczoznawcy. Przegląd w ASO to usługa serwisowa i nie ma mocy dowodowej w sądzie.',
+  },
+  {
+    question: 'Czy zawiera ocenę wartości pojazdu?',
+    answer: 'Standardowo nie - jest to opis stanu. Wycenę wartości wykonujemy jako osobną usługę, ale często łączymy oba dokumenty w pakiecie.',
+  },
+];
+---
+
+<BaseLayout
+  title="Opis stanu technicznego pojazdu – Rzeczoznawca"
+  description="Szczegółowy opis stanu technicznego pojazdu z pełną dokumentacją fotograficzną. Niezależna ocena certyfikowanego rzeczoznawcy (RS001771)."
+  keywords={['opis stanu technicznego', 'ocena techniczna auta', 'przegląd przedzakupowy', 'stan techniczny pojazdu']}
+>
+  <ServicePageTemplate
+    serviceSlug="opis-stanu-technicznego"
+    serviceName="Opis stanu technicznego"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    faq={faq}
+    priceRange="300-700 PLN"
+  >
+    <ImageGallery
+      slot="extra-content"
+      images={[
+        { src: '/uploads/services/opis-stanu-technicznego-1.jpeg', alt: 'Dokumentacja fotograficzna stanu technicznego pojazdu' },
+        { src: '/uploads/services/opis-stanu-technicznego-2.jpeg', alt: 'Oględziny pojazdu do opisu stanu technicznego' },
+      ]}
+    />
+  </ServicePageTemplate>
+</BaseLayout>

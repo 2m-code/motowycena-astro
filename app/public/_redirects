@@ -1,0 +1,12 @@
+# Cloudflare Pages / Netlify _redirects
+# Zachowujemy 1:1 z obecnej WordPress strony - zero zmian URL.
+# Zachowujemy także znany wariant bez sufiksu, który WordPress przekierowuje na aktywny adres.
+/pojazdy-zabytkowe/  /pojazdy-zabytkowe-2/  301
+
+# Stare URL-e WordPress których w nowej stronie nie ma (Google ich nie zna - bezpieczne):
+/wp-admin/*    /    301
+/wp-login.php  /    301
+/feed/         /    301
+/feed          /    301
+/?p=*          /    301
+/wp-json/*     /    301

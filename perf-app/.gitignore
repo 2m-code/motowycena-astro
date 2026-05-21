@@ -1,0 +1,10 @@
+dist/
+.astro/
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+
+# Saved audit reports (mogą być duże + wrażliwe)
+data/reports/

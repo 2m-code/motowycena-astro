@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+import ImageGallery from '@components/sections/ImageGallery.astro';
+
+const heroLead = 'Doradztwo i ekspertyzy w sprawach ubezpieczeniowych. Szkody OC, AC, dochodzenie odszkodowań, weryfikacja kosztorysów.';
+const introParagraph = 'Wsparcie w sprawach ubezpieczeniowych obejmuje weryfikację kosztorysów ubezpieczyciela, sporządzanie niezależnych wycen szkód oraz wsparcie w postępowaniach reklamacyjnych i sądowych. Pomagamy odzyskać należne odszkodowanie w pełnej wysokości. Typowe zaniżenie wyceny przez ubezpieczyciela to 20-50% – nasza niezależna ekspertyza pozwala te kwoty odzyskać.';
+const benefits = [
+  'Weryfikacja kosztorysów ubezpieczyciela',
+  'Identyfikacja zaniżeń (typowo 20–50% wartości szkody)',
+  'Reprezentacja w postępowaniach reklamacyjnych',
+  'Wsparcie w sprawach sądowych (odwołanie od decyzji OC/AC)',
+  'Doświadczenie z wszystkimi głównymi towarzystwami w Polsce',
+  'Pełna dokumentacja fotograficzna szkody',
+];
+
+const processSteps = [
+  { title: 'Przeglądamy decyzję', description: 'Przesyłasz decyzję ubezpieczyciela oraz dokumentację szkody (zdjęcia, kosztorys).' },
+  { title: 'Oględziny', description: 'Spotykamy się z pojazdem, dokumentujemy stan i zakres uszkodzeń.' },
+  { title: 'Wycena niezależna', description: 'Sporządzamy własną kalkulację kosztów naprawy zgodnie z realnymi cenami rynkowymi.' },
+  { title: 'Odwołanie', description: 'Otrzymujesz raport gotowy do złożenia jako podstawa odwołania od decyzji ubezpieczyciela.' },
+];
+
+const faq = [
+  {
+    question: 'Ubezpieczyciel wypłacił mi za niskie odszkodowanie – co mogę zrobić?',
+    answer: 'Możesz zlecić niezależną wycenę szkody. Statystycznie zaniżenia OC to 20–50% – nasza ekspertyza ujawnia luki i daje podstawę do odwołania. W większości spraw doprowadza do dopłaty bez konieczności wchodzenia do sądu.',
+  },
+  {
+    question: 'Czy mogę użyć waszej wyceny w sądzie?',
+    answer: 'Tak. Niezależna wycena rzeczoznawcy z certyfikatem (RS001771) jest pełnoprawnym dowodem w postępowaniu sądowym przeciwko ubezpieczycielowi.',
+  },
+  {
+    question: 'Ile trwa proces odwołania od decyzji OC?',
+    answer: 'Ubezpieczyciel ma 30 dni na rozpatrzenie odwołania. Z naszą ekspertyzą około 60-70% spraw kończy się dopłatą bez konieczności kierowania sprawy do sądu.',
+  },
+  {
+    question: 'Czy oferujecie pomoc również przy szkodach całkowitych (TC)?',
+    answer: 'Tak. Sprawdzamy poprawność wyceny szkody całkowitej, wartości pojazdu sprzed szkody oraz wraku. Częstym przypadkiem jest zawyżona wycena wraku co skutkuje zaniżonym odszkodowaniem.',
+  },
+];
+---
+
+<BaseLayout
+  title="Polisy ubezpieczeniowe – Ekspertyzy szkód komunikacyjnych"
+  description="Profesjonalne doradztwo ubezpieczeniowe i ekspertyzy szkód. Weryfikacja kosztorysów, dochodzenie odszkodowań OC/AC. Rzeczoznawca certyfikowany (RS001771)."
+  keywords={['szkoda komunikacyjna', 'ekspertyza dla ubezpieczyciela', 'OC AC', 'zaniżenie odszkodowania']}
+>
+  <ServicePageTemplate
+    serviceSlug="polisy-ubezpieczeniowe"
+    serviceName="Polisy ubezpieczeniowe"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="300-1200 PLN"
+  >
+    <ImageGallery
+      slot="extra-content"
+      images={[
+        { src: '/uploads/services/polisy-ubezpieczeniowe.png', alt: 'Materiały dotyczące polis ubezpieczeniowych i szkód komunikacyjnych' },
+      ]}
+    />
+  </ServicePageTemplate>
+</BaseLayout>

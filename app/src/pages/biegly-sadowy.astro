@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePageTemplate from '@components/sections/ServicePageTemplate.astro';
+
+const heroLead = 'Opinie biegłego sądowego z zakresu techniki samochodowej i wyceny pojazdów. Wsparcie postępowań sądowych w całej Polsce.';
+const introParagraph = 'Biegły sądowy z zakresu techniki samochodowej to ekspert powoływany przez sąd do sporządzenia opinii w sprawach wymagających wiedzy specjalistycznej. Sporządzamy opinie sądowe z zakresu wyceny pojazdów, ekspertyz powypadkowych, zmian konstrukcyjnych i sporów o odszkodowanie. Współpracujemy z sądami i kancelariami prawnymi w całej Polsce. Opinie sporządzane są zgodnie z zasadami metodyki sądowej i są pełnoprawnym dowodem w postępowaniu.';
+const benefits = [
+  'Doświadczenie procesowe – kilkadziesiąt opinii sądowych',
+  'Opinie pisemne i ustne na rozprawach',
+  'Specjalizacja: wyceny, szkody, ekspertyzy powypadkowe',
+  'Współpraca z kancelariami prawnymi i kuratorami sądowymi',
+  'Możliwość konsultacji prywatnej (poza postępowaniem)',
+  'Certyfikat rzeczoznawcy RS001771 – wpis do rejestru biegłych sądów',
+];
+
+const processSteps = [
+  { title: 'Postanowienie', description: 'Sąd lub strona postępowania dostarcza postanowienie o powołaniu biegłego oraz akta sprawy.' },
+  { title: 'Analiza akt', description: 'Zapoznajemy się z aktami, fotografiami szkód, kosztorysami i dokumentacją pojazdu.' },
+  { title: 'Oględziny', description: 'W razie potrzeby przeprowadzamy oględziny pojazdu (z dokumentacją fotograficzną).' },
+  { title: 'Opinia', description: 'Sporządzamy opinię pisemną zgodnie z metodyką sądową, w razie potrzeby stawiamy się na rozprawie.' },
+];
+
+const faq = [
+  {
+    question: 'Czy mogę zlecić sporządzenie opinii biegłego prywatnie, poza postępowaniem sądowym?',
+    answer: 'Tak. Wykonujemy tzw. opinie prywatne (pre-procesowe), które klient może wykorzystać do oceny szans procesowych, do negocjacji z ubezpieczycielem lub jako materiał dowodowy. Opinia prywatna nie ma takiej mocy jak opinia powołana przez sąd, ale jest pełnoprawnym dokumentem.',
+  },
+  {
+    question: 'Ile kosztuje opinia biegłego sądowego?',
+    answer: 'Koszt opinii zależy od skomplikowania sprawy. W postępowaniu sądowym stawki wynikają z rozporządzenia Ministra Sprawiedliwości. Opinia prywatna to koszt zazwyczaj 800–2500 zł w zależności od zakresu i objętości materiału.',
+  },
+  {
+    question: 'Czy stawiacie się na rozprawach jako biegły?',
+    answer: 'Tak. Stawiamy się na rozprawach w całej Polsce, składamy ustne wyjaśnienia do sporządzonej opinii i odpowiadamy na pytania stron.',
+  },
+  {
+    question: 'Jak długo trwa sporządzenie opinii?',
+    answer: 'Standardowy czas sporządzenia opinii to 14–30 dni od otrzymania akt (przy prostych sprawach krócej). W przypadku spraw skomplikowanych może wynieść 6–8 tygodni.',
+  },
+];
+---
+
+<BaseLayout
+  title="Biegły Sądowy z techniki samochodowej – Opinie procesowe"
+  description="Opinie biegłego sądowego z zakresu techniki samochodowej. Wyceny pojazdów, ekspertyzy szkód, zmiany konstrukcyjne. Doświadczenie procesowe, certyfikat RS001771."
+  keywords={['biegły sądowy', 'opinia biegłego', 'rzeczoznawca w sądzie', 'biegły techniki samochodowej']}
+>
+  <ServicePageTemplate
+    serviceSlug="biegly-sadowy"
+    serviceName="Biegły Sądowy"
+    heroLead={heroLead}
+    introParagraph={introParagraph}
+    benefits={benefits}
+    processSteps={processSteps}
+    faq={faq}
+    priceRange="800-2500 PLN"
+  >
+    <Fragment slot="extra-content">
+      <div class="mt-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
+        <h3 class="font-bold text-gray-900 mb-4">Specjalności z obecnej strony</h3>
+        <ul class="space-y-2 text-gray-700">
+          <li>Rzeczoznawstwo samochodowe i technika motoryzacyjna.</li>
+          <li>Kosztorysowanie napraw pojazdów w systemie Audatex.</li>
+          <li>Wycena wartości pojazdów osobowych i ciężarowych w systemie INFO-EKSPERT.</li>
+          <li>Ocena stanu technicznego pojazdów samochodowych.</li>
+        </ul>
+      </div>
+    </Fragment>
+  </ServicePageTemplate>
+</BaseLayout>

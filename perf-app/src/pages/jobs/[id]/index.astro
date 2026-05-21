@@ -1,0 +1,39 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import JobProgress from '@components/JobProgress.tsx';
+import { getJob } from '@lib/perf/jobs';
+
+export const prerender = false;
+
+const id = Astro.params.id;
+if (!id) return Astro.redirect('/');
+
+const job = getJob(id);
+let hostHint: string | undefined;
+if (job) {
+  try {
+    hostHint = new URL(job.url).hostname;
+  } catch {
+    /* invalid url - shouldn't happen */
+  }
+}
+---
+
+<Layout title={`Audit ${id?.slice(0, 8)}... – Perf Audit`}>
+  <section class="mb-6">
+    <h1 class="text-2xl font-bold mb-1">🔬 Pomiar w toku</h1>
+    {job ? (
+      <p class="text-gray-600 text-sm">
+        URL: <code class="bg-gray-100 px-2 py-0.5 rounded">{job.url}</code>
+        &nbsp;·&nbsp; profil: <code class="bg-gray-100 px-2 py-0.5 rounded">{job.profileId}</code>
+        &nbsp;·&nbsp; runs: <strong>{job.runs}</strong>
+      </p>
+    ) : (
+      <p class="text-amber-600">
+        Job nieznany lub wygasł (TTL 1h). Zacznij nowy z <a href="/" class="underline">strony głównej</a>.
+      </p>
+    )}
+  </section>
+
+  {job && <JobProgress client:load jobId={id} hostHint={hostHint} />}
+</Layout>

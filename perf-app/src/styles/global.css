@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-500: #1e3a8a;
+  --color-brand-600: #1e40af;
+  --color-brand-700: #1d4ed8;
+  --color-good-500: #16a34a;
+  --color-warn-500: #d97706;
+  --color-poor-500: #dc2626;
+  --font-mono: ui-monospace, "Consolas", "Cascadia Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}

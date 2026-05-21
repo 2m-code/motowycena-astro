@@ -1,0 +1,315 @@
+[
+  {
+    "meta": {
+      "tool": "motowycena-advanced-performance-audit",
+      "version": "1.0.0",
+      "auditedAt": "2026-05-21T14:03:25.014Z",
+      "url": "https://www.motowycena.pl",
+      "profile": "no-throttle",
+      "profileLabel": "Current machine / no throttling",
+      "runsRequested": 3,
+      "runsOk": 3,
+      "runsFailed": 0,
+      "notes": [
+        "TBT* is a lab proxy for responsiveness, not official INP.",
+        "Official INP needs field data or real user interactions.",
+        "Resource transfer sizes use Resource Timing plus CDP encodedDataLength fallback."
+      ]
+    },
+    "aggregate": {
+      "runsOk": 3,
+      "runsFailed": 0,
+      "metrics": {
+        "lcp": {
+          "count": 3,
+          "min": 1056.699999988079,
+          "max": 2629.5,
+          "avg": 1586.3666666547458,
+          "stdev": 737.6363030436654,
+          "p50": 1072.8999999761581,
+          "p75": 2629.5,
+          "p95": 2629.5
+        },
+        "cls": {
+          "count": 3,
+          "min": 0.02216861254357277,
+          "max": 0.056631717989419364,
+          "avg": 0.033656314358854966,
+          "stdev": 0.016246063707670108,
+          "p50": 0.02216861254357277,
+          "p75": 0.056631717989419364,
+          "p95": 0.056631717989419364
+        },
+        "fcp": {
+          "count": 3,
+          "min": 1056.699999988079,
+          "max": 2629.5,
+          "avg": 1586.3666666547458,
+          "stdev": 737.6363030436654,
+          "p50": 1072.8999999761581,
+          "p75": 2629.5,
+          "p95": 2629.5
+        },
+        "fp": {
+          "count": 3,
+          "min": 1056.699999988079,
+          "max": 2629.5,
+          "avg": 1586.3666666547458,
+          "stdev": 737.6363030436654,
+          "p50": 1072.8999999761581,
+          "p75": 2629.5,
+          "p95": 2629.5
+        },
+        "observedInp": {
+          "count": 0,
+          "min": null,
+          "max": null,
+          "avg": null,
+          "stdev": null,
+          "p50": null,
+          "p75": null,
+          "p95": null
+        },
+        "tbtProxy": {
+          "count": 3,
+          "min": 0,
+          "max": 2,
+          "avg": 0.6666666666666666,
+          "stdev": 0.9428090415820634,
+          "p50": 0,
+          "p75": 2,
+          "p95": 2
+        },
+        "ttfb": {
+          "count": 3,
+          "min": 567.8000000119209,
+          "max": 1755.3999999761581,
+          "avg": 964.1000000039736,
+          "stdev": 559.5338476309198,
+          "p50": 569.1000000238419,
+          "p75": 1755.3999999761581,
+          "p95": 1755.3999999761581
+        },
+        "dns": {
+          "count": 3,
+          "min": 0,
+          "max": 23.799999952316284,
+          "avg": 7.933333317438762,
+          "stdev": 11.219427572348234,
+          "p50": 0,
+          "p75": 23.799999952316284,
+          "p95": 23.799999952316284
+        },
+        "tcp": {
+          "count": 3,
+          "min": 0,
+          "max": 49.90000003576279,
+          "avg": 16.63333334525426,
+          "stdev": 23.52308560433122,
+          "p50": 0,
+          "p75": 49.90000003576279,
+          "p95": 49.90000003576279
+        },
+        "tls": {
+          "count": 3,
+          "min": 0,
+          "max": 28.69999998807907,
+          "avg": 9.566666662693024,
+          "stdev": 13.52930974108303,
+          "p50": 0,
+          "p75": 28.69999998807907,
+          "p95": 28.69999998807907
+        },
+        "request": {
+          "count": 3,
+          "min": 567.8000000119209,
+          "max": 1755.3999999761581,
+          "avg": 964.1000000039736,
+          "stdev": 559.5338476309198,
+          "p50": 569.1000000238419,
+          "p75": 1755.3999999761581,
+          "p95": 1755.3999999761581
+        },
+        "response": {
+          "count": 3,
+          "min": 40.10000002384186,
+          "max": 41.5,
+          "avg": 40.933333337306976,
+          "stdev": 0.6018489900776354,
+          "p50": 41.19999998807907,
+          "p75": 41.5,
+          "p95": 41.5
+        },
+        "domContentLoaded": {
+          "count": 3,
+          "min": 1142.699999988079,
+          "max": 2392.600000023842,
+          "avg": 1571.7999999920528,
+          "stdev": 580.5940463804826,
+          "p50": 1180.0999999642372,
+          "p75": 2392.600000023842,
+          "p95": 2392.600000023842
+        },
+        "load": {
+          "count": 3,
+          "min": 1145.5,
+          "max": 2408.300000011921,
+          "avg": 1578.933333337307,
+          "stdev": 586.6505850124759,
+          "p50": 1183,
+          "p75": 2408.300000011921,
+          "p95": 2408.300000011921
+        },
+        "wallClockMs": {
+          "count": 3,
+          "min": 3399,
+          "max": 4642,
+          "avg": 3815.6666666666665,
+          "stdev": 584.3128918272774,
+          "p50": 3406,
+          "p75": 4642,
+          "p95": 4642
+        },
+        "totalTransferKB": {
+          "count": 3,
+          "min": 686.3505859375,
+          "max": 882.35546875,
+          "avg": 817.0205078125,
+          "stdev": 92.39758785492889,
+          "p50": 882.35546875,
+          "p75": 882.35546875,
+          "p95": 882.35546875
+        },
+        "totalDecodedKB": {
+          "count": 3,
+          "min": 1448.71875,
+          "max": 1637.068359375,
+          "avg": 1574.28515625,
+          "stdev": 88.78885734859989,
+          "p50": 1637.068359375,
+          "p75": 1637.068359375,
+          "p95": 1637.068359375
+        },
+        "resourceCount": {
+          "count": 3,
+          "min": 51,
+          "max": 54,
+          "avg": 53,
+          "stdev": 1.4142135623730951,
+          "p50": 54,
+          "p75": 54,
+          "p95": 54
+        },
+        "scriptKB": {
+          "count": 3,
+          "min": 137.181640625,
+          "max": 137.181640625,
+          "avg": 137.181640625,
+          "stdev": 0,
+          "p50": 137.181640625,
+          "p75": 137.181640625,
+          "p95": 137.181640625
+        },
+        "stylesheetKB": {
+          "count": 3,
+          "min": 79.3720703125,
+          "max": 79.3720703125,
+          "avg": 79.3720703125,
+          "stdev": 0,
+          "p50": 79.3720703125,
+          "p75": 79.3720703125,
+          "p95": 79.3720703125
+        },
+        "imageKB": {
+          "count": 3,
+          "min": 241.2607421875,
+          "max": 244.904296875,
+          "avg": 242.47526041666666,
+          "stdev": 1.7175881514368547,
+          "p50": 241.2607421875,
+          "p75": 244.904296875,
+          "p95": 244.904296875
+        },
+        "fontKB": {
+          "count": 3,
+          "min": 199.6484375,
+          "max": 399.296875,
+          "avg": 332.7473958333333,
+          "stdev": 94.11517600636574,
+          "p50": 399.296875,
+          "p75": 399.296875,
+          "p95": 399.296875
+        },
+        "fetchKB": {
+          "count": 3,
+          "min": 0,
+          "max": 0,
+          "avg": 0,
+          "stdev": 0,
+          "p50": 0,
+          "p75": 0,
+          "p95": 0
+        },
+        "thirdPartyKB": {
+          "count": 3,
+          "min": 2.0390625,
+          "max": 2.0390625,
+          "avg": 2.0390625,
+          "stdev": 0,
+          "p50": 2.0390625,
+          "p75": 2.0390625,
+          "p95": 2.0390625
+        }
+      }
+    },
+    "budget": {
+      "passed": false,
+      "failedCount": 6,
+      "warningCount": 2
+    },
+    "plainLanguage": {
+      "headline": "Strona dziala, ale sa 6 rzeczy do poprawy w budzecie.",
+      "verdict": [
+        "LCP p75: 2630 ms (do poprawy)",
+        "CLS p75: 0.057 (dobrze)",
+        "TTFB p75: 1755 ms (do poprawy)",
+        "TBT* p75: 2 ms (dobrze)",
+        "Transfer p75: 882.4 KB",
+        "Requesty p75: 54"
+      ],
+      "good": [
+        "Strona prawie nie skacze podczas ladowania: CLS 0.057.",
+        "Przegladarka nie jest dlugo blokowana JavaScriptem: TBT* 2 ms."
+      ],
+      "problems": [
+        "lcpP75: 2629.5 / limit 2500 - Najwiekszy element pojawia sie za pozno. Uzytkownik za dlugo patrzy na niepelna strone.",
+        "fcpP75: 2629.5 / limit 1800 - Pierwsza tresc pojawia sie za pozno.",
+        "ttfbP75: 1755.4 / limit 800 - Serwer/CDN za dlugo zwleka z pierwsza odpowiedzia.",
+        "totalTransferKBP75: 882.355 / limit 750 - Strona pobiera za duzo danych.",
+        "fontKBP75: 399.297 / limit 120 - Fonty sa za ciezkie.",
+        "requireMetaDescription: false / limit true - Brakuje opisu strony dla Google.",
+        "minMetaDescriptionLength: 0 / limit 70 - Opis dla Google jest za krotki.",
+        "maxImagesMissingAlt: 1 / limit 0 - Czesc obrazow nie ma alt, czyli opisu dla czytnikow i Google."
+      ],
+      "nextActions": [
+        "Dodaj meta description: to jest opis pod tytulem w Google. Bez tego Google sam zgaduje opis strony.",
+        "Odchudz fonty: teraz ida za duze pliki fontow (399.3 KB). Najczesciej pomaga mniej krojow, mniej wag i font-display: swap.",
+        "Popraw czas odpowiedzi serwera/CDN: TTFB to 1755 ms. To czas zanim przegladarka dostanie pierwszy bajt HTML.",
+        "Dodaj alt do obrazow: pomaga dostepnosci i daje Google lepszy kontekst obrazkow.",
+        "Najwiekszy pojedynczy zasob w tym pomiarze: image, 133.2 KB. URL: https://www.motowycena.pl/wp-content/uploads/2020/06/car-repair-engine-tnfd.jpg"
+      ],
+      "dictionary": [
+        "LCP = kiedy uzytkownik widzi najwiekszy wazny element strony, zwykle hero, naglowek albo duzy obraz.",
+        "CLS = czy strona skacze podczas ladowania. Nisko znaczy stabilnie.",
+        "TTFB = ile czekamy na pierwszy bajt z serwera. Wysoko znaczy problem z hostingiem, backendem albo CDN.",
+        "TBT* = ile JavaScript blokuje przegladarke w labie. To przyblizenie responsywnosci, nie oficjalny INP.",
+        "p75 = wynik, ktory jest lepszy dla 75% pomiarow. Google patrzy podobnie na dane terenowe."
+      ]
+    },
+    "paths": {
+      "json": "C:\\Users\\ewakr\\Downloads\\motowycena-cloned\\perf-tool\\web-runs\\c2508bc8-9024-4022-a333-2db8f22a19ae\\2026-05-21T14-03-09-695Z\\www.motowycena.pl\\www.motowycena.pl.json",
+      "markdown": "C:\\Users\\ewakr\\Downloads\\motowycena-cloned\\perf-tool\\web-runs\\c2508bc8-9024-4022-a333-2db8f22a19ae\\2026-05-21T14-03-09-695Z\\www.motowycena.pl\\www.motowycena.pl.md",
+      "html": "C:\\Users\\ewakr\\Downloads\\motowycena-cloned\\perf-tool\\web-runs\\c2508bc8-9024-4022-a333-2db8f22a19ae\\2026-05-21T14-03-09-695Z\\www.motowycena.pl\\www.motowycena.pl.html"
+    }
+  }
+]
