@@ -29,11 +29,20 @@ const polandProjection = geoMercator().fitSize([MAP_W, MAP_H], voivodeships);
 const polandPathGen = geoPath(polandProjection);
 const trimSvgPath = (d: string) => d.replace(/-?\d+(?:\.\d+)?/g, (n) => Math.round(parseFloat(n)).toString());
 const round1 = (n: number) => Math.round(n * 10) / 10;
-const renderedVoivodeships = voivodeships.features.map((feature) => ({
-  key: feature.properties.nazwa,
-  name: feature.properties.nazwa,
-  path: trimSvgPath(polandPathGen(feature as Feature<Geometry>) ?? ''),
-}));
+const renderedVoivodeships = voivodeships.features.map((feature) => {
+  const [cx, cy] = polandPathGen.centroid(feature as Feature<Geometry>);
+  const labelX = round1(cx);
+  const labelY = round1(cy);
+  return {
+    key: feature.properties.nazwa,
+    name: feature.properties.nazwa,
+    path: trimSvgPath(polandPathGen(feature as Feature<Geometry>) ?? ''),
+    labelX,
+    labelY,
+    tooltipX: labelX,
+    tooltipY: labelY,
+  };
+});
 type CityTier = 'major' | 'small';
 type LabelAlign = 'start' | 'end' | 'middle';
 interface CityInput {
@@ -43,34 +52,37 @@ interface CityInput {
   tier: CityTier;
   capital?: boolean;
   align?: LabelAlign;
+  dx?: number;
   dy?: number;
+  showLabel?: boolean;
 }
 const cityList: CityInput[] = [
   { name: 'Warszawa', lon: 21.0122, lat: 52.2297, tier: 'major', capital: true, align: 'start', dy: -10 },
-  { name: 'Poznań',   lon: 16.9252, lat: 52.4064, tier: 'major', align: 'end',   dy: -10 },
+  { name: 'Poznań',   lon: 16.9252, lat: 52.4064, tier: 'major', align: 'end',   dx: -16, dy: -14 },
   { name: 'Kraków',   lon: 19.9450, lat: 50.0647, tier: 'major', align: 'start', dy: -10 },
   { name: 'Gdańsk',   lon: 18.6466, lat: 54.3520, tier: 'major', align: 'middle', dy: -14 },
   { name: 'Łódź',     lon: 19.4560, lat: 51.7592, tier: 'major', align: 'start', dy: 22 },
   { name: 'Bydgoszcz',lon: 18.0084, lat: 53.1235, tier: 'major', align: 'start', dy: -10 },
-  { name: 'Kalisz',   lon: 18.0911, lat: 51.7611, tier: 'major', align: 'end',   dy: -10 },
-  { name: 'Odolanów',           lon: 17.6750, lat: 51.5667, tier: 'small', align: 'end',   dy: 4 },
-  { name: 'Ostrzeszów',         lon: 17.9311, lat: 51.4275, tier: 'small', align: 'start', dy: 5 },
-  { name: 'Kępno',              lon: 17.9833, lat: 51.2833, tier: 'small', align: 'start', dy: 5 },
-  { name: 'Jarocin',            lon: 17.5000, lat: 51.9667, tier: 'small', align: 'end',   dy: -8 },
-  { name: 'Krotoszyn',          lon: 17.4333, lat: 51.7000, tier: 'small', align: 'end',   dy: 5 },
-  { name: 'Pleszew',            lon: 17.7878, lat: 51.8961, tier: 'small', align: 'start', dy: 5 },
-  { name: 'Grabów nad Prosną',  lon: 18.0833, lat: 51.5000, tier: 'small', align: 'start', dy: 5 },
-  { name: 'Środa Wlkp.',        lon: 17.2789, lat: 52.2261, tier: 'small', align: 'end',   dy: 5 },
-  { name: 'Milicz',             lon: 17.2833, lat: 51.5333, tier: 'small', align: 'end',   dy: 5 },
-  { name: 'Twardogóra',         lon: 17.4667, lat: 51.3667, tier: 'small', align: 'end',   dy: 5 },
-  { name: 'Oleśnica',           lon: 17.3833, lat: 51.2167, tier: 'small', align: 'end',   dy: 5 },
-  { name: 'Syców',              lon: 17.7167, lat: 51.3000, tier: 'small', align: 'start', dy: 5 },
-  { name: 'Trzebnica',          lon: 17.0628, lat: 51.3122, tier: 'small', align: 'end',   dy: 5 },
-  { name: 'Długołęka',          lon: 17.1833, lat: 51.1833, tier: 'small', align: 'end',   dy: -8 },
+  { name: 'Kalisz',   lon: 18.0911, lat: 51.7611, tier: 'major', align: 'start', dx: 18, dy: -12 },
+  { name: 'Ostrów Wlkp.',       lon: 17.81,   lat: 51.65,   tier: 'small', align: 'start', dx: 18, dy: -12 },
+  { name: 'Odolanów',           lon: 17.6750, lat: 51.5667, tier: 'small', align: 'end',   dx: -20, dy: 22 },
+  { name: 'Ostrzeszów',         lon: 17.9311, lat: 51.4275, tier: 'small', align: 'start', dx: 20, dy: 6 },
+  { name: 'Kępno',              lon: 17.9833, lat: 51.2833, tier: 'small', align: 'start', dx: 18, dy: 22 },
+  { name: 'Jarocin',            lon: 17.5000, lat: 51.9667, tier: 'small', align: 'end',   dx: -18, dy: -12 },
+  { name: 'Krotoszyn',          lon: 17.4333, lat: 51.7000, tier: 'small', align: 'end',   dx: -22, dy: 8 },
+  { name: 'Pleszew',            lon: 17.7878, lat: 51.8961, tier: 'small', align: 'start', dx: 18, dy: -4 },
+  { name: 'Grabów nad Prosną',  lon: 18.0833, lat: 51.5000, tier: 'small', align: 'start', dy: 5, showLabel: false },
+  { name: 'Środa Wlkp.',        lon: 17.2789, lat: 52.2261, tier: 'small', align: 'end',   dy: 5, showLabel: false },
+  { name: 'Milicz',             lon: 17.2833, lat: 51.5333, tier: 'small', align: 'end',   dx: -18, dy: 24 },
+  { name: 'Twardogóra',         lon: 17.4667, lat: 51.3667, tier: 'small', align: 'end',   dy: 5, showLabel: false },
+  { name: 'Oleśnica',           lon: 17.3833, lat: 51.2167, tier: 'small', align: 'end',   dx: -20, dy: 18 },
+  { name: 'Syców',              lon: 17.7167, lat: 51.3000, tier: 'small', align: 'start', dx: 18, dy: -8 },
+  { name: 'Trzebnica',          lon: 17.0628, lat: 51.3122, tier: 'small', align: 'end',   dy: 5, showLabel: false },
+  { name: 'Długołęka',          lon: 17.1833, lat: 51.1833, tier: 'small', align: 'end',   dy: -8, showLabel: false },
 ];
 const cityMarkers = cityList.map((c) => {
   const [x, y] = polandProjection([c.lon, c.lat]) ?? [0, 0];
-  const labelOffsetX = c.align === 'end' ? -8 : c.align === 'start' ? 8 : 0;
+  const labelOffsetX = c.dx ?? (c.align === 'end' ? -8 : c.align === 'start' ? 8 : 0);
   return {
     ...c,
     x: round1(x),
@@ -80,11 +92,11 @@ const cityMarkers = cityList.map((c) => {
   };
 });
 const brandPins = [
-  { name: 'Ostrów Wlkp.', sub: 'siedziba', lon: 17.81, lat: 51.65, primary: true },
+  { name: business.address.city, sub: 'siedziba', lon: business.geo.longitude, lat: business.geo.latitude, primary: true },
   { name: 'Wrocław',      sub: null,       lon: 17.0385, lat: 51.1079, primary: false },
 ].map((p) => {
   const [x, y] = polandProjection([p.lon, p.lat]) ?? [0, 0];
-  return { ...p, xPct: round1((x / MAP_W) * 100), yPct: round1((y / MAP_H) * 100) };
+  return { ...p, x: round1(x), y: round1(y), xPct: round1((x / MAP_W) * 100), yPct: round1((y / MAP_H) * 100) };
 });
 
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
@@ -108,65 +120,70 @@ const heroReviews = allOpinions
     text: o.text,
     service: o.relatedService,
   }));
-const featuredServiceIndexes = [0, 1, 7, 10, 4];
 const featuredServices = [
   {
     service: services[0],
     icon: Car,
     title: 'Wycena pojazdu',
-    text: 'Dokładna wycena wartości pojazdu.',
+    text: 'Wartość rynkowa, szkoda, leasing, spadek wartości.',
   },
   {
     service: services[1],
     icon: Wrench,
     title: 'Ekspertyzy',
-    text: 'Szczegółowe ekspertyzy techniczne.',
+    text: 'Powypadkowe, techniczne i celno-skarbowe.',
   },
   {
     service: services[7],
     icon: Scale,
     title: 'Pomoc prawna',
-    text: 'Wsparcie w sporach i odszkodowaniach.',
+    text: 'Materiały do odwołań, sporów i ubezpieczycieli.',
   },
   {
     service: services[10],
     icon: Gavel,
     title: 'Biegły sądowy',
-    text: 'Opinie biegłego sądowego i skarbowego.',
+    text: 'Opinie sądowe, skarbowe i techniczne.',
   },
   {
     service: services[4],
     icon: ShoppingCart,
     title: 'Doradztwo',
-    text: 'Sprawdzenie auta przed zakupem.',
+    text: 'Zakup, oględziny i weryfikacja dokumentów.',
   },
 ];
-const compactServices = services.filter((_, index) => !featuredServiceIndexes.includes(index));
-const areaHighlights = [
+const coverageRows = [
   {
-    icon: Car,
-    title: 'Wycena pojazdu',
-    text: 'Wyceny rynkowe na terenie całej Polski.',
+    tone: 'blue',
+    title: 'Wielkopolska',
+    text: 'Poznań i okolice',
+  },
+  {
+    tone: 'blue',
+    title: 'Dolny Śląsk',
+    text: 'Wrocław i okolice',
+  },
+  {
+    tone: 'red',
+    title: 'Cała Polska',
+    text: 'Ponad 60 miast',
+  },
+];
+const serviceProofs = [
+  {
+    icon: Clock,
+    title: 'Szybka odpowiedź',
+    text: 'Termin 24-48h',
   },
   {
     icon: ShieldCheck,
-    title: 'Ekspertyzy',
-    text: 'Powypadkowe, techniczne i celno-skarbowe.',
+    title: 'Doświadczenie',
+    text: `Certyfikat ${business.certificate}`,
   },
   {
-    icon: Scale,
-    title: 'Pomoc prawna',
-    text: 'Wsparcie przy sporach i odszkodowaniach.',
-  },
-  {
-    icon: Gavel,
-    title: 'Biegły sądowy',
-    text: 'Opinie biegłego sądowego i skarbowego.',
-  },
-  {
-    icon: ShoppingCart,
-    title: 'Doradztwo',
-    text: 'Sprawdzenie auta przed zakupem.',
+    icon: MapPin,
+    title: 'Zasięg ogólnopolski',
+    text: 'Dojazd do Ciebie',
   },
 ];
 ---
@@ -227,7 +244,7 @@ const areaHighlights = [
 
     {heroReviews.length > 0 && (
       <div class="pointer-events-none absolute inset-x-4 bottom-6 z-20 hidden justify-end lg:flex lg:inset-x-auto lg:bottom-10 lg:right-10">
-        <div class="pointer-events-auto w-full max-w-md">
+        <div class="pointer-events-auto w-full max-w-none">
           <HeroReviews client:idle reviews={heroReviews} />
         </div>
       </div>
@@ -270,229 +287,221 @@ const areaHighlights = [
   </section>
 
   <!-- USŁUGI -->
-  <section id="uslugi" class="bg-[#f7f8f8] py-16 lg:py-20">
-    <div class="container mx-auto max-w-7xl px-4">
-      <div class="mx-auto mb-12 max-w-3xl text-center">
-        <h2 class="mb-4 text-3xl font-bold text-slate-950 md:text-4xl">Oferta usług</h2>
-        <div class="mx-auto mb-5 h-1 w-12 rounded-full bg-brand-600"></div>
-        <p class="text-slate-600">
-          Ekspertyza, której możesz zaufać – lokalnie w Wielkopolsce i na Dolnym Śląsku,
-          a po uzgodnieniu także w całej Polsce.
-        </p>
+  <section id="uslugi" class="relative overflow-hidden bg-[#041321] py-14 text-white sm:py-16 lg:py-20">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(28,111,183,0.34),transparent_34%),linear-gradient(140deg,rgba(7,28,49,0.98),rgba(2,12,24,1))]"></div>
+    <div class="absolute inset-x-0 top-0 h-px bg-sky-200/30"></div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-slate-950/50"></div>
+    <div class="container relative z-10 mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto mb-8 max-w-3xl text-center lg:mb-10">
+        <h2 class="mb-3 text-3xl font-bold text-white md:text-4xl">Oferta usług</h2>
+        <p class="text-sm font-medium text-slate-300 md:text-base">Profesjonalnie. Rzetelnie. W całej Polsce.</p>
       </div>
 
-      <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/[0.08]">
-        <div class="relative overflow-hidden bg-[#061729] px-5 py-8 text-white sm:px-7 lg:px-8">
-          <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_45%_0%,rgba(32,115,191,0.34),transparent_36%),linear-gradient(135deg,rgba(8,37,68,0.96),rgba(3,14,26,1))]"></div>
-          <div class="absolute inset-x-10 top-0 z-0 h-px bg-sky-300/30"></div>
-          <div class="relative z-10 mb-7">
-            <div>
-              <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-sky-200">Najczęściej wybierane</p>
-              <h3 class="text-2xl font-bold md:text-3xl">Usługi rzeczoznawcy</h3>
-            </div>
-          </div>
+      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-3 border-b border-sky-200/10 pb-8 sm:grid-cols-3 md:gap-5 lg:max-w-none lg:grid-cols-5 lg:pb-10">
+        {featuredServices.map(({ service, icon: FeaturedIcon, title, text }) => (
+          <a
+            href={serviceUrl(service.slug)}
+            class="group flex min-h-40 flex-col items-center justify-start rounded-2xl border border-transparent px-3 py-3 text-center transition hover:border-sky-300/25 hover:bg-white/[0.04] last:col-span-2 last:mx-auto last:w-[calc(50%-0.375rem)] sm:last:col-span-1 sm:last:mx-0 sm:last:w-auto lg:min-h-44 lg:px-5 lg:py-4"
+          >
+            <span class="mb-4 grid h-12 w-12 place-items-center text-slate-200 transition group-hover:text-sky-200 lg:h-14 lg:w-14">
+              <FeaturedIcon size={38} strokeWidth={1.55} aria-hidden="true" />
+            </span>
+            <span class="min-h-[2.6rem] text-sm font-bold leading-tight text-slate-100 lg:text-base">{title}</span>
+            <span class="mt-3 h-1 w-9 rounded-full bg-red-600 transition group-hover:w-12 group-hover:bg-sky-300"></span>
+            <span class="mt-3 max-w-44 text-xs leading-relaxed text-slate-400 transition group-hover:text-slate-200">
+              {text}
+            </span>
+          </a>
+        ))}
+      </div>
 
-          <div class="relative z-10 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
-            {featuredServices.map(({ service, icon: FeaturedIcon, title, text }) => (
-              <a
-                href={serviceUrl(service.slug)}
-                class="group flex min-h-52 flex-col rounded-xl border border-sky-300/25 bg-white/[0.03] p-4 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-sky-300/60 hover:bg-white/[0.07]"
-              >
-                <span class="mb-5 grid h-12 w-12 place-items-center rounded-xl border border-sky-200/30 bg-sky-300/10 text-sky-100 shadow-[0_0_22px_rgba(56,189,248,0.22)]">
-                  <FeaturedIcon size={27} strokeWidth={1.8} aria-hidden="true" />
+      <div class="mt-9 grid gap-8 xl:grid-cols-[0.66fr_1.34fr] xl:items-start">
+        <div class="mx-auto w-full max-w-xl xl:max-w-none">
+          <h3 class="mb-6 text-2xl font-bold tracking-tight text-white md:text-3xl">Działamy w Polsce</h3>
+          <ul class="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+            {coverageRows.map((row) => (
+              <li class="flex items-center gap-4 rounded-2xl border border-sky-200/10 bg-white/[0.035] px-4 py-3 xl:border-transparent xl:bg-transparent xl:px-0 xl:py-0">
+                <span
+                  class:list={[
+                    'grid h-10 w-10 shrink-0 place-items-center rounded-full text-lg font-black text-white shadow-lg shadow-black/25 ring-1 ring-white/15',
+                    row.tone === 'red' ? 'bg-red-600' : 'bg-sky-500',
+                  ]}
+                >
+                  ✓
                 </span>
-                <h4 class="mb-2 text-base font-semibold leading-tight text-white">
-                  {title}
-                </h4>
-                <p class="mb-5 text-sm leading-relaxed text-slate-300">
-                  {text}
-                </p>
-                <span class="mt-auto text-right text-xl leading-none text-sky-200 transition group-hover:translate-x-1">→</span>
-              </a>
+                <span>
+                  <span class="block text-base font-bold leading-tight text-white">{row.title}</span>
+                  <span class="block text-sm leading-snug text-slate-400">{row.text}</span>
+                </span>
+              </li>
             ))}
-          </div>
-
-          <div class="relative z-10 mt-7 flex justify-center">
-            <a
-              href={`tel:${business.contact.phone}`}
-              class="inline-flex min-w-56 items-center justify-center gap-2 rounded-xl border border-sky-300/30 bg-sky-400/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-400/20"
-            >
-              <Phone size={16} aria-hidden="true" />
-              {business.contact.phoneDisplay}
-            </a>
+          </ul>
+          <div class="mt-6 rounded-2xl border border-sky-200/10 bg-white/[0.04] p-4 text-sm leading-relaxed text-slate-300">
+            <p class="font-semibold text-white">Siedziba: {business.address.city}</p>
+            <p class="mt-1">Stała obsługa: Wielkopolska i Dolny Śląsk. Pozostałe województwa są możliwe po ustaleniu zakresu, terminu i dojazdu.</p>
           </div>
         </div>
 
-        <div class="border-t border-slate-800/70 bg-[#061729] px-5 pb-7 sm:px-7 lg:px-8">
-          <div class="flex flex-wrap gap-2">
-            {compactServices.map((service) => (
-              <a
-                href={serviceUrl(service.slug)}
-                class="inline-flex min-h-[44px] items-center rounded-full border border-sky-300/20 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-sky-300/50 hover:bg-white/[0.08] hover:text-white"
-              >
-                {service.name}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div class="relative overflow-hidden border-t border-slate-200 bg-white px-5 py-8 sm:px-7 lg:px-8">
-          <div class="absolute right-4 top-4 h-52 w-52 rounded-full bg-brand-50 blur-3xl"></div>
-          <div class="relative z-10 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-            <div class="max-w-lg">
-              <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-700">Zasięg działania</p>
-              <h3 class="mb-5 text-2xl font-bold text-slate-950 md:text-3xl">Działamy w Polsce</h3>
-              <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                {areaHighlights.map(({ icon: AreaIcon, title, text }) => (
-                  <li class="flex gap-3">
-                    <span class="mt-0.5 grid h-9 w-9 flex-shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700">
-                      <AreaIcon size={19} aria-hidden="true" />
-                    </span>
-                    <div>
-                      <p class="font-semibold leading-snug text-slate-950">{title}</p>
-                      <p class="text-sm leading-relaxed text-slate-600">{text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href={`tel:${business.contact.phone}`}
-                  class="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-700 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-950/15 transition hover:bg-brand-600"
-                >
-                  <Phone size={16} aria-hidden="true" />
-                  {business.contact.phoneDisplay}
-                </a>
-                <a
-                  href="#kontakt"
-                  class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-brand-800 transition hover:border-brand-200 hover:bg-brand-50"
-                >
-                  <MessageCircle size={16} aria-hidden="true" />
-                  Wyślij zapytanie
-                </a>
-              </div>
-            </div>
-
-            <div class="relative mx-auto aspect-[1.064/1] w-full max-w-xl">
-              <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} class="h-full w-full" role="img" aria-label="Mapa Polski z zaznaczonymi miastami obsługiwanymi przez rzeczoznawcę">
-                <g>
-                  {renderedVoivodeships.map((v) => (
+        <div class="relative mx-auto aspect-[1.064/1] w-full max-w-3xl xl:max-w-[50rem] 2xl:max-w-[54rem]">
+          <div class="absolute inset-6 rounded-full bg-sky-500/10 blur-3xl"></div>
+          <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} class="relative z-10 h-full w-full drop-shadow-[0_22px_45px_rgba(0,0,0,0.35)]" role="img" aria-label="Mapa Polski z zaznaczonym zasięgiem rzeczoznawcy">
+            <g>
+              {renderedVoivodeships.map((v) => {
+                const isWielkopolska = v.name === 'wielkopolskie';
+                const isDolnySlask = v.name === 'dolnośląskie';
+                const isCoreRegion = isWielkopolska || isDolnySlask;
+                const tooltipText = isCoreRegion ? 'Stały region obsługi' : 'Do ustalenia';
+                const tooltipWidth = isCoreRegion ? 210 : 154;
+                return (
+                  <g class="group cursor-pointer">
                     <path
                       d={v.path}
-                      fill="#234a7a"
-                      stroke="#102b4d"
-                      stroke-width="1.2"
+                      fill={isCoreRegion ? '#0d62b6' : '#153553'}
+                      stroke={isCoreRegion ? '#4ea3ff' : '#285071'}
+                      stroke-width={isCoreRegion ? '2.2' : '1.2'}
                       stroke-linejoin="round"
+                      opacity={isCoreRegion ? '0.96' : '0.72'}
+                      class="transition duration-200 group-hover:fill-[#f5f0dc] group-hover:stroke-white group-hover:opacity-100"
                     >
-                      <title>{v.name}</title>
+                      <title>{`${v.name}: ${tooltipText}`}</title>
                     </path>
-                  ))}
-                </g>
-
-                <g font-family="system-ui, -apple-system, sans-serif">
-                  {cityMarkers.filter((c) => c.tier === 'small').map((c) => (
-                    <g>
-                      <circle cx={c.x} cy={c.y} r="5" fill="#ffffff" stroke="#0b2240" stroke-width="1.5" />
+                    <g
+                      class="pointer-events-none opacity-0 transition duration-150 group-hover:opacity-100"
+                      transform={`translate(${v.tooltipX} ${v.tooltipY})`}
+                    >
+                      <rect
+                        x={-(tooltipWidth / 2)}
+                        y="-32"
+                        width={tooltipWidth}
+                        height="44"
+                        rx="12"
+                        fill="#f8f4e8"
+                        stroke="#ffffff"
+                        stroke-width="2"
+                      />
                       <text
-                        x={c.labelX}
-                        y={c.labelY}
-                        font-size="15"
-                        font-weight="600"
-                        fill="#ffffff"
-                        text-anchor={c.align}
-                        paint-order="stroke"
-                        stroke="#0b2240"
-                        stroke-width="3.5"
-                        stroke-linejoin="round"
-                      >{c.name}<title>{c.name}</title></text>
+                        x="0"
+                        y="-8"
+                        text-anchor="middle"
+                        font-size="24"
+                        font-weight="800"
+                        fill="#0f2741"
+                      >
+                        {tooltipText}
+                      </text>
                     </g>
-                  ))}
+                  </g>
+                );
+              })}
+            </g>
 
-                  {cityMarkers.filter((c) => c.tier === 'major' && !c.capital).map((c) => (
+            <g>
+              {cityMarkers.map((c) => {
+                if (c.tier === 'major') {
+                  return (
                     <g>
-                      <circle cx={c.x} cy={c.y} r="7" fill="#ffffff" stroke="#0b2240" stroke-width="2" />
+                      <circle cx={c.x} cy={c.y} r="5.5" fill="#f8fbff" opacity="0.95">
+                        <title>{c.name}</title>
+                      </circle>
                       <text
                         x={c.labelX}
                         y={c.labelY}
+                        text-anchor={c.align}
                         font-size="22"
-                        font-weight="700"
-                        fill="#ffffff"
-                        text-anchor={c.align}
-                        paint-order="stroke"
-                        stroke="#0b2240"
-                        stroke-width="4.5"
-                        stroke-linejoin="round"
-                      >{c.name}</text>
-                    </g>
-                  ))}
-
-                  {cityMarkers.filter((c) => c.capital).map((c) => (
-                    <g>
-                      <circle cx={c.x} cy={c.y} r="10" fill="#dc2626" stroke="#ffffff" stroke-width="2.5" />
-                      <text
-                        x={c.labelX}
-                        y={c.labelY}
-                        font-size="26"
                         font-weight="800"
                         fill="#ffffff"
-                        text-anchor={c.align}
+                        opacity="0.98"
                         paint-order="stroke"
-                        stroke="#0b2240"
+                        stroke="#061729"
                         stroke-width="5"
                         stroke-linejoin="round"
-                      >{c.name}</text>
+                      >
+                        {c.name}
+                      </text>
                     </g>
-                  ))}
+                  );
+                }
+                return (
+                  <g class="map-city-small cursor-pointer">
+                    <circle
+                      cx={c.x}
+                      cy={c.y}
+                      r="3.6"
+                      fill="#f8fbff"
+                      opacity="0.7"
+                      class="map-city-small-dot"
+                    >
+                      <title>{c.name}</title>
+                    </circle>
+                    <text
+                      x={c.labelX}
+                      y={c.labelY}
+                      text-anchor={c.align}
+                      font-size="14"
+                      font-weight="700"
+                      fill="#d8ecff"
+                      paint-order="stroke"
+                      stroke="#061729"
+                      stroke-width="3.4"
+                      stroke-linejoin="round"
+                      class="map-city-small-label pointer-events-none"
+                    >
+                      {c.name}
+                    </text>
+                  </g>
+                );
+              })}
+            </g>
+
+            <g>
+              {brandPins.map((p) => (
+                <g transform={`translate(${p.x} ${p.y})`}>
+                  {p.primary ? (
+                    <>
+                      <circle r="24" cx="0" cy="0" fill="#dc2626" opacity="0.55" class="map-hq-ring" />
+                      <circle r="24" cx="0" cy="0" fill="#dc2626" opacity="0" class="map-hq-ring-late" />
+                      <g class="map-hq-core">
+                        <circle r="22" fill="#dc2626" stroke="#ffd9d3" stroke-width="4" />
+                        <circle r="7" fill="#ffffff" />
+                      </g>
+                      <g transform="translate(40 -78)">
+                        <rect x="0" y="0" width="252" height="74" rx="14" fill="#f8f4e8" stroke="#dc2626" stroke-width="2.5" />
+                        <rect x="0" y="0" width="6" height="74" rx="3" fill="#dc2626" />
+                        <text x="22" y="26" font-size="18" font-weight="800" fill="#dc2626" letter-spacing="1.2">SIEDZIBA</text>
+                        <text x="22" y="48" font-size="19" font-weight="800" fill="#0f2741">{p.name}</text>
+                        <text x="22" y="65" font-size="13" font-weight="600" fill="#475569">k. Ostrowa Wielkopolskiego</text>
+                      </g>
+                    </>
+                  ) : (
+                    <>
+                      <circle r="34" fill="#1d75d8" opacity="0.18" />
+                      <circle r="19" fill="#1d75d8" stroke="#9ed0ff" stroke-width="4" />
+                      <circle r="6" fill="#ffffff" />
+                      <g transform="translate(-182 28)">
+                        <rect x="0" y="0" width="160" height="42" rx="12" fill="#102d49" stroke="#8cc7ff" stroke-width="1.5" opacity="0.92" />
+                        <text x="80" y="27" text-anchor="middle" font-size="17" font-weight="800" fill="#dff2ff">{p.name}</text>
+                      </g>
+                    </>
+                  )}
                 </g>
-              </svg>
-
-              {brandPins.map((p) =>
-                p.primary ? (
-                  <>
-                    <span
-                      class="pointer-events-none absolute z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-red-500/50"
-                      style={`left:${p.xPct}%;top:${p.yPct}%`}
-                    ></span>
-                    <span
-                      class="absolute z-20 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-red-600 text-white shadow-xl shadow-black/40 ring-[3px] ring-white"
-                      style={`left:${p.xPct}%;top:${p.yPct}%;width:3.25rem;height:3.25rem`}
-                    >
-                      <MapPin size={24} aria-hidden="true" />
-                    </span>
-                    <div
-                      class="absolute z-20 whitespace-nowrap rounded-md border border-red-600 bg-white px-2.5 py-1 text-xs font-bold text-slate-950 shadow-lg"
-                      style={`left:${p.xPct}%;top:${p.yPct}%;transform:translate(15%, -220%)`}
-                    >
-                      {p.name}
-                      <span class="block text-[10px] font-medium uppercase tracking-wider text-red-700">{p.sub}</span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <span
-                      class="absolute z-20 grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-brand-800 shadow-lg shadow-black/30 ring-2 ring-brand-900"
-                      style={`left:${p.xPct}%;top:${p.yPct}%`}
-                    >
-                      <MapPin size={16} aria-hidden="true" />
-                    </span>
-                    <div
-                      class="absolute z-20 whitespace-nowrap rounded-md border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold text-slate-900 shadow-md"
-                      style={`left:${p.xPct}%;top:${p.yPct}%;transform:translate(-100%, 55%)`}
-                    >
-                      {p.name}
-                    </div>
-                  </>
-                )
-              )}
-
-              <div class="absolute bottom-[2%] right-[2%] z-20 max-w-[15rem] rounded-xl border border-slate-200 bg-white/95 px-3.5 py-2.5 text-sm shadow-xl shadow-slate-950/[0.12] backdrop-blur">
-                <p class="font-semibold leading-tight text-slate-950">Wielkopolska · Dolny Śląsk</p>
-                <p class="text-xs leading-snug text-slate-600">oraz cała Polska po uzgodnieniu</p>
-              </div>
-            </div>
-
-          </div>
+              ))}
+            </g>
+          </svg>
         </div>
+      </div>
+
+      <div class="mt-9 grid overflow-hidden rounded-2xl border border-sky-200/10 bg-white/[0.04] shadow-2xl shadow-black/15 md:grid-cols-3 lg:mt-10">
+        {serviceProofs.map(({ icon: ProofIcon, title, text }) => (
+          <div class="flex min-h-20 items-center gap-3 border-b border-sky-200/10 px-5 py-4 md:border-b-0 md:border-r md:last:border-r-0 lg:px-7">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-sky-200/25 bg-sky-300/10 text-sky-100">
+              <ProofIcon size={22} strokeWidth={1.9} aria-hidden="true" />
+            </span>
+            <span>
+              <span class="block text-sm font-bold leading-tight text-white">{title}</span>
+              <span class="block text-xs leading-snug text-slate-400">{text}</span>
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   </section>

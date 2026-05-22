@@ -93,6 +93,38 @@ img {
   transform-origin: center;
 }
 
+/* --- Mapa Polski: pulsująca animacja siedziby --- */
+@keyframes mapHqPulse {
+  0%   { r: 24; opacity: 0.55; }
+  70%  { r: 78; opacity: 0;    }
+  100% { r: 78; opacity: 0;    }
+}
+
+@keyframes mapHqPulseDelayed {
+  0%   { r: 24; opacity: 0;    }
+  25%  { r: 24; opacity: 0.45; }
+  90%  { r: 78; opacity: 0;    }
+  100% { r: 78; opacity: 0;    }
+}
+
+@keyframes mapHqHeartbeat {
+  0%, 100% { transform: scale(1);    }
+  35%      { transform: scale(1.12); }
+  60%      { transform: scale(1);    }
+  75%      { transform: scale(1.06); }
+}
+
+.map-hq-ring        { animation: mapHqPulse 2.2s cubic-bezier(0.25, 0.7, 0.4, 1) infinite; transform-origin: center; transform-box: fill-box; }
+.map-hq-ring-late   { animation: mapHqPulseDelayed 2.2s cubic-bezier(0.25, 0.7, 0.4, 1) infinite; transform-origin: center; transform-box: fill-box; }
+.map-hq-core        { animation: mapHqHeartbeat 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+/* --- Mapa Polski: małe miasta — etykieta tylko na hover --- */
+.map-city-small-label { opacity: 0; transition: opacity 0.18s ease-out; }
+.map-city-small:hover .map-city-small-label,
+.map-city-small:focus-within .map-city-small-label { opacity: 1; }
+.map-city-small-dot { transition: r 0.15s ease-out, fill 0.15s ease-out; }
+.map-city-small:hover .map-city-small-dot { r: 6; fill: #ffffff; }
+
 /* --- Reduced motion: szanujemy preferencje użytkownika --- */
 @media (prefers-reduced-motion: reduce) {
   html {
