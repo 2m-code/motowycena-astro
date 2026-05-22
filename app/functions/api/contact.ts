@@ -9,7 +9,7 @@
  *
  * Walidacja: ręczna (brak zależności do zod żeby worker był jak najmniejszy).
  * Anti-spam: honeypot + Cloudflare Turnstile (jeśli skonfigurowane).
- * Wysyłka: Resend API (jeśli ustawione env.RESEND_API_KEY).
+ * Wysyłka: Resend API (wymagane env.RESEND_API_KEY na produkcji).
  *
  * Env vars w Cloudflare Pages > Settings > Environment variables:
  *   - RESEND_API_KEY (sekret)
@@ -72,8 +72,11 @@ export const onRequestPost = async (ctx: PagesContext): Promise<Response> => {
     return success(wantsJSON);
   }
 
-  // Cloudflare Turnstile – weryfikacja po stronie serwera
-  if (env.TURNSTILE_SECRET_KEY && data['cf-turnstile-response']) {
+  // Cloudflare Turnstile – jeśli secret jest ustawiony, token jest wymagany.
+  if (env.TURNSTILE_SECRET_KEY) {
+    if (!data['cf-turnstile-response']) {
+      return fail(wantsJSON, 'Verification missing – odśwież stronę i spróbuj ponownie', 400);
+    }
     const ip = request.headers.get('cf-connecting-ip') ?? undefined;
     const ok = await verifyTurnstile(
       data['cf-turnstile-response'],
@@ -205,6 +208,10 @@ async function sendEmail(data: ContactPayload, env: Env, ip?: string): Promise<v
   const CONTACT_EMAIL = env.CONTACT_EMAIL ?? 'biuro@motowycena.pl';
   const FROM = env.MAIL_FROM ?? 'Formularz <noreply@motowycena.pl>';
 
+  if (!RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is not configured');
+  }
+
   const subject = `Nowe zapytanie ze strony – ${data.name}`;
   const html = `
     <div style="font-family: system-ui, sans-serif; max-width: 600px;">
@@ -224,19 +231,6 @@ async function sendEmail(data: ContactPayload, env: Env, ip?: string): Promise<v
       </p>
     </div>
   `;
-
-  if (!RESEND_API_KEY) {
-    console.log('[contact-form][DEV - brak RESEND_API_KEY]', {
-      to: CONTACT_EMAIL,
-      from: FROM,
-      subject,
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      messageLen: data.message.length,
-    });
-    return;
-  }
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',

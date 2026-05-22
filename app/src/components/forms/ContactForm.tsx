@@ -190,7 +190,7 @@ export default function ContactForm({ turnstileSiteKey }: Props) {
             type="checkbox"
             name="consent"
             required
-            className="mt-0.5 rounded border-slate-300 text-brand-700 focus:ring-brand-500"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-slate-300 text-brand-700 focus:ring-brand-500"
             aria-invalid={!!errors.consent}
           />
           <span>

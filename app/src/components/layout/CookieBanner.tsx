@@ -61,14 +61,14 @@ export default function CookieBanner() {
         <button
           type="button"
           onClick={() => handleChoice('accepted')}
-          className="flex-1 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition"
+          className="flex-1 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-4 py-3 rounded-lg transition"
         >
           Akceptuję wszystkie
         </button>
         <button
           type="button"
           onClick={() => handleChoice('necessary')}
-          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 text-sm font-semibold px-4 py-2.5 rounded-lg transition"
+          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 text-sm font-semibold px-4 py-3 rounded-lg transition"
         >
           Tylko niezbędne
         </button>

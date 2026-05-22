@@ -61,7 +61,7 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
         ref={buttonRef}
         type="button"
         onClick={() => setOpen(true)}
-        className="-mr-2 rounded-xl p-2 text-slate-900 transition hover:bg-slate-100 hover:text-brand-700 lg:hidden"
+        className="-mr-2 rounded-xl p-2.5 text-slate-900 transition hover:bg-slate-100 hover:text-brand-700 lg:hidden"
         aria-label="Otwórz menu"
         aria-expanded={open}
         aria-controls={panelId}
@@ -91,7 +91,7 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="-mr-2 rounded-xl p-2 text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
+                className="-mr-2 rounded-xl p-2.5 text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
                 aria-label="Zamknij menu"
               >
                 <X size={24} aria-hidden="true" />

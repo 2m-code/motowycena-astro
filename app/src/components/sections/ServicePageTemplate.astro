@@ -60,7 +60,7 @@ const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
 <section class="bg-gradient-to-br from-brand-900 to-brand-700 text-white py-16 lg:py-20">
   <div class="container mx-auto px-4 max-w-5xl">
     <nav aria-label="okruszki" class="text-sm text-brand-100 mb-4">
-      <a href="/" class="hover:underline">Strona główna</a>
+      <a href="/" class="inline-block py-1 hover:underline">Strona główna</a>
       <span class="mx-2">/</span>
       <span>{serviceName}</span>
     </nav>
@@ -141,8 +141,8 @@ const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
       <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Najczęstsze pytania</h2>
       <div class="space-y-3">
         {faq.map((item) => (
-          <details class="group bg-gray-50 rounded-lg p-5 cursor-pointer">
-            <summary class="font-semibold list-none flex justify-between items-center">
+          <details class="group bg-gray-50 rounded-lg px-5 py-2 cursor-pointer">
+            <summary class="font-semibold list-none flex justify-between items-center py-3">
               {item.question}
               <span class="text-brand-600 group-open:rotate-45 transition-transform text-xl">+</span>
             </summary>

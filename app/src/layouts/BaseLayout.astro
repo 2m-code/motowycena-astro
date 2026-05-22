@@ -69,6 +69,7 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
     {/* Cloudflare Web Analytics – warunkowy beacon. Bez cookies, lekki (<2 KB). */}
     {cfAnalyticsToken && (
       <script
+        is:inline
         defer
         src="https://static.cloudflareinsights.com/beacon.min.js"
         data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}

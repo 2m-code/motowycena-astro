@@ -79,6 +79,20 @@ img {
   max-width: 100%;
 }
 
+/* --- Hero background motion --- */
+.hero-motion-layer {
+  pointer-events: none;
+  background: linear-gradient(135deg, #12345a, #5d8fc0);
+}
+
+.hero-car-video {
+  background: transparent;
+  filter: brightness(1.8) saturate(1.14) contrast(0.84);
+  object-position: 70% center;
+  transform: translateX(7%) scale(1.04);
+  transform-origin: center;
+}
+
 /* --- Reduced motion: szanujemy preferencje użytkownika --- */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -90,6 +104,9 @@ img {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .hero-car-video {
+    display: none;
   }
 }
 

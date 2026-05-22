@@ -35,7 +35,7 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
   />
 
   <!-- Dodatkowe Schema: Service z areaServed: City Ostrów Wlkp -->
-  <script type="application/ld+json" set:html={JSON.stringify({
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Service',
     serviceType: 'Wyceny i ekspertyzy pojazdów',
@@ -53,7 +53,7 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
   <section class="bg-gradient-to-br from-brand-900 to-brand-700 text-white py-16 lg:py-20">
     <div class="container mx-auto px-4 max-w-5xl">
       <nav aria-label="okruszki" class="text-sm text-brand-100 mb-4">
-        <a href="/" class="hover:underline">Strona główna</a>
+        <a href="/" class="inline-block py-1 hover:underline">Strona główna</a>
         <span class="mx-2">/</span>
         <span>Rzeczoznawca Ostrów Wielkopolski</span>
       </nav>

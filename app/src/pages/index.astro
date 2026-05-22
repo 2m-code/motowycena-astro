@@ -9,31 +9,165 @@ import {
   MapPin,
   Car,
   Wrench,
-  ClipboardCheck,
-  FileText,
   ShoppingCart,
-  BadgeCheck,
-  Settings,
   Scale,
   ShieldCheck,
-  BadgePercent,
   Gavel,
 } from 'lucide-react';
 import ContactForm from '@components/forms/ContactForm.tsx';
+import HeroReviews from '@components/hero/HeroReviews.tsx';
+import { getCollection } from 'astro:content';
+import { geoMercator, geoPath } from 'd3-geo';
+import voivodeshipsData from '@data/poland-voivodeships.json';
+import type { FeatureCollection, Feature, Geometry } from 'geojson';
+
+type VoivodeshipProps = { nazwa: string };
+const voivodeships = voivodeshipsData as FeatureCollection<Geometry, VoivodeshipProps>;
+const MAP_W = 1064;
+const MAP_H = 1000;
+const polandProjection = geoMercator().fitSize([MAP_W, MAP_H], voivodeships);
+const polandPathGen = geoPath(polandProjection);
+const trimSvgPath = (d: string) => d.replace(/-?\d+(?:\.\d+)?/g, (n) => Math.round(parseFloat(n)).toString());
+const round1 = (n: number) => Math.round(n * 10) / 10;
+const renderedVoivodeships = voivodeships.features.map((feature) => ({
+  key: feature.properties.nazwa,
+  name: feature.properties.nazwa,
+  path: trimSvgPath(polandPathGen(feature as Feature<Geometry>) ?? ''),
+}));
+type CityTier = 'major' | 'small';
+type LabelAlign = 'start' | 'end' | 'middle';
+interface CityInput {
+  name: string;
+  lon: number;
+  lat: number;
+  tier: CityTier;
+  capital?: boolean;
+  align?: LabelAlign;
+  dy?: number;
+}
+const cityList: CityInput[] = [
+  { name: 'Warszawa', lon: 21.0122, lat: 52.2297, tier: 'major', capital: true, align: 'start', dy: -10 },
+  { name: 'Poznań',   lon: 16.9252, lat: 52.4064, tier: 'major', align: 'end',   dy: -10 },
+  { name: 'Kraków',   lon: 19.9450, lat: 50.0647, tier: 'major', align: 'start', dy: -10 },
+  { name: 'Gdańsk',   lon: 18.6466, lat: 54.3520, tier: 'major', align: 'middle', dy: -14 },
+  { name: 'Łódź',     lon: 19.4560, lat: 51.7592, tier: 'major', align: 'start', dy: 22 },
+  { name: 'Bydgoszcz',lon: 18.0084, lat: 53.1235, tier: 'major', align: 'start', dy: -10 },
+  { name: 'Kalisz',   lon: 18.0911, lat: 51.7611, tier: 'major', align: 'end',   dy: -10 },
+  { name: 'Odolanów',           lon: 17.6750, lat: 51.5667, tier: 'small', align: 'end',   dy: 4 },
+  { name: 'Ostrzeszów',         lon: 17.9311, lat: 51.4275, tier: 'small', align: 'start', dy: 5 },
+  { name: 'Kępno',              lon: 17.9833, lat: 51.2833, tier: 'small', align: 'start', dy: 5 },
+  { name: 'Jarocin',            lon: 17.5000, lat: 51.9667, tier: 'small', align: 'end',   dy: -8 },
+  { name: 'Krotoszyn',          lon: 17.4333, lat: 51.7000, tier: 'small', align: 'end',   dy: 5 },
+  { name: 'Pleszew',            lon: 17.7878, lat: 51.8961, tier: 'small', align: 'start', dy: 5 },
+  { name: 'Grabów nad Prosną',  lon: 18.0833, lat: 51.5000, tier: 'small', align: 'start', dy: 5 },
+  { name: 'Środa Wlkp.',        lon: 17.2789, lat: 52.2261, tier: 'small', align: 'end',   dy: 5 },
+  { name: 'Milicz',             lon: 17.2833, lat: 51.5333, tier: 'small', align: 'end',   dy: 5 },
+  { name: 'Twardogóra',         lon: 17.4667, lat: 51.3667, tier: 'small', align: 'end',   dy: 5 },
+  { name: 'Oleśnica',           lon: 17.3833, lat: 51.2167, tier: 'small', align: 'end',   dy: 5 },
+  { name: 'Syców',              lon: 17.7167, lat: 51.3000, tier: 'small', align: 'start', dy: 5 },
+  { name: 'Trzebnica',          lon: 17.0628, lat: 51.3122, tier: 'small', align: 'end',   dy: 5 },
+  { name: 'Długołęka',          lon: 17.1833, lat: 51.1833, tier: 'small', align: 'end',   dy: -8 },
+];
+const cityMarkers = cityList.map((c) => {
+  const [x, y] = polandProjection([c.lon, c.lat]) ?? [0, 0];
+  const labelOffsetX = c.align === 'end' ? -8 : c.align === 'start' ? 8 : 0;
+  return {
+    ...c,
+    x: round1(x),
+    y: round1(y),
+    labelX: round1(x + labelOffsetX),
+    labelY: round1(y + (c.dy ?? 5)),
+  };
+});
+const brandPins = [
+  { name: 'Ostrów Wlkp.', sub: 'siedziba', lon: 17.81, lat: 51.65, primary: true },
+  { name: 'Wrocław',      sub: null,       lon: 17.0385, lat: 51.1079, primary: false },
+].map((p) => {
+  const [x, y] = polandProjection([p.lon, p.lat]) ?? [0, 0];
+  return { ...p, xPct: round1((x / MAP_W) * 100), yPct: round1((y / MAP_H) * 100) };
+});
 
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
-const serviceIcons = [
-  Car,
-  Wrench,
-  ClipboardCheck,
-  FileText,
-  ShoppingCart,
-  BadgeCheck,
-  Settings,
-  Scale,
-  ShieldCheck,
-  BadgePercent,
-  Gavel,
+
+const allOpinions = await getCollection('opinions');
+const previewUnverifiedOpinions = import.meta.env.DEV;
+const heroReviews = allOpinions
+  .filter((o) => o.data.verified === true || previewUnverifiedOpinions)
+  .map((o) => o.data)
+  .sort(
+    (a, b) =>
+      Number(b.verified) - Number(a.verified) ||
+      b.rating - a.rating ||
+      (b.publishedAt?.getTime() ?? 0) - (a.publishedAt?.getTime() ?? 0)
+  )
+  .slice(0, 5)
+  .map((o) => ({
+    author: o.author,
+    role: o.role,
+    rating: o.rating,
+    text: o.text,
+    service: o.relatedService,
+  }));
+const featuredServiceIndexes = [0, 1, 7, 10, 4];
+const featuredServices = [
+  {
+    service: services[0],
+    icon: Car,
+    title: 'Wycena pojazdu',
+    text: 'Dokładna wycena wartości pojazdu.',
+  },
+  {
+    service: services[1],
+    icon: Wrench,
+    title: 'Ekspertyzy',
+    text: 'Szczegółowe ekspertyzy techniczne.',
+  },
+  {
+    service: services[7],
+    icon: Scale,
+    title: 'Pomoc prawna',
+    text: 'Wsparcie w sporach i odszkodowaniach.',
+  },
+  {
+    service: services[10],
+    icon: Gavel,
+    title: 'Biegły sądowy',
+    text: 'Opinie biegłego sądowego i skarbowego.',
+  },
+  {
+    service: services[4],
+    icon: ShoppingCart,
+    title: 'Doradztwo',
+    text: 'Sprawdzenie auta przed zakupem.',
+  },
+];
+const compactServices = services.filter((_, index) => !featuredServiceIndexes.includes(index));
+const areaHighlights = [
+  {
+    icon: Car,
+    title: 'Wycena pojazdu',
+    text: 'Wyceny rynkowe na terenie całej Polski.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Ekspertyzy',
+    text: 'Powypadkowe, techniczne i celno-skarbowe.',
+  },
+  {
+    icon: Scale,
+    title: 'Pomoc prawna',
+    text: 'Wsparcie przy sporach i odszkodowaniach.',
+  },
+  {
+    icon: Gavel,
+    title: 'Biegły sądowy',
+    text: 'Opinie biegłego sądowego i skarbowego.',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'Doradztwo',
+    text: 'Sprawdzenie auta przed zakupem.',
+  },
 ];
 ---
 
@@ -44,40 +178,45 @@ const serviceIcons = [
 >
   <!-- HERO -->
   <section class="relative isolate overflow-hidden bg-brand-900 text-white">
-    <img
-      src="/uploads/black-bmw-m3-coupe-car.png"
-      alt="Czarny samochód sportowy użyty na stronie Motowycena"
-      loading="eager"
-      decoding="async"
-      class="absolute bottom-0 right-[-5rem] z-0 hidden w-[64rem] max-w-[74%] opacity-70 saturate-90 contrast-110 lg:block"
-    />
-    <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_78%_42%,rgba(49,95,148,0.24),transparent_36%),linear-gradient(105deg,#071522_0%,#0b1d2e_48%,rgba(7,21,34,0.58)_100%)]"></div>
-    <div class="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(7,21,34,0.96)_0%,rgba(7,21,34,0.78)_47%,rgba(7,21,34,0.25)_100%)]"></div>
+    <div class="hero-motion-layer absolute inset-y-0 right-0 z-0 hidden w-[76%] overflow-hidden lg:block" aria-hidden="true">
+      <video
+        class="hero-car-video absolute inset-0 h-full w-full object-cover opacity-100"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      >
+        <source src="/uploads/hero-background-video-v2.mp4" type="video/mp4" media="(min-width: 1024px)" />
+      </video>
+    </div>
+    <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_78%_42%,rgba(116,174,236,0.22),transparent_40%),linear-gradient(105deg,rgba(8,25,41,0.78)_0%,rgba(18,52,90,0.42)_48%,rgba(20,55,92,0.1)_100%)]"></div>
+    <div class="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(7,21,34,0.9)_0%,rgba(7,21,34,0.56)_45%,rgba(7,21,34,0.02)_100%)]"></div>
     <div class="absolute inset-x-0 bottom-0 z-0 h-px bg-white/10"></div>
-    <div class="container relative z-10 mx-auto max-w-7xl px-4 py-20 lg:py-28">
-      <div class="max-w-3xl">
+    <div class="container relative z-10 mx-auto max-w-7xl overflow-hidden px-4 py-20 lg:py-28">
+      <div class="w-full max-w-3xl">
         <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-sky-200">
           Certyfikat {business.certificate}
         </p>
-        <h1 class="mb-6 max-w-3xl text-4xl font-bold leading-[1.05] text-white md:text-5xl lg:text-6xl">
+        <h1 class="mb-6 max-w-3xl text-3xl font-bold leading-[1.08] text-white sm:text-4xl md:text-5xl lg:text-6xl">
           Rzeczoznawca Techniki Samochodowej
         </h1>
-        <p class="mb-8 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-xl">
+        <p class="mb-8 w-full max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg md:text-xl">
           Profesjonalne wyceny pojazdów, ekspertyzy powypadkowe, wyceny celno-skarbowe
           oraz opinie biegłego sądowego i skarbowego. Działam w Wielkopolsce, na Dolnym
           Śląsku oraz w całej Polsce.
         </p>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a
             href={`tel:${business.contact.phone}`}
-            class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white shadow-xl shadow-brand-950/25 transition hover:bg-brand-500"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white shadow-xl shadow-brand-950/25 transition hover:bg-brand-500 sm:w-auto"
           >
             <Phone size={18} aria-hidden="true" />
             {business.contact.phoneDisplay}
           </a>
           <a
             href="#kontakt"
-            class="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur transition hover:bg-white/10"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur transition hover:bg-white/10 sm:w-auto"
           >
             <MessageCircle size={18} aria-hidden="true" />
             Wyślij zapytanie
@@ -85,6 +224,14 @@ const serviceIcons = [
         </div>
       </div>
     </div>
+
+    {heroReviews.length > 0 && (
+      <div class="pointer-events-none absolute inset-x-4 bottom-6 z-20 hidden justify-end lg:flex lg:inset-x-auto lg:bottom-10 lg:right-10">
+        <div class="pointer-events-auto w-full max-w-md">
+          <HeroReviews client:idle reviews={heroReviews} />
+        </div>
+      </div>
+    )}
   </section>
 
   <!-- USP STRIPE -->
@@ -129,32 +276,223 @@ const serviceIcons = [
         <h2 class="mb-4 text-3xl font-bold text-slate-950 md:text-4xl">Oferta usług</h2>
         <div class="mx-auto mb-5 h-1 w-12 rounded-full bg-brand-600"></div>
         <p class="text-slate-600">
-          Pełny zakres usług rzeczoznawcy techniki samochodowej – od wyceny rynkowej
-          po opinie biegłego sądowego.
+          Ekspertyza, której możesz zaufać – lokalnie w Wielkopolsce i na Dolnym Śląsku,
+          a po uzgodnieniu także w całej Polsce.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {services.map((service, index) => {
-          const ServiceIcon = serviceIcons[index % serviceIcons.length];
-          return (
-          <a
-            href={serviceUrl(service.slug)}
-            class="group block rounded-xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-950/[0.02] transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-xl hover:shadow-slate-950/[0.06]"
-          >
-            <span class="mb-5 grid h-10 w-10 place-items-center rounded-lg border border-brand-100 bg-brand-50 text-brand-700 transition group-hover:border-brand-200 group-hover:bg-brand-100">
-              <ServiceIcon size={21} aria-hidden="true" />
-            </span>
-            <h3 class="mb-3 font-semibold text-slate-950 transition group-hover:text-brand-700">
-              {service.name}
-            </h3>
-            <p class="mb-5 text-sm leading-relaxed text-slate-600">
-              {service.shortDesc}
-            </p>
-            <p class="text-sm font-semibold text-brand-700">Czytaj więcej →</p>
-          </a>
-          );
-        })}
+      <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/[0.08]">
+        <div class="relative overflow-hidden bg-[#061729] px-5 py-8 text-white sm:px-7 lg:px-8">
+          <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_45%_0%,rgba(32,115,191,0.34),transparent_36%),linear-gradient(135deg,rgba(8,37,68,0.96),rgba(3,14,26,1))]"></div>
+          <div class="absolute inset-x-10 top-0 z-0 h-px bg-sky-300/30"></div>
+          <div class="relative z-10 mb-7">
+            <div>
+              <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-sky-200">Najczęściej wybierane</p>
+              <h3 class="text-2xl font-bold md:text-3xl">Usługi rzeczoznawcy</h3>
+            </div>
+          </div>
+
+          <div class="relative z-10 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            {featuredServices.map(({ service, icon: FeaturedIcon, title, text }) => (
+              <a
+                href={serviceUrl(service.slug)}
+                class="group flex min-h-52 flex-col rounded-xl border border-sky-300/25 bg-white/[0.03] p-4 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-sky-300/60 hover:bg-white/[0.07]"
+              >
+                <span class="mb-5 grid h-12 w-12 place-items-center rounded-xl border border-sky-200/30 bg-sky-300/10 text-sky-100 shadow-[0_0_22px_rgba(56,189,248,0.22)]">
+                  <FeaturedIcon size={27} strokeWidth={1.8} aria-hidden="true" />
+                </span>
+                <h4 class="mb-2 text-base font-semibold leading-tight text-white">
+                  {title}
+                </h4>
+                <p class="mb-5 text-sm leading-relaxed text-slate-300">
+                  {text}
+                </p>
+                <span class="mt-auto text-right text-xl leading-none text-sky-200 transition group-hover:translate-x-1">→</span>
+              </a>
+            ))}
+          </div>
+
+          <div class="relative z-10 mt-7 flex justify-center">
+            <a
+              href={`tel:${business.contact.phone}`}
+              class="inline-flex min-w-56 items-center justify-center gap-2 rounded-xl border border-sky-300/30 bg-sky-400/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-400/20"
+            >
+              <Phone size={16} aria-hidden="true" />
+              {business.contact.phoneDisplay}
+            </a>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-800/70 bg-[#061729] px-5 pb-7 sm:px-7 lg:px-8">
+          <div class="flex flex-wrap gap-2">
+            {compactServices.map((service) => (
+              <a
+                href={serviceUrl(service.slug)}
+                class="inline-flex min-h-[44px] items-center rounded-full border border-sky-300/20 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-sky-300/50 hover:bg-white/[0.08] hover:text-white"
+              >
+                {service.name}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="relative overflow-hidden border-t border-slate-200 bg-white px-5 py-8 sm:px-7 lg:px-8">
+          <div class="absolute right-4 top-4 h-52 w-52 rounded-full bg-brand-50 blur-3xl"></div>
+          <div class="relative z-10 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+            <div class="max-w-lg">
+              <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-700">Zasięg działania</p>
+              <h3 class="mb-5 text-2xl font-bold text-slate-950 md:text-3xl">Działamy w Polsce</h3>
+              <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                {areaHighlights.map(({ icon: AreaIcon, title, text }) => (
+                  <li class="flex gap-3">
+                    <span class="mt-0.5 grid h-9 w-9 flex-shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700">
+                      <AreaIcon size={19} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <p class="font-semibold leading-snug text-slate-950">{title}</p>
+                      <p class="text-sm leading-relaxed text-slate-600">{text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href={`tel:${business.contact.phone}`}
+                  class="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-700 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-950/15 transition hover:bg-brand-600"
+                >
+                  <Phone size={16} aria-hidden="true" />
+                  {business.contact.phoneDisplay}
+                </a>
+                <a
+                  href="#kontakt"
+                  class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-brand-800 transition hover:border-brand-200 hover:bg-brand-50"
+                >
+                  <MessageCircle size={16} aria-hidden="true" />
+                  Wyślij zapytanie
+                </a>
+              </div>
+            </div>
+
+            <div class="relative mx-auto aspect-[1.064/1] w-full max-w-xl">
+              <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} class="h-full w-full" role="img" aria-label="Mapa Polski z zaznaczonymi miastami obsługiwanymi przez rzeczoznawcę">
+                <g>
+                  {renderedVoivodeships.map((v) => (
+                    <path
+                      d={v.path}
+                      fill="#234a7a"
+                      stroke="#102b4d"
+                      stroke-width="1.2"
+                      stroke-linejoin="round"
+                    >
+                      <title>{v.name}</title>
+                    </path>
+                  ))}
+                </g>
+
+                <g font-family="system-ui, -apple-system, sans-serif">
+                  {cityMarkers.filter((c) => c.tier === 'small').map((c) => (
+                    <g>
+                      <circle cx={c.x} cy={c.y} r="5" fill="#ffffff" stroke="#0b2240" stroke-width="1.5" />
+                      <text
+                        x={c.labelX}
+                        y={c.labelY}
+                        font-size="15"
+                        font-weight="600"
+                        fill="#ffffff"
+                        text-anchor={c.align}
+                        paint-order="stroke"
+                        stroke="#0b2240"
+                        stroke-width="3.5"
+                        stroke-linejoin="round"
+                      >{c.name}<title>{c.name}</title></text>
+                    </g>
+                  ))}
+
+                  {cityMarkers.filter((c) => c.tier === 'major' && !c.capital).map((c) => (
+                    <g>
+                      <circle cx={c.x} cy={c.y} r="7" fill="#ffffff" stroke="#0b2240" stroke-width="2" />
+                      <text
+                        x={c.labelX}
+                        y={c.labelY}
+                        font-size="22"
+                        font-weight="700"
+                        fill="#ffffff"
+                        text-anchor={c.align}
+                        paint-order="stroke"
+                        stroke="#0b2240"
+                        stroke-width="4.5"
+                        stroke-linejoin="round"
+                      >{c.name}</text>
+                    </g>
+                  ))}
+
+                  {cityMarkers.filter((c) => c.capital).map((c) => (
+                    <g>
+                      <circle cx={c.x} cy={c.y} r="10" fill="#dc2626" stroke="#ffffff" stroke-width="2.5" />
+                      <text
+                        x={c.labelX}
+                        y={c.labelY}
+                        font-size="26"
+                        font-weight="800"
+                        fill="#ffffff"
+                        text-anchor={c.align}
+                        paint-order="stroke"
+                        stroke="#0b2240"
+                        stroke-width="5"
+                        stroke-linejoin="round"
+                      >{c.name}</text>
+                    </g>
+                  ))}
+                </g>
+              </svg>
+
+              {brandPins.map((p) =>
+                p.primary ? (
+                  <>
+                    <span
+                      class="pointer-events-none absolute z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-red-500/50"
+                      style={`left:${p.xPct}%;top:${p.yPct}%`}
+                    ></span>
+                    <span
+                      class="absolute z-20 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-red-600 text-white shadow-xl shadow-black/40 ring-[3px] ring-white"
+                      style={`left:${p.xPct}%;top:${p.yPct}%;width:3.25rem;height:3.25rem`}
+                    >
+                      <MapPin size={24} aria-hidden="true" />
+                    </span>
+                    <div
+                      class="absolute z-20 whitespace-nowrap rounded-md border border-red-600 bg-white px-2.5 py-1 text-xs font-bold text-slate-950 shadow-lg"
+                      style={`left:${p.xPct}%;top:${p.yPct}%;transform:translate(15%, -220%)`}
+                    >
+                      {p.name}
+                      <span class="block text-[10px] font-medium uppercase tracking-wider text-red-700">{p.sub}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <span
+                      class="absolute z-20 grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-brand-800 shadow-lg shadow-black/30 ring-2 ring-brand-900"
+                      style={`left:${p.xPct}%;top:${p.yPct}%`}
+                    >
+                      <MapPin size={16} aria-hidden="true" />
+                    </span>
+                    <div
+                      class="absolute z-20 whitespace-nowrap rounded-md border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold text-slate-900 shadow-md"
+                      style={`left:${p.xPct}%;top:${p.yPct}%;transform:translate(-100%, 55%)`}
+                    >
+                      {p.name}
+                    </div>
+                  </>
+                )
+              )}
+
+              <div class="absolute bottom-[2%] right-[2%] z-20 max-w-[15rem] rounded-xl border border-slate-200 bg-white/95 px-3.5 py-2.5 text-sm shadow-xl shadow-slate-950/[0.12] backdrop-blur">
+                <p class="font-semibold leading-tight text-slate-950">Wielkopolska · Dolny Śląsk</p>
+                <p class="text-xs leading-snug text-slate-600">oraz cała Polska po uzgodnieniu</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -176,6 +514,7 @@ const serviceIcons = [
       </div>
       {turnstileSiteKey && (
         <script
+          is:inline
           src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           async
           defer
