@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SchemaBreadcrumb from '@components/seo/SchemaBreadcrumb.astro';
+import { business } from '@data/business';
+---
+
+<BaseLayout
+  title="Regulamin – Motowycena"
+  description="Regulamin korzystania z serwisu motowycena.pl."
+  noindex={false}
+>
+  <SchemaBreadcrumb
+    items={[
+      { name: 'Strona główna', url: `${business.url}/` },
+      { name: 'Regulamin', url: `${business.url}/regulamin/` },
+    ]}
+  />
+
+  <section class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4 max-w-3xl">
+      <nav aria-label="okruszki" class="text-sm text-gray-600 mb-4">
+        <a href="/" class="inline-block py-1 hover:underline">Strona główna</a>
+        <span class="mx-2">/</span>
+        <span>Regulamin</span>
+      </nav>
+      <h1 class="text-4xl font-bold" data-admin-text="regulamin.title">Regulamin</h1>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="container mx-auto px-4 max-w-3xl prose prose-lg" data-admin-html="legal.terms.body">
+      <h2>1. Postanowienia ogólne</h2>
+      <p>Regulamin określa zasady korzystania z serwisu motowycena.pl.</p>
+
+      <h2>2. Charakter informacji</h2>
+      <p>Informacje zamieszczone w serwisie mają charakter informacyjny i nie stanowią oferty w rozumieniu Kodeksu cywilnego.</p>
+
+      <h2>3. Kontakt i realizacja usług</h2>
+      <p>Zakres, termin i koszt usługi rzeczoznawczej ustalane są indywidualnie po kontakcie telefonicznym lub przez formularz.</p>
+
+      <h2>4. Prawa autorskie</h2>
+      <p>Treści, grafiki i materiały w serwisie są chronione prawem autorskim. Kopiowanie bez zgody właściciela jest zabronione.</p>
+
+      <hr />
+
+      <p class="text-sm text-gray-500">Ostatnia aktualizacja: maj 2026.</p>
+    </div>
+  </section>
+</BaseLayout>
+

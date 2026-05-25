@@ -1,0 +1,442 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Panel admina"
+  description="Panel administracyjny Motowycena."
+  canonical="/admin/"
+  noindex={true}
+>
+  <section class="bg-white border-b border-slate-200">
+    <div class="container mx-auto px-4 py-10 md:py-14">
+      <div class="max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-brand-700">Motowycena</p>
+        <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-950">Panel admina</h1>
+        <p class="mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-slate-600">
+          Edycja każdej sekcji strony: tekstów, list i obrazów.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mx-auto px-4 py-8 md:py-10">
+    <div id="adminSetupAlert" class="mb-6 hidden rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+      Brakuje konfiguracji panelu w Cloudflare Pages. Ustaw zmienne i bindingi opisane w dokumentacji.
+    </div>
+
+    <section id="loginView" class="mx-auto hidden max-w-md rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-bold text-slate-950">Logowanie</h2>
+      <p class="mt-2 text-sm leading-relaxed text-slate-600">Wpisz hasło administratora.</p>
+
+      <form id="loginForm" class="mt-6 grid gap-4">
+        <div>
+          <label for="password" class="mb-2 block text-sm font-semibold text-slate-800">Hasło</label>
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            class="w-full rounded-lg border border-slate-300 bg-white px-3 py-3 text-base text-slate-950 outline-none transition focus:border-brand-700 focus:ring-4 focus:ring-brand-100"
+          />
+        </div>
+        <button
+          type="submit"
+          class="inline-flex min-h-11 items-center justify-center rounded-lg bg-brand-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-800"
+        >
+          Zaloguj
+        </button>
+        <div id="loginError" class="min-h-5 text-sm font-semibold text-red-700" role="status"></div>
+      </form>
+    </section>
+
+    <section id="adminView" class="hidden">
+      <div class="mb-6 flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-slate-950">Treści strony</h2>
+          <p class="mt-1 text-sm leading-relaxed text-slate-600">
+            Zmiany zapisują się po kliknięciu „Zapisz zmiany”. Puste pola nie nadpisują statycznej treści.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <a
+            href="/"
+            target="_blank"
+            class="inline-flex min-h-10 items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
+          >
+            Otwórz stronę
+          </a>
+          <button
+            type="button"
+            id="reloadBtn"
+            class="inline-flex min-h-10 items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
+          >
+            Odśwież
+          </button>
+          <button
+            type="button"
+            id="saveBtn"
+            class="inline-flex min-h-10 items-center justify-center rounded-lg bg-brand-700 px-4 py-2 text-sm font-bold text-white transition hover:bg-brand-800"
+          >
+            Zapisz zmiany
+          </button>
+          <button
+            type="button"
+            id="logoutBtn"
+            class="inline-flex min-h-10 items-center justify-center rounded-lg bg-red-700 px-4 py-2 text-sm font-bold text-white transition hover:bg-red-800"
+          >
+            Wyloguj
+          </button>
+        </div>
+      </div>
+
+      <div id="status" class="mb-4 min-h-6 text-sm font-semibold text-emerald-700" role="status"></div>
+
+      <div class="grid gap-5 lg:grid-cols-[260px_1fr]">
+        <aside class="lg:sticky lg:top-4 lg:self-start">
+          <nav id="tabsNav" class="grid gap-1 rounded-lg border border-slate-200 bg-white p-2 shadow-sm" aria-label="Strony"></nav>
+        </aside>
+        <div id="forms" class="grid gap-5"></div>
+      </div>
+    </section>
+  </section>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" />
+  <script is:inline src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+  <style is:global>
+    #forms { min-width: 0; }
+    #forms section { min-width: 0; max-width: 100%; }
+    #forms [data-key] { min-width: 0; max-width: 100%; }
+    #forms [data-key] + [data-key] { margin-top: 1.5rem; }
+    .ql-editor { min-height: 180px; font-size: 15px; line-height: 1.55; max-width: 100%; word-wrap: break-word; overflow-wrap: anywhere; }
+    .ql-editor pre, .ql-editor pre.ql-syntax { white-space: pre-wrap; word-break: break-word; max-width: 100%; }
+    .ql-editor img { max-width: 100%; height: auto; }
+    .ql-toolbar.ql-snow { border: 1px solid #cbd5e1 !important; border-bottom: 0 !important; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; flex-wrap: wrap; }
+    .ql-container.ql-snow { border: 1px solid #cbd5e1 !important; border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem; background: #fff; max-width: 100%; }
+    .admin-tab-active { background: #1d4ed8; color: white; }
+    .admin-tab-active:hover { background: #1e40af; color: white; }
+  </style>
+
+  <script is:inline>
+    let csrf = null;
+    let schema = null;
+    let content = { fields: {} };
+    let edited = {};
+    let activeTabId = null;
+    const quillInstances = new Map();
+
+    const loginView = document.getElementById('loginView');
+    const adminView = document.getElementById('adminView');
+    const forms = document.getElementById('forms');
+    const tabsNav = document.getElementById('tabsNav');
+    const statusEl = document.getElementById('status');
+    const loginError = document.getElementById('loginError');
+    const setupAlert = document.getElementById('adminSetupAlert');
+
+    async function api(path, options = {}) {
+      const headers = new Headers(options.headers || {});
+      headers.set('Accept', 'application/json');
+      if (csrf) headers.set('X-CSRF-Token', csrf);
+
+      const response = await fetch('/api/admin/' + path, {
+        ...options,
+        headers,
+        cache: 'no-store',
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.ok === false) {
+        throw new Error(data.error || 'Błąd żądania');
+      }
+      return data;
+    }
+
+    async function loadSchema() {
+      const response = await fetch('/admin/schema.json?v=' + Date.now(), { cache: 'no-store' });
+      if (!response.ok) throw new Error('Nie udało się wczytać schematu pól');
+      return response.json();
+    }
+
+    function showLoggedIn(loggedIn) {
+      loginView.classList.toggle('hidden', loggedIn);
+      adminView.classList.toggle('hidden', !loggedIn);
+    }
+
+    function pagesList() {
+      if (schema && Array.isArray(schema.pages)) return schema.pages;
+      if (schema && Array.isArray(schema.groups)) return [{ id: 'main', title: 'Strona', groups: schema.groups }];
+      return [];
+    }
+
+    function fieldValue(field) {
+      if (Object.prototype.hasOwnProperty.call(edited, field.key)) return edited[field.key];
+      const stored = content.fields && content.fields[field.key];
+      if (stored && typeof stored.value === 'string') return stored.value;
+      return field.default || '';
+    }
+
+    function renderTabs() {
+      tabsNav.innerHTML = '';
+      for (const page of pagesList()) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'rounded-md px-3 py-2 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100';
+        if (page.id === activeTabId) btn.classList.add('admin-tab-active');
+        btn.textContent = page.title;
+        btn.addEventListener('click', () => {
+          captureCurrentTab();
+          activeTabId = page.id;
+          if (location.hash !== '#' + page.id) history.replaceState(null, '', '#' + page.id);
+          renderTabs();
+          renderActiveTab();
+        });
+        tabsNav.appendChild(btn);
+      }
+    }
+
+    function captureCurrentTab() {
+      document.querySelectorAll('[data-key][data-type]').forEach((wrap) => {
+        const key = wrap.dataset.key;
+        const type = wrap.dataset.type;
+        if (type === 'html') {
+          const quill = quillInstances.get(key);
+          if (quill) edited[key] = quill.root.innerHTML.trim() === '<p><br></p>' ? '' : quill.root.innerHTML;
+        } else {
+          const input = wrap.querySelector('input:not([type=file]), textarea');
+          if (input) edited[key] = input.value;
+        }
+      });
+      quillInstances.clear();
+    }
+
+    function renderActiveTab() {
+      forms.innerHTML = '';
+      const pages = pagesList();
+      const page = pages.find((p) => p.id === activeTabId) || pages[0];
+      if (!page) return;
+
+      for (const group of page.groups || []) {
+        const card = document.createElement('section');
+        card.className = 'rounded-lg border border-slate-200 bg-white p-5 shadow-sm';
+        card.innerHTML = '<h3 class="text-xl font-bold text-slate-950">' + escapeHtml(group.title) + '</h3>';
+
+        const fieldsWrap = document.createElement('div');
+        fieldsWrap.className = 'mt-5 flex flex-col gap-8';
+
+        for (const field of group.fields || []) {
+          const wrap = document.createElement('div');
+          wrap.className = 'rounded-lg border border-slate-200 bg-slate-50/50 p-4';
+          wrap.dataset.key = field.key;
+          wrap.dataset.type = field.type;
+
+          const id = 'field-' + field.key.replace(/[^a-z0-9_-]/gi, '-');
+          const value = fieldValue(field);
+          const controlClass = 'w-full rounded-lg border border-slate-300 bg-white px-3 py-3 text-base text-slate-950 outline-none transition focus:border-brand-700 focus:ring-4 focus:ring-brand-100';
+
+          const labelRow = document.createElement('div');
+          labelRow.className = 'mb-2 flex items-baseline justify-between gap-3';
+          const label = document.createElement('label');
+          label.setAttribute('for', id);
+          label.className = 'block text-sm font-bold text-slate-800';
+          label.textContent = field.label;
+          const keyHint = document.createElement('span');
+          keyHint.className = 'truncate text-[10px] uppercase tracking-wide text-slate-400';
+          keyHint.textContent = field.key;
+          labelRow.append(label, keyHint);
+          wrap.appendChild(labelRow);
+
+          if (field.type === 'html') {
+            const editorHost = document.createElement('div');
+            editorHost.id = id;
+            editorHost.className = 'bg-white';
+            wrap.appendChild(editorHost);
+            queueQuillInit(field.key, editorHost, value);
+          } else if (field.type === 'textarea') {
+            const ta = document.createElement('textarea');
+            ta.id = id;
+            ta.rows = 5;
+            ta.className = controlClass + ' font-mono text-sm leading-relaxed';
+            ta.value = value;
+            wrap.appendChild(ta);
+          } else {
+            const input = document.createElement('input');
+            input.id = id;
+            input.className = controlClass;
+            input.value = value;
+            wrap.appendChild(input);
+          }
+
+          if (field.type === 'image') {
+            const row = document.createElement('div');
+            row.className = 'mt-3 grid gap-2 md:grid-cols-[1fr_auto] md:items-center';
+
+            const upload = document.createElement('input');
+            upload.type = 'file';
+            upload.accept = 'image/jpeg,image/png,image/webp,image/gif,application/pdf,video/mp4';
+            upload.className = 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800';
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'inline-flex min-h-10 items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-800 transition hover:bg-slate-50';
+            button.textContent = 'Wyślij plik';
+            button.addEventListener('click', () => uploadFile(field.key, upload.files && upload.files[0]));
+
+            row.append(upload, button);
+            wrap.appendChild(row);
+
+            if (value && !String(value).toLowerCase().endsWith('.pdf') && !String(value).toLowerCase().endsWith('.mp4')) {
+              const img = document.createElement('img');
+              img.className = 'mt-3 max-h-40 max-w-64 rounded-lg border border-slate-200 bg-slate-50 object-contain';
+              img.src = value;
+              img.alt = '';
+              wrap.appendChild(img);
+            }
+          }
+
+          fieldsWrap.appendChild(wrap);
+        }
+
+        card.appendChild(fieldsWrap);
+        forms.appendChild(card);
+      }
+    }
+
+    function queueQuillInit(key, host, html) {
+      const start = () => {
+        if (typeof Quill === 'undefined') {
+          window.setTimeout(start, 60);
+          return;
+        }
+        const quill = new Quill(host, {
+          theme: 'snow',
+          modules: {
+            toolbar: [
+              [{ header: [2, 3, 4, false] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              ['link', 'blockquote', 'code-block'],
+              [{ align: [] }],
+              ['clean'],
+            ],
+          },
+        });
+        quill.clipboard.dangerouslyPasteHTML(html || '');
+        quillInstances.set(key, quill);
+      };
+      start();
+    }
+
+    async function loadAdmin() {
+      setStatus('Wczytuję dane...');
+      const [schemaData, contentRes] = await Promise.all([loadSchema(), api('content')]);
+      schema = schemaData;
+      content = contentRes.content || { fields: {} };
+      edited = {};
+      const pages = pagesList();
+      const hashId = (location.hash || '').replace(/^#/, '');
+      activeTabId = pages.find((p) => p.id === hashId) ? hashId : (pages[0] && pages[0].id) || null;
+      renderTabs();
+      renderActiveTab();
+      setStatus('');
+    }
+
+    async function save() {
+      captureCurrentTab();
+
+      const fieldTypeByKey = new Map();
+      for (const page of pagesList()) {
+        for (const group of page.groups || []) {
+          for (const field of group.fields || []) {
+            fieldTypeByKey.set(field.key, field.type);
+          }
+        }
+      }
+
+      const fields = {};
+      const allKeys = new Set([
+        ...Object.keys(edited),
+        ...Object.keys(content.fields || {}),
+      ]);
+      for (const key of allKeys) {
+        const type = fieldTypeByKey.get(key) || (content.fields && content.fields[key] && content.fields[key].type) || 'text';
+        let value;
+        if (Object.prototype.hasOwnProperty.call(edited, key)) value = edited[key];
+        else value = (content.fields[key] && content.fields[key].value) || '';
+        fields[key] = { type, value };
+      }
+
+      setStatus('Zapisuję...');
+      const result = await api('save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields }),
+      });
+      content = result.content;
+      edited = {};
+      setStatus('Zapisano.');
+      window.setTimeout(() => setStatus(''), 2500);
+    }
+
+    async function uploadFile(key, file) {
+      if (!file) {
+        setStatus('Wybierz plik.', true);
+        return;
+      }
+
+      const form = new FormData();
+      form.append('file', file);
+
+      setStatus('Wysyłam plik...');
+      const result = await api('upload', { method: 'POST', body: form });
+      const wrap = document.querySelector('[data-key="' + CSS.escape(key) + '"]');
+      const input = wrap && wrap.querySelector('input:not([type=file]), textarea');
+      if (input) input.value = result.url;
+      edited[key] = result.url;
+      setStatus('Plik wysłany. Kliknij "Zapisz zmiany".');
+    }
+
+    function setStatus(message, isError = false) {
+      statusEl.textContent = message;
+      statusEl.classList.toggle('text-red-700', isError);
+      statusEl.classList.toggle('text-emerald-700', !isError);
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' }[char]));
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      loginError.textContent = '';
+
+      try {
+        const result = await api('login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: document.getElementById('password').value }),
+        });
+        csrf = result.csrf;
+        showLoggedIn(true);
+        await loadAdmin();
+      } catch (error) {
+        loginError.textContent = error.message;
+      }
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', () => save().catch((error) => setStatus(error.message, true)));
+    document.getElementById('reloadBtn').addEventListener('click', () => loadAdmin().catch((error) => setStatus(error.message, true)));
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await api('logout', { method: 'POST' }).catch(() => {});
+      location.reload();
+    });
+
+    api('status')
+      .then(async (result) => {
+        csrf = result.csrf;
+        setupAlert.classList.toggle('hidden', result.setupReady !== false);
+        showLoggedIn(result.loggedIn);
+        if (result.loggedIn) await loadAdmin();
+      })
+      .catch(() => showLoggedIn(false));
+  </script>
+</BaseLayout>

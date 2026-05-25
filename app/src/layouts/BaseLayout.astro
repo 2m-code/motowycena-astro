@@ -66,6 +66,8 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
     <!-- Cookie banner - React island, hydratacja w idle (po LCP) -->
     <CookieBanner client:idle />
 
+    <script is:inline defer src="/admin/admin-content-loader.js"></script>
+
     {/* Cloudflare Web Analytics – warunkowy beacon. Bez cookies, lekki (<2 KB). */}
     {cfAnalyticsToken && (
       <script

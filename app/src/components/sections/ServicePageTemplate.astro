@@ -64,16 +64,18 @@ const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
       <span class="mx-2">/</span>
       <span>{serviceName}</span>
     </nav>
-    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">{serviceName}</h1>
-    <p class="text-lg md:text-xl text-brand-50 leading-relaxed max-w-3xl">{heroLead}</p>
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" data-admin-text={`services.${serviceSlug}.title`}>{serviceName}</h1>
+    <p class="text-lg md:text-xl text-brand-50 leading-relaxed max-w-3xl" data-admin-text={`services.${serviceSlug}.heroLead`}>{heroLead}</p>
 
     <div class="flex flex-wrap gap-3 mt-8">
       <a
         href={`tel:${business.contact.phone}`}
+        data-admin-href="global.contact.phoneTel"
+        data-admin-href-prefix="tel:"
         class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-5 py-2.5 rounded-lg transition"
       >
         <Phone size={16} aria-hidden="true" />
-        {business.contact.phoneDisplay}
+        <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
       </a>
       <a
         href="/kontakt/"
@@ -92,22 +94,26 @@ const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
     <div class="grid lg:grid-cols-3 gap-12">
       <div class="lg:col-span-2">
         <h2 class="text-2xl md:text-3xl font-bold mb-6">Czym jest {serviceName.toLowerCase()}?</h2>
-        <p class="text-gray-700 text-lg leading-relaxed mb-6">{introParagraph}</p>
+        <p class="text-gray-700 text-lg leading-relaxed mb-6" data-admin-text={`services.${serviceSlug}.intro`}>{introParagraph}</p>
 
-        <slot name="extra-content" />
+        <div class="prose prose-lg max-w-none" data-admin-html={`services.${serviceSlug}.extraHtml`}>
+          <slot name="extra-content" />
+        </div>
       </div>
 
       <aside class="lg:sticky lg:top-24 lg:self-start">
         <div class="bg-brand-50 border border-brand-100 rounded-xl p-6">
           <h3 class="font-bold text-brand-900 mb-4">Co zyskujesz</h3>
-          <ul class="space-y-3">
-            {benefits.map((benefit) => (
-              <li class="flex gap-2 text-sm">
-                <CheckCircle2 className="text-brand-600 flex-shrink-0 mt-0.5" size={18} aria-hidden="true" />
-                <span>{benefit}</span>
-              </li>
-            ))}
-          </ul>
+          <div data-admin-html={`services.${serviceSlug}.benefitsHtml`}>
+            <ul class="space-y-3">
+              {benefits.map((benefit) => (
+                <li class="flex gap-2 text-sm">
+                  <CheckCircle2 className="text-brand-600 flex-shrink-0 mt-0.5" size={18} aria-hidden="true" />
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </aside>
     </div>
@@ -119,17 +125,19 @@ const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
   <section class="bg-gray-50 py-16">
     <div class="container mx-auto px-4 max-w-5xl">
       <h2 class="text-2xl md:text-3xl font-bold mb-10 text-center">Jak to działa</h2>
-      <ol class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {processSteps.map((step, idx) => (
-          <li class="bg-white rounded-xl p-6 shadow-sm">
-            <div class="w-10 h-10 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center mb-4">
-              {idx + 1}
-            </div>
-            <h3 class="font-semibold mb-2">{step.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
-          </li>
-        ))}
-      </ol>
+      <div class="prose prose-lg max-w-none" data-admin-html={`services.${serviceSlug}.processHtml`}>
+        <ol class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 list-none p-0">
+          {processSteps.map((step, idx) => (
+            <li class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="w-10 h-10 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center mb-4">
+                {idx + 1}
+              </div>
+              <h3 class="font-semibold mb-2">{step.title}</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   </section>
 )}
@@ -139,9 +147,9 @@ const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
   <section class="py-16">
     <div class="container mx-auto px-4 max-w-3xl">
       <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Najczęstsze pytania</h2>
-      <div class="space-y-3">
+      <div class="prose prose-lg max-w-none [&_h3]:mt-6 [&_h3]:mb-2" data-admin-html={`services.${serviceSlug}.faqHtml`}>
         {faq.map((item) => (
-          <details class="group bg-gray-50 rounded-lg px-5 py-2 cursor-pointer">
+          <details class="group bg-gray-50 rounded-lg px-5 py-2 cursor-pointer mb-3 not-prose">
             <summary class="font-semibold list-none flex justify-between items-center py-3">
               {item.question}
               <span class="text-brand-600 group-open:rotate-45 transition-transform text-xl">+</span>
@@ -180,10 +188,12 @@ const pageUrl = `${business.url}${serviceUrl(serviceSlug)}`;
     <div class="flex flex-wrap gap-3 justify-center">
       <a
         href={`tel:${business.contact.phone}`}
+        data-admin-href="global.contact.phoneTel"
+        data-admin-href-prefix="tel:"
         class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
       >
         <Phone size={18} aria-hidden="true" />
-        {business.contact.phoneDisplay}
+        <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
       </a>
       <a
         href="/kontakt/"

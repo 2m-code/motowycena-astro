@@ -1,0 +1,514 @@
+{
+  "pages": [
+    {
+      "id": "global",
+      "title": "Globalne (kontakt, header, footer)",
+      "groups": [
+        {
+          "title": "Dane firmy",
+          "fields": [
+            { "key": "global.business.name", "label": "Nazwa marki", "type": "text", "default": "Motowycena" },
+            { "key": "global.business.legalName", "label": "Pełna nazwa prawna", "type": "text", "default": "Rafał Pelczar – Rzeczoznawca Techniki Samochodowej" },
+            { "key": "global.business.certificate", "label": "Numer certyfikatu", "type": "text", "default": "RS001771" },
+            { "key": "global.contact.phoneDisplay", "label": "Telefon (wyświetlany)", "type": "text", "default": "509 146 666" },
+            { "key": "global.contact.phoneTel", "label": "Telefon (format tel: bez spacji, np. +48509146666)", "type": "text", "default": "+48509146666" },
+            { "key": "global.contact.email", "label": "Email", "type": "text", "default": "biuro@motowycena.pl" },
+            { "key": "global.contact.whatsapp", "label": "WhatsApp (format międzynar.)", "type": "text", "default": "+48509146666" },
+            { "key": "global.address.street", "label": "Ulica", "type": "text", "default": "ul. Spacerowa 10" },
+            { "key": "global.address.postalCode", "label": "Kod pocztowy", "type": "text", "default": "63-430" },
+            { "key": "global.address.city", "label": "Miasto", "type": "text", "default": "Garki" },
+            { "key": "global.business.logo", "label": "Logo (header)", "type": "image", "default": "/favicon.svg" }
+          ]
+        },
+        {
+          "title": "Stopka",
+          "fields": [
+            { "key": "global.footer.areasTitle", "label": "Stopka – tytuł sekcji obszarów", "type": "text", "default": "Obszar działania" },
+            { "key": "global.footer.areaWielkopolska", "label": "Stopka – Wielkopolska (lista miast)", "type": "textarea", "default": "Odolanów, Ostrów Wielkopolski, Krotoszyn, Ostrzeszów, Kępno, Kalisz, Jarocin, Pleszew, Grabów nad Prosną, Środa Wielkopolska, Poznań" },
+            { "key": "global.footer.areaDolnoslaskie", "label": "Stopka – Dolnośląskie (lista miast)", "type": "textarea", "default": "Milicz, Twardogóra, Oleśnica, Syców, Trzebnica, Długołęka, Wrocław i okolice" },
+            { "key": "global.footer.areaNationwide", "label": "Stopka – Cała Polska (lista miast)", "type": "textarea", "default": "Kraków, Łódź, Warszawa, Gdańsk, Bydgoszcz oraz inne miejscowości po uzgodnieniu" },
+            { "key": "global.footer.copyrightSuffix", "label": "Stopka – tekst copyright (po roku i nazwie)", "type": "text", "default": "Wszelkie prawa zastrzeżone." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "title": "Strona główna",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "home.hero.title", "label": "Nagłówek hero", "type": "text", "default": "Rzeczoznawca Techniki Samochodowej" },
+            { "key": "home.hero.lead", "label": "Opis hero", "type": "textarea", "default": "Profesjonalne wyceny pojazdów, ekspertyzy powypadkowe, wyceny celno-skarbowe oraz opinie biegłego sądowego i skarbowego. Działam w Wielkopolsce, na Dolnym Śląsku oraz w całej Polsce." },
+            { "key": "home.hero.certificateLabel", "label": "Hero – etykieta certyfikatu (nad nagłówkiem)", "type": "text", "default": "Certyfikat RS001771" },
+            { "key": "home.hero.ctaInquiry", "label": "Hero – tekst przycisku 'Wyślij zapytanie'", "type": "text", "default": "Wyślij zapytanie" },
+            { "key": "home.hero.video", "label": "Hero – video w tle (MP4)", "type": "image", "default": "/uploads/hero-background-video-v2.mp4" }
+          ]
+        },
+        {
+          "title": "Pasek USP (trzy ikony pod hero)",
+          "fields": [
+            { "key": "home.usp.item1Title", "label": "USP 1 – tytuł", "type": "text", "default": "Certyfikat RS001771" },
+            { "key": "home.usp.item1Text", "label": "USP 1 – opis", "type": "text", "default": "Wpisany do rejestru rzeczoznawców" },
+            { "key": "home.usp.item2Title", "label": "USP 2 – tytuł", "type": "text", "default": "Termin 24-48h" },
+            { "key": "home.usp.item2Text", "label": "USP 2 – opis", "type": "text", "default": "Szybkie ekspertyzy bez zbędnego czekania" },
+            { "key": "home.usp.item3Title", "label": "USP 3 – tytuł", "type": "text", "default": "Cała Polska" },
+            { "key": "home.usp.item3Text", "label": "USP 3 – opis", "type": "text", "default": "Wielkopolska, Dolny Śląsk i pozostałe regiony" }
+          ]
+        },
+        {
+          "title": "Sekcja usług",
+          "fields": [
+            { "key": "home.services.heading", "label": "Tytuł sekcji", "type": "text", "default": "Oferta usług" },
+            { "key": "home.services.subheading", "label": "Podtytuł", "type": "text", "default": "Profesjonalnie. Rzetelnie. W całej Polsce." },
+            { "key": "home.services.coverageHeading", "label": "Tytuł sekcji 'Działamy w Polsce'", "type": "text", "default": "Działamy w Polsce" },
+            { "key": "home.services.coverageNote", "label": "Notka pod listą obszarów", "type": "textarea", "default": "Stała obsługa: Wielkopolska i Dolny Śląsk. Pozostałe województwa są możliwe po ustaleniu zakresu, terminu i dojazdu." },
+            { "key": "home.services.proof1Title", "label": "Dół sekcji – proof 1 tytuł", "type": "text", "default": "Szybka odpowiedź" },
+            { "key": "home.services.proof1Text", "label": "Dół sekcji – proof 1 opis", "type": "text", "default": "Termin 24-48h" },
+            { "key": "home.services.proof2Title", "label": "Dół sekcji – proof 2 tytuł", "type": "text", "default": "Doświadczenie" },
+            { "key": "home.services.proof2Text", "label": "Dół sekcji – proof 2 opis", "type": "text", "default": "Certyfikat RS001771" },
+            { "key": "home.services.proof3Title", "label": "Dół sekcji – proof 3 tytuł", "type": "text", "default": "Zasięg ogólnopolski" },
+            { "key": "home.services.proof3Text", "label": "Dół sekcji – proof 3 opis", "type": "text", "default": "Dojazd do Ciebie" }
+          ]
+        },
+        {
+          "title": "Sekcja kontaktu",
+          "fields": [
+            { "key": "home.contact.heading", "label": "Tytuł sekcji kontaktu", "type": "text", "default": "Skontaktuj się" },
+            { "key": "home.contact.lead", "label": "Opis sekcji kontaktu", "type": "textarea", "default": "Opisz krótko swoją sprawę – odezwę się w ciągu 24h, zazwyczaj znacznie szybciej." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kontakt",
+      "title": "Strona Kontakt",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "kontakt.hero.title", "label": "Nagłówek", "type": "text", "default": "Kontakt" },
+            { "key": "kontakt.hero.lead", "label": "Opis pod nagłówkiem", "type": "textarea", "default": "Wybierz najwygodniejszą formę kontaktu. Odpowiadam najczęściej w ciągu kilku godzin." }
+          ]
+        },
+        {
+          "title": "Treść strony",
+          "fields": [
+            { "key": "kontakt.body.detailsHeading", "label": "Nagłówek lewej kolumny", "type": "text", "default": "Dane kontaktowe" },
+            { "key": "kontakt.body.formHeading", "label": "Nagłówek formularza", "type": "text", "default": "Formularz kontaktowy" },
+            { "key": "kontakt.body.certificateNote", "label": "Notka o certyfikacie (pełen tekst)", "type": "text", "default": "Certyfikat rzeczoznawcy: RS001771" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "realizacje",
+      "title": "Realizacje",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "realizacje.hero.title", "label": "Nagłówek", "type": "text", "default": "Realizacje" },
+            { "key": "realizacje.hero.lead", "label": "Opis pod nagłówkiem", "type": "textarea", "default": "Przykłady zrealizowanych spraw - wyceny, ekspertyzy, opinie sądowe." }
+          ]
+        },
+        {
+          "title": "Realizacja 1",
+          "fields": [
+            { "key": "realizacje.case1.category", "label": "Kategoria", "type": "text", "default": "Wycena szkody" },
+            { "key": "realizacje.case1.title", "label": "Tytuł", "type": "text", "default": "Wycena szkody Dodge Ram" },
+            { "key": "realizacje.case1.summary", "label": "Opis", "type": "textarea", "default": "Ocena uszkodzeń pojazdu i przygotowanie dokumentacji rzeczoznawczej po szkodzie." },
+            { "key": "realizacje.case1.image1", "label": "Zdjęcie 1 (główne)", "type": "image", "default": "/uploads/realizacje/dodge-ram-1.jpg" },
+            { "key": "realizacje.case1.image2", "label": "Zdjęcie 2", "type": "image", "default": "/uploads/realizacje/dodge-ram-2.jpg" },
+            { "key": "realizacje.case1.image3", "label": "Zdjęcie 3", "type": "image", "default": "/uploads/realizacje/dodge-ram-3.jpg" },
+            { "key": "realizacje.case1.image4", "label": "Zdjęcie 4", "type": "image", "default": "/uploads/realizacje/dodge-ram-4.jpg" },
+            { "key": "realizacje.case1.image5", "label": "Zdjęcie 5", "type": "image", "default": "/uploads/realizacje/dodge-ram-5.jpg" }
+          ]
+        },
+        {
+          "title": "Realizacja 2",
+          "fields": [
+            { "key": "realizacje.case2.category", "label": "Kategoria", "type": "text", "default": "Wycena celno-skarbowa" },
+            { "key": "realizacje.case2.title", "label": "Tytuł", "type": "text", "default": "Wycena celno-skarbowa BMW" },
+            { "key": "realizacje.case2.summary", "label": "Opis", "type": "textarea", "default": "Wycena pojazdu sprowadzonego z zagranicy na potrzeby rozliczenia celno-skarbowego." },
+            { "key": "realizacje.case2.image1", "label": "Zdjęcie 1 (główne)", "type": "image", "default": "/uploads/realizacje/bmw-celno-skarbowa-1.png" },
+            { "key": "realizacje.case2.image2", "label": "Zdjęcie 2", "type": "image", "default": "/uploads/realizacje/bmw-celno-skarbowa-2.png" },
+            { "key": "realizacje.case2.image3", "label": "Zdjęcie 3", "type": "image", "default": "/uploads/realizacje/bmw-celno-skarbowa-3.png" },
+            { "key": "realizacje.case2.image4", "label": "Zdjęcie 4", "type": "image", "default": "/uploads/realizacje/bmw-celno-skarbowa-4.png" },
+            { "key": "realizacje.case2.image5", "label": "Zdjęcie 5", "type": "image", "default": "/uploads/realizacje/bmw-celno-skarbowa-5.png" }
+          ]
+        },
+        {
+          "title": "Sekcja CTA pod listą",
+          "fields": [
+            { "key": "realizacje.cta.title", "label": "Tytuł", "type": "text", "default": "Twoja sprawa może być następna" },
+            { "key": "realizacje.cta.lead", "label": "Opis", "type": "text", "default": "Każda sprawa jest inna - skontaktuj się i opisz swoją sytuację." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rzeczoznawca-ostrow-wielkopolski",
+      "title": "Ostrów Wielkopolski",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "ostrow.hero.kicker", "label": "Tekst nad nagłówkiem", "type": "text", "default": "Ostrów Wielkopolski i powiat ostrowski" },
+            { "key": "ostrow.hero.titleHtml", "label": "Nagłówek (HTML – akcent w <span>)", "type": "html", "default": "Rzeczoznawca samochodowy<br /> <span>Ostrów Wielkopolski</span>" },
+            { "key": "ostrow.hero.lead", "label": "Opis hero", "type": "textarea", "default": "Certyfikowany rzeczoznawca techniki samochodowej z siedzibą w okolicach Ostrowa Wielkopolskiego. Wykonuję wyceny pojazdów, ekspertyzy powypadkowe oraz opinie biegłego sądowego i skarbowego na terenie miasta i całego powiatu ostrowskiego." }
+          ]
+        },
+        {
+          "title": "Pasek USP",
+          "fields": [
+            { "key": "ostrow.usp.item1Title", "label": "USP 1 tytuł", "type": "text", "default": "Siedziba w powiecie" },
+            { "key": "ostrow.usp.item1Text", "label": "USP 1 opis", "type": "text", "default": "Gmina Odolanów, dojazd 24/7" },
+            { "key": "ostrow.usp.item2Title", "label": "USP 2 tytuł", "type": "text", "default": "Certyfikat RS001771" },
+            { "key": "ostrow.usp.item2Text", "label": "USP 2 opis", "type": "text", "default": "Wpisany do rejestru rzeczoznawców" },
+            { "key": "ostrow.usp.item3Title", "label": "USP 3 tytuł", "type": "text", "default": "Termin 24-48h" },
+            { "key": "ostrow.usp.item3Text", "label": "USP 3 opis", "type": "text", "default": "Bez zbędnego czekania" }
+          ]
+        },
+        {
+          "title": "Sekcja 'Dlaczego lokalny'",
+          "fields": [
+            { "key": "ostrow.why.title", "label": "Nagłówek sekcji", "type": "text", "default": "Dlaczego lokalny rzeczoznawca z Ostrowa Wlkp.?" },
+            { "key": "ostrow.why.html", "label": "Treść (edytor)", "type": "html", "default": "<p>Wybór rzeczoznawcy działającego lokalnie w Ostrowie Wielkopolskim i okolicach ma kilka praktycznych zalet. Pierwsza – krótki czas dojazdu i niski koszt oględzin. Druga – znajomość lokalnego rynku motoryzacyjnego: komisów, ASO, stacji diagnostycznych, a także typowych cen pojazdów w regionie. Trzecia – dyspozycyjność: w nagłych przypadkach (szkoda komunikacyjna, sprawa sądowa) mogę pojawić się tego samego dnia.</p><p>Wykonuję wyceny pojazdów na potrzeby ubezpieczycieli, urzędów skarbowych, sądów oraz osób prywatnych w Ostrowie Wlkp., Odolanowie, Raszkowie, Sośniach, Sieroszewicach, Przygodzicach i Nowych Skalmierzycach. Obsługuję także powiat ostrowski w całości oraz sąsiednie powiaty – kaliski, jarociński, krotoszyński i pleszewski.</p>" }
+          ]
+        },
+        {
+          "title": "Sekcja 'Pełny zakres usług'",
+          "fields": [
+            { "key": "ostrow.services.title", "label": "Tytuł", "type": "text", "default": "Pełny zakres usług w Ostrowie Wielkopolskim" },
+            { "key": "ostrow.services.lead", "label": "Opis pod tytułem", "type": "textarea", "default": "Wszystkie usługi rzeczoznawcy techniki samochodowej dostępne dla klientów z Ostrowa Wlkp. i powiatu ostrowskiego." }
+          ]
+        },
+        {
+          "title": "Sekcja 'Obszar działania'",
+          "fields": [
+            { "key": "ostrow.area.title", "label": "Tytuł", "type": "text", "default": "Obszar działania w powiecie ostrowskim" },
+            { "key": "ostrow.area.placesHtml", "label": "Lista miejscowości (edytor)", "type": "html", "default": "<ul><li>Ostrów Wielkopolski</li><li>Odolanów</li><li>Raszków</li><li>Sośnie</li><li>Sieroszewice</li><li>Przygodzice</li><li>Nowe Skalmierzyce</li><li>Garki</li><li>Granowiec</li><li>Czarnylas</li><li>Daniszyn</li><li>Lewkowiec</li></ul>" },
+            { "key": "ostrow.area.note", "label": "Notka pod listą", "type": "text", "default": "Nie widzisz swojej miejscowości? Zadzwoń – dojeżdżam także poza powiat ostrowski." }
+          ]
+        },
+        {
+          "title": "Końcowe CTA",
+          "fields": [
+            { "key": "ostrow.cta.title", "label": "Tytuł", "type": "text", "default": "Potrzebujesz rzeczoznawcy w Ostrowie?" },
+            { "key": "ostrow.cta.lead", "label": "Opis", "type": "text", "default": "Zadzwoń lub napisz na WhatsApp. Odpowiedź najczęściej w ciągu kilku godzin." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "404",
+      "title": "Strona 404",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "p404.hero.title", "label": "Nagłówek", "type": "text", "default": "Strona, której szukasz, nie istnieje" },
+            { "key": "p404.hero.lead", "label": "Opis", "type": "textarea", "default": "Adres mógł zostać przeniesiony lub wpisany z literówką. Skorzystaj z linków poniżej albo zadzwoń – zazwyczaj odpowiadam w ciągu kilku minut." }
+          ]
+        },
+        {
+          "title": "Sekcja z linkami do usług",
+          "fields": [
+            { "key": "p404.services.title", "label": "Tytuł sekcji", "type": "text", "default": "Może szukasz jednej z naszych usług?" },
+            { "key": "p404.services.lead", "label": "Tekst pod tytułem", "type": "text", "default": "Pełna lista usług rzeczoznawcy techniki samochodowej:" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regulamin",
+      "title": "Regulamin",
+      "groups": [
+        {
+          "title": "Treść",
+          "fields": [
+            { "key": "regulamin.title", "label": "Nagłówek strony", "type": "text", "default": "Regulamin" },
+            { "key": "legal.terms.body", "label": "Treść regulaminu (edytor)", "type": "html", "default": "<h2>1. Postanowienia ogólne</h2><p>Regulamin określa zasady korzystania z serwisu motowycena.pl.</p><h2>2. Charakter informacji</h2><p>Informacje zamieszczone w serwisie mają charakter informacyjny i nie stanowią oferty w rozumieniu Kodeksu cywilnego.</p><h2>3. Kontakt i realizacja usług</h2><p>Zakres, termin i koszt usługi rzeczoznawczej ustalane są indywidualnie po kontakcie telefonicznym lub przez formularz.</p><h2>4. Prawa autorskie</h2><p>Treści, grafiki i materiały w serwisie są chronione prawem autorskim. Kopiowanie bez zgody właściciela jest zabronione.</p><hr><p>Ostatnia aktualizacja: maj 2026.</p>" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "polityka-prywatnosci",
+      "title": "Polityka prywatności",
+      "groups": [
+        {
+          "title": "Treść",
+          "fields": [
+            { "key": "privacy.title", "label": "Nagłówek strony", "type": "text", "default": "Polityka prywatności" },
+            { "key": "legal.privacy.body", "label": "Treść polityki (edytor)", "type": "html", "default": "<h2>1. Administrator danych</h2><p>Administratorem danych osobowych jest Rafał Pelczar – Rzeczoznawca Techniki Samochodowej, z siedzibą ul. Spacerowa 10, 63-430 Garki. Kontakt: biuro@motowycena.pl, 509 146 666.</p><h2>2. Zakres przetwarzanych danych</h2><p>Przetwarzamy dane przekazane w formularzu kontaktowym lub innym kanałem: imię i nazwisko, adres email, numer telefonu, treść wiadomości oraz dane pojazdu, jeśli zostały przekazane.</p><h2>3. Cel i podstawa prawna przetwarzania</h2><p>Dane przetwarzane są w celu udzielenia odpowiedzi na zapytanie, realizacji usługi rzeczoznawczej oraz wystawienia dokumentu księgowego.</p><h2>4. Okres przechowywania</h2><p>Dane są przechowywane przez okres niezbędny do realizacji celu, nie dłużej niż wymaga tego prawo.</p><h2>5. Prawa osoby, której dane dotyczą</h2><p>Każda osoba ma prawo dostępu do danych, sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych, wniesienia sprzeciwu oraz skargi do Prezesa UODO.</p><h2>6. Pliki cookies</h2><p>Strona wykorzystuje pliki cookies w celu zapewnienia poprawnego działania serwisu oraz analizy statystyk.</p><hr><p>Ostatnia aktualizacja: maj 2026.</p>" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wycena-wartosci-pojazdu",
+      "title": "Usługa: Wycena wartości pojazdu",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.wycena-wartosci-pojazdu.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Wycena wartości pojazdu" },
+            { "key": "services.wycena-wartosci-pojazdu.heroLead", "label": "Opis hero", "type": "textarea", "default": "Profesjonalna wycena rynkowej wartości pojazdu wykonana przez certyfikowanego rzeczoznawcę. Akceptowana przez sądy, urzędy, banki i ubezpieczycieli." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.wycena-wartosci-pojazdu.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Wycena wartości pojazdu to oficjalny dokument określający aktualną wartość rynkową samochodu w określonym momencie. Wykorzystywana jest w sprawach sądowych, spadkowych, przy sprzedaży pojazdu, rozliczeniach majątkowych oraz w postępowaniach z ubezpieczycielami. Każda wycena bazuje na analizie rynku, stanie technicznym pojazdu oraz jego historii." },
+            { "key": "services.wycena-wartosci-pojazdu.benefitsHtml", "label": "Co zyskujesz (edytor listy)", "type": "html", "default": "<ul><li>Dokument akceptowany przez sądy i urzędy</li><li>Wycena zgodna z metodologią DEKRA / EUROTAX</li><li>Certyfikat rzeczoznawcy RS001771</li><li>Pełna dokumentacja fotograficzna</li><li>Termin realizacji 24-48h</li></ul>" },
+            { "key": "services.wycena-wartosci-pojazdu.processHtml", "label": "Jak to działa (edytor)", "type": "html", "default": "<ol><li><strong>Kontakt</strong> – zadzwoń lub wyślij dane pojazdu (marka, model, VIN, rok).</li><li><strong>Wycena wstępna</strong> – otrzymasz orientacyjny koszt i czas realizacji.</li><li><strong>Oględziny</strong> – spotkanie z rzeczoznawcą, oględziny pojazdu i dokumentacja.</li><li><strong>Raport</strong> – otrzymujesz pełny raport wyceny w PDF + wersja papierowa.</li></ol>" },
+            { "key": "services.wycena-wartosci-pojazdu.faqHtml", "label": "FAQ (edytor – użyj <h3> i <p>)", "type": "html", "default": "<h3>Ile kosztuje wycena wartości pojazdu?</h3><p>Koszt zależy od typu pojazdu i celu wyceny. Wycena standardowa zaczyna się od kilkuset złotych.</p><h3>Jak długo trwa wycena?</h3><p>Standardowa wycena trwa 24-48h od momentu oględzin pojazdu.</p><h3>Czy wycena jest akceptowana w sądzie?</h3><p>Tak. Wyceny wykonywane są zgodnie z obowiązującymi standardami i akceptowane przez sądy, urzędy, banki oraz ubezpieczycieli.</p><h3>Czy muszę przyjechać do siedziby z pojazdem?</h3><p>Nie. Rzeczoznawca dojeżdża do pojazdu na terenie Wielkopolski, Dolnego Śląska oraz większych miast w całej Polsce.</p>" },
+            { "key": "services.wycena-wartosci-pojazdu.extraHtml", "label": "Dodatkowa treść (edytor)", "type": "html", "default": "<h3>Kiedy przydaje się wycena wartości?</h3><ul><li>Ubezpieczenie AC (AUTO CASCO) i ustalenie sumy ubezpieczenia.</li><li>Weryfikacja szkody całkowitej po kolizji.</li><li>Finansowanie zakupu kredytem lub leasingiem.</li><li>Rozliczenia akcyzy, PCC3, spadku, podziału majątku lub sprawy sądowej.</li></ul>" },
+            { "key": "services.wycena-wartosci-pojazdu.heroImage", "label": "Obraz dodatkowy", "type": "image", "default": "/uploads/black-bmw-m3-coupe-car.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wycena-kosztow-naprawy",
+      "title": "Usługa: Wycena kosztów naprawy",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.wycena-kosztow-naprawy.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Wycena kosztów naprawy" },
+            { "key": "services.wycena-kosztow-naprawy.heroLead", "label": "Opis hero", "type": "textarea", "default": "Rzetelna wycena kosztów naprawy pojazdu po szkodzie komunikacyjnej lub mechanicznej. Wsparcie w sporach z ubezpieczycielami." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.wycena-kosztow-naprawy.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Wycena kosztów naprawy określa realny koszt przywrócenia pojazdu do stanu sprzed szkody. Wykorzystywana jest przy rozliczeniach z OC sprawcy, w sporach z ubezpieczycielem oraz w postępowaniach sądowych. Bazuje na analizie technicznej uszkodzeń, cennikach części i robocizny." },
+            { "key": "services.wycena-kosztow-naprawy.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Wycena wg cen autoryzowanych i nieautoryzowanych serwisów</li><li>Identyfikacja zaniżeń odszkodowania</li><li>Pomoc w sporze z ubezpieczycielem</li><li>Pełna dokumentacja fotograficzna szkody</li><li>Wycena akceptowana w sądzie</li></ul>" },
+            { "key": "services.wycena-kosztow-naprawy.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Zgłoszenie</strong> – prześlij dokumentację szkody (zdjęcia, kosztorys ubezpieczyciela).</li><li><strong>Oględziny</strong> – spotkanie i dokumentacja uszkodzeń pojazdu.</li><li><strong>Analiza</strong> – weryfikacja zaniżeń, kalkulacja realnego kosztu naprawy.</li><li><strong>Raport</strong> – otrzymujesz raport gotowy do złożenia u ubezpieczyciela lub w sądzie.</li></ol>" },
+            { "key": "services.wycena-kosztow-naprawy.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Czy mogę zlecić wycenę gdy mam już kosztorys od ubezpieczyciela?</h3><p>Tak, to najczęstszy przypadek. Wykonujemy niezależną wycenę porównawczą która często wykazuje zaniżenia o 20-50%.</p><h3>Czy mogę użyć wyceny w sądzie?</h3><p>Tak. Raport sporządzony przez certyfikowanego rzeczoznawcę jest pełnoprawnym dowodem w postępowaniu sądowym.</p><h3>Jak długo trwa wycena szkody?</h3><p>Od oględzin do otrzymania raportu mija zwykle 2-3 dni robocze.</p>" },
+            { "key": "services.wycena-kosztow-naprawy.extraHtml", "label": "Dodatkowa treść (galeria/teksty)", "type": "html", "default": "" },
+            { "key": "services.wycena-kosztow-naprawy.gallery.1", "label": "Galeria – zdjęcie 1", "type": "image", "default": "/uploads/services/wycena-kosztow-naprawy.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opis-stanu-technicznego",
+      "title": "Usługa: Opis stanu technicznego",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.opis-stanu-technicznego.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Opis stanu technicznego" },
+            { "key": "services.opis-stanu-technicznego.heroLead", "label": "Opis hero", "type": "textarea", "default": "Szczegółowa ocena stanu technicznego pojazdu z pełną dokumentacją. Niezależna opinia certyfikowanego rzeczoznawcy." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.opis-stanu-technicznego.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Opis stanu technicznego to dokument obrazujący kondycję pojazdu w danym momencie - kompleksowa ocena nadwozia, podwozia, układu napędowego, elektroniki i elementów eksploatacyjnych. Często wymagany przy ubezpieczeniach, sprzedaży kolekcjonerskich pojazdów oraz w postępowaniach sądowych." },
+            { "key": "services.opis-stanu-technicznego.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Pełna dokumentacja fotograficzna 100+ zdjęć</li><li>Ocena każdego głównego podzespołu</li><li>Identyfikacja ukrytych wad</li><li>Akceptowane przez ubezpieczycieli i banki</li><li>Termin 24-48h</li></ul>" },
+            { "key": "services.opis-stanu-technicznego.processHtml", "label": "Jak to działa (opcjonalnie)", "type": "html", "default": "" },
+            { "key": "services.opis-stanu-technicznego.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Czym różni się od standardowego przeglądu w ASO?</h3><p>Opis stanu technicznego jest dokumentem urzędowym - niezależną opinią rzeczoznawcy. Przegląd w ASO to usługa serwisowa i nie ma mocy dowodowej w sądzie.</p><h3>Czy zawiera ocenę wartości pojazdu?</h3><p>Standardowo nie - jest to opis stanu. Wycenę wartości wykonujemy jako osobną usługę, ale często łączymy oba dokumenty w pakiecie.</p>" },
+            { "key": "services.opis-stanu-technicznego.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" },
+            { "key": "services.opis-stanu-technicznego.gallery.1", "label": "Galeria – zdjęcie 1", "type": "image", "default": "/uploads/services/opis-stanu-technicznego-1.jpeg" },
+            { "key": "services.opis-stanu-technicznego.gallery.2", "label": "Galeria – zdjęcie 2", "type": "image", "default": "/uploads/services/opis-stanu-technicznego-2.jpeg" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wycena-celno-skarbowa",
+      "title": "Usługa: Wycena celno-skarbowa",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.wycena-celno-skarbowa.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Wycena celno-skarbowa" },
+            { "key": "services.wycena-celno-skarbowa.heroLead", "label": "Opis hero", "type": "textarea", "default": "Profesjonalna wycena celno-skarbowa pojazdów sprowadzanych z zagranicy. Akceptowana w urzędach celno-skarbowych w całej Polsce." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.wycena-celno-skarbowa.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Wycena celno-skarbowa to dokument niezbędny przy rejestracji pojazdu sprowadzonego z zagranicy. Określa wartość pojazdu na potrzeby naliczenia akcyzy oraz podatku VAT. Wycena musi być wykonana przez uprawnionego rzeczoznawcę i bazować na metodologii akceptowanej przez urząd skarbowy." },
+            { "key": "services.wycena-celno-skarbowa.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Akceptowane w UCS w całej Polsce</li><li>Metodologia zgodna z wymogami urzędu</li><li>Termin 24-48h</li><li>Wycena uwzględnia stan techniczny i historię pojazdu</li><li>Pomoc w wyjaśnieniach z urzędem (jeśli zajdzie potrzeba)</li></ul>" },
+            { "key": "services.wycena-celno-skarbowa.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Dokumenty</strong> – prześlij dane pojazdu (VIN, faktura zakupu, dokumenty z zagranicy).</li><li><strong>Oględziny</strong> – spotkanie z pojazdem, dokumentacja stanu technicznego.</li><li><strong>Wycena</strong> – sporządzenie wyceny zgodnie z metodologią UCS.</li><li><strong>Dokument</strong> – otrzymujesz wycenę gotową do złożenia w urzędzie.</li></ol>" },
+            { "key": "services.wycena-celno-skarbowa.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Czy ta wycena jest na pewno akceptowana w urzędzie skarbowym?</h3><p>Tak. Wykonywana jest zgodnie z wymogami metodologicznymi UCS. W praktyce nie odnotowaliśmy odrzucenia wyceny.</p><h3>Sprowadzam auto z Niemiec/Holandii/USA – czy to robi różnicę?</h3><p>Nie – wycena dotyczy stanu i wartości pojazdu, niezależnie od kraju pochodzenia.</p><h3>Ile kosztuje wycena celno-skarbowa?</h3><p>Standardowa wycena to koszt rzędu 300-600 zł. Dokładną ofertę otrzymasz po przesłaniu danych pojazdu.</p>" },
+            { "key": "services.wycena-celno-skarbowa.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" },
+            { "key": "services.wycena-celno-skarbowa.gallery.1", "label": "Galeria – zdjęcie 1", "type": "image", "default": "/uploads/services/wycena-celno-skarbowa-1.jpg" },
+            { "key": "services.wycena-celno-skarbowa.gallery.2", "label": "Galeria – zdjęcie 2", "type": "image", "default": "/uploads/services/wycena-celno-skarbowa-2.jpg" },
+            { "key": "services.wycena-celno-skarbowa.gallery.3", "label": "Galeria – zdjęcie 3", "type": "image", "default": "/uploads/services/wycena-celno-skarbowa-3.jpg" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "doradztwo-zakupowe",
+      "title": "Usługa: Doradztwo zakupowe",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.doradztwo-zakupowe.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Doradztwo zakupowe" },
+            { "key": "services.doradztwo-zakupowe.heroLead", "label": "Opis hero", "type": "textarea", "default": "Profesjonalne doradztwo i sprawdzenie pojazdu przed zakupem. Unikniesz ukrytych wad, powypadkowości i przepłacenia." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.doradztwo-zakupowe.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Doradztwo zakupowe to kompleksowe wsparcie kupującego - od weryfikacji ogłoszenia, przez sprawdzenie pojazdu, po negocjacje z sprzedającym. Sprawdzamy stan techniczny, historię pojazdu, autentyczność dokumentów oraz porównujemy cenę z rynkiem." },
+            { "key": "services.doradztwo-zakupowe.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Profesjonalne oględziny przed zakupem</li><li>Sprawdzenie historii w bazach (CEPIK, autoDNA)</li><li>Weryfikacja autentyczności dokumentów</li><li>Identyfikacja powypadkowości i ukrytych wad</li><li>Doradztwo w negocjacji ceny</li></ul>" },
+            { "key": "services.doradztwo-zakupowe.processHtml", "label": "Jak to działa", "type": "html", "default": "" },
+            { "key": "services.doradztwo-zakupowe.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Czy muszę być na miejscu oględzin?</h3><p>Nie – możesz przekazać sprawę w pełni nam. Otrzymasz raport ze zdjęciami, opinią i rekomendacją (kupować / negocjować / odpuścić).</p><h3>Sprawdzacie auta na giełdach i u prywatnych sprzedających?</h3><p>Tak – dojeżdżamy do każdego sprzedającego w naszym obszarze działania.</p>" },
+            { "key": "services.doradztwo-zakupowe.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pojazdy-zabytkowe-2",
+      "title": "Usługa: Pojazdy zabytkowe",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.pojazdy-zabytkowe-2.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Pojazdy zabytkowe" },
+            { "key": "services.pojazdy-zabytkowe-2.heroLead", "label": "Opis hero", "type": "textarea", "default": "Wyceny, ekspertyzy i opisy stanu technicznego pojazdów zabytkowych oraz młodzieżowych (youngtimer). Specjalistyczne podejście do kolekcjonerskich aut." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.pojazdy-zabytkowe-2.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Wycena pojazdów zabytkowych wymaga specjalistycznej wiedzy o rynku kolekcjonerskim, oryginalności podzespołów oraz historii konkretnego egzemplarza. Wykonujemy wyceny dla celów ubezpieczeniowych, podatkowych, spadkowych i kolekcjonerskich. Specjalizujemy się w pojazdach historycznych (>30 lat) oraz młodzieżowych (youngtimer, 20-30 lat). Każda wycena uwzględnia oryginalność, stan zachowania, historię oraz aktualną sytuację rynkową." },
+            { "key": "services.pojazdy-zabytkowe-2.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Znajomość rynku kolekcjonerskiego (aukcje, kluby, fora)</li><li>Weryfikacja oryginalności podzespołów (numerów silnika, ramy, VIN)</li><li>Dokumentacja stanu i historii pojazdu</li><li>Wyceny dla celów ubezpieczeniowych (Allianz, PZU, Concordia)</li><li>Doradztwo przy rejestracji jako zabytek (białe tablice)</li><li>Wsparcie przy aukcjach krajowych i międzynarodowych</li></ul>" },
+            { "key": "services.pojazdy-zabytkowe-2.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Wywiad</strong> – rozmowa o pojeździe: historia, posiadane dokumenty, cel wyceny.</li><li><strong>Oględziny</strong> – pełne oględziny pojazdu, weryfikacja numerów, ocena oryginalności.</li><li><strong>Analiza rynku</strong> – porównanie z transakcjami na aukcjach krajowych i międzynarodowych.</li><li><strong>Wycena</strong> – sporządzamy raport zawierający wycenę, opis stanu i rekomendacje.</li></ol>" },
+            { "key": "services.pojazdy-zabytkowe-2.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Czym różni się wycena pojazdu zabytkowego od zwykłej wyceny?</h3><p>Pojazd zabytkowy ma wartość kolekcjonerską która często nie ma nic wspólnego z wartością „samochodu używanego”. Liczy się oryginalność, historia, znanie pochodzenia (provenience), rzadkość modelu.</p><h3>Czy wykonujecie wyceny do polisy kolekcjonerskiej?</h3><p>Tak. Współpracujemy z Allianz, PZU, Concordia i innymi towarzystwami.</p><h3>Mam auto powyżej 30 lat – jak zarejestrować je jako zabytek?</h3><p>Pojazd musi mieć co najmniej 30 lat, być w stanie zgodnym z oryginałem i posiadać atestację rzeczoznawcy.</p><h3>Czy obsługujecie również youngtimery?</h3><p>Tak. Youngtimer to bardzo dynamiczny rynek.</p>" },
+            { "key": "services.pojazdy-zabytkowe-2.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zmiany-konstrukcyjne",
+      "title": "Usługa: Zmiany konstrukcyjne",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.zmiany-konstrukcyjne.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Zmiany konstrukcyjne" },
+            { "key": "services.zmiany-konstrukcyjne.heroLead", "label": "Opis hero", "type": "textarea", "default": "Ekspertyzy zmian konstrukcyjnych pojazdów – dokumenty wymagane do rejestracji modyfikacji w wydziale komunikacji." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.zmiany-konstrukcyjne.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Każda istotna zmiana konstrukcyjna pojazdu (zabudowa, instalacja gazowa, hak holowniczy, zmiana napędu, zmiany w nadwoziu) wymaga ekspertyzy rzeczoznawcy oraz wpisu w dowodzie rejestracyjnym. Wykonujemy pełną dokumentację techniczną akceptowaną w wydziale komunikacji w całej Polsce. Każda ekspertyza zawiera ocenę zgodności z przepisami homologacyjnymi i wskazania dla wydziału komunikacji." },
+            { "key": "services.zmiany-konstrukcyjne.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Dokumenty akceptowane w wydziale komunikacji w całej Polsce</li><li>Doradztwo przed wykonaniem zmian</li><li>Pełna dokumentacja techniczna</li><li>Pomoc w procedurze rejestracji modyfikacji</li><li>Doświadczenie z różnymi typami zmian (zabudowy, gaz, hak, napęd)</li><li>Termin realizacji 3–7 dni</li></ul>" },
+            { "key": "services.zmiany-konstrukcyjne.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Konsultacja</strong> – opisujesz planowaną/wykonaną zmianę, otrzymujesz ofertę i czas realizacji.</li><li><strong>Oględziny</strong> – sprawdzamy pojazd po wykonaniu zmiany, dokumentacja zdjęciowa i pomiary.</li><li><strong>Ekspertyza</strong> – sporządzamy dokumentację techniczną i ocenę zgodności ze przepisami homologacyjnymi.</li><li><strong>Rejestracja</strong> – z dokumentem idziesz do wydziału komunikacji żeby uzyskać wpis w dowodzie rejestracyjnym.</li></ol>" },
+            { "key": "services.zmiany-konstrukcyjne.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Jakie zmiany wymagają ekspertyzy rzeczoznawcy?</h3><p>Najczęściej: LPG/CNG, hak holowniczy, zmiana zabudowy, zmiana napędu, zmiany w nadwoziu, zmiana liczby miejsc.</p><h3>Mogę zrobić ekspertyzę PRZED wykonaniem zmiany?</h3><p>Tak, gorąco polecamy. Konsultacja przed-modyfikacyjna pozwala uniknąć kosztownych błędów.</p><h3>Czy każdy wydział komunikacji akceptuje ekspertyzy?</h3><p>Tak. Ekspertyza sporządzona przez rzeczoznawcę z certyfikatem RS001771 jest dokumentem urzędowym.</p><h3>Ile trwa cała procedura?</h3><p>Sama ekspertyza to 3–7 dni. Wpis w wydziale komunikacji do 14 dni.</p>" },
+            { "key": "services.zmiany-konstrukcyjne.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pomoc-prawna",
+      "title": "Usługa: Pomoc prawna",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.pomoc-prawna.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Pomoc prawna" },
+            { "key": "services.pomoc-prawna.heroLead", "label": "Opis hero", "type": "textarea", "default": "Wsparcie ekspertyzowe w sprawach sądowych, odszkodowawczych i konsumenckich dotyczących pojazdów. Współpraca z kancelariami prawnymi." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.pomoc-prawna.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Pomoc prawna w sprawach motoryzacyjnych obejmuje sporządzanie ekspertyz na potrzeby postępowań sądowych, odszkodowawczych i konsumenckich. Współpracujemy z kancelariami prawnymi w całej Polsce oraz reprezentujemy interesy klientów indywidualnych w sporach z ubezpieczycielami, dealerami i sprzedającymi. Każda ekspertyza może być wykorzystana jako materiał dowodowy w postępowaniu sądowym lub w negocjacjach pozasądowych." },
+            { "key": "services.pomoc-prawna.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Ekspertyzy na potrzeby procesów sądowych</li><li>Wsparcie w sporach z ubezpieczycielem</li><li>Reklamacje pojazdów nowych i używanych</li><li>Współpraca z kancelariami prawnymi w całej Polsce</li><li>Reprezentacja w postępowaniach skarbowych i celno-skarbowych</li><li>Konsultacje wstępne przed wystąpieniem na drogę sądową</li></ul>" },
+            { "key": "services.pomoc-prawna.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Konsultacja</strong> – bezpłatna analiza sprawy.</li><li><strong>Dokumenty</strong> – przekazujesz dokumenty (kosztorysy, faktury, korespondencję).</li><li><strong>Ekspertyza</strong> – sporządzamy ekspertyzę z konkretnymi wnioskami i wyliczeniami.</li><li><strong>Reprezentacja</strong> – wspieramy w korespondencji i stawiamy się na rozprawach.</li></ol>" },
+            { "key": "services.pomoc-prawna.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Co konkretnie mogę zyskać dzięki ekspertyzie?</h3><p>Dochodzenie pełnego odszkodowania (typowe zaniżenie OC to 20–50%), wycofanie reklamowanego pojazdu, wygranie sporu z dealerem o ukryte wady, obniżenie zobowiązań skarbowych.</p><h3>Czy współpracujecie z kancelariami prawnymi?</h3><p>Tak, regularnie. Sporządzamy ekspertyzy na zlecenie kancelarii.</p><h3>Czy muszę mieć już prawnika?</h3><p>Nie. Część spraw można rozwiązać pozasądowo.</p><h3>Ile kosztuje pomoc prawna?</h3><p>Sama ekspertyza to 400–1500 zł. Konsultacja wstępna jest bezpłatna.</p>" },
+            { "key": "services.pomoc-prawna.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" },
+            { "key": "services.pomoc-prawna.gallery.1", "label": "Galeria – zdjęcie 1", "type": "image", "default": "/uploads/services/pomoc-prawna.jpg" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "polisy-ubezpieczeniowe",
+      "title": "Usługa: Polisy ubezpieczeniowe",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.polisy-ubezpieczeniowe.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Polisy ubezpieczeniowe" },
+            { "key": "services.polisy-ubezpieczeniowe.heroLead", "label": "Opis hero", "type": "textarea", "default": "Doradztwo i ekspertyzy w sprawach ubezpieczeniowych. Szkody OC, AC, dochodzenie odszkodowań, weryfikacja kosztorysów." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.polisy-ubezpieczeniowe.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Wsparcie w sprawach ubezpieczeniowych obejmuje weryfikację kosztorysów ubezpieczyciela, sporządzanie niezależnych wycen szkód oraz wsparcie w postępowaniach reklamacyjnych i sądowych. Pomagamy odzyskać należne odszkodowanie w pełnej wysokości. Typowe zaniżenie wyceny przez ubezpieczyciela to 20-50% – nasza niezależna ekspertyza pozwala te kwoty odzyskać." },
+            { "key": "services.polisy-ubezpieczeniowe.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Weryfikacja kosztorysów ubezpieczyciela</li><li>Identyfikacja zaniżeń (typowo 20–50%)</li><li>Reprezentacja w postępowaniach reklamacyjnych</li><li>Wsparcie w sprawach sądowych</li><li>Doświadczenie z głównymi towarzystwami w Polsce</li><li>Pełna dokumentacja fotograficzna szkody</li></ul>" },
+            { "key": "services.polisy-ubezpieczeniowe.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Przeglądamy decyzję</strong> – przesyłasz decyzję ubezpieczyciela i dokumentację szkody.</li><li><strong>Oględziny</strong> – spotykamy się z pojazdem.</li><li><strong>Wycena niezależna</strong> – sporządzamy własną kalkulację kosztów naprawy.</li><li><strong>Odwołanie</strong> – otrzymujesz raport gotowy do złożenia.</li></ol>" },
+            { "key": "services.polisy-ubezpieczeniowe.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Ubezpieczyciel wypłacił za niskie odszkodowanie – co mogę zrobić?</h3><p>Zlecić niezależną wycenę. Zaniżenia OC to 20–50%.</p><h3>Czy mogę użyć wyceny w sądzie?</h3><p>Tak. Niezależna wycena rzeczoznawcy z certyfikatem RS001771 jest pełnoprawnym dowodem.</p><h3>Ile trwa odwołanie od decyzji OC?</h3><p>Ubezpieczyciel ma 30 dni na rozpatrzenie odwołania.</p><h3>Czy oferujecie pomoc przy szkodach całkowitych (TC)?</h3><p>Tak. Sprawdzamy poprawność wyceny szkody całkowitej.</p>" },
+            { "key": "services.polisy-ubezpieczeniowe.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" },
+            { "key": "services.polisy-ubezpieczeniowe.gallery.1", "label": "Galeria – zdjęcie 1", "type": "image", "default": "/uploads/services/polisy-ubezpieczeniowe.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "biegly-skarbowy",
+      "title": "Usługa: Biegły skarbowy",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.biegly-skarbowy.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Biegły Skarbowy" },
+            { "key": "services.biegly-skarbowy.heroLead", "label": "Opis hero", "type": "textarea", "default": "Usługi biegłego skarbowego z zakresu techniki samochodowej. Opinie na potrzeby postępowań skarbowych i celno-skarbowych." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.biegly-skarbowy.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Biegły skarbowy to specjalista powoływany przez organy podatkowe lub celno-skarbowe (UCS) do oceny technicznej oraz wyceny pojazdów. Sporządzamy opinie wykorzystywane w postępowaniach kontrolnych, sprawach akcyzowych, podatku VAT od pojazdów oraz przy ustalaniu wartości środków trwałych. Każda opinia bazuje na obowiązującej metodologii i jest akceptowana przez organy skarbowe w całej Polsce." },
+            { "key": "services.biegly-skarbowy.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Doświadczenie w postępowaniach skarbowych i celno-skarbowych</li><li>Opinie akceptowane przez urzędy w całej Polsce</li><li>Specjalizacja: akcyza, VAT, podatek od środków trwałych</li><li>Współpraca z kancelariami podatkowymi i biurami rachunkowymi</li><li>Pomoc w wyjaśnieniach z urzędem</li><li>Certyfikat RS001771</li></ul>" },
+            { "key": "services.biegly-skarbowy.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Zlecenie</strong> – otrzymujemy dane pojazdu i dokumenty.</li><li><strong>Analiza</strong> – sprawdzamy dane techniczne i wymogi organu skarbowego.</li><li><strong>Wycena</strong> – sporządzamy opinię/wycenę zgodną z metodologią.</li><li><strong>Wsparcie</strong> – reagujemy na pytania urzędu.</li></ol>" },
+            { "key": "services.biegly-skarbowy.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Czy opinia będzie zaakceptowana przez urząd skarbowy?</h3><p>Tak. W praktyce nie odnotowaliśmy odrzucenia opinii w UCS.</p><h3>Czy występujecie przed organem podatkowym?</h3><p>Tak. Możemy stawiać się w urzędzie skarbowym lub UCS.</p><h3>Ile kosztuje opinia?</h3><p>Standardowa opinia kosztuje 400–1500 zł.</p><h3>Sprowadziłem auto z USA – wycena do akcyzy?</h3><p>Tak. To jeden z naszych głównych obszarów specjalizacji.</p>" },
+            { "key": "services.biegly-skarbowy.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "biegly-sadowy",
+      "title": "Usługa: Biegły sądowy",
+      "groups": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "services.biegly-sadowy.title", "label": "Nazwa usługi (H1)", "type": "text", "default": "Biegły Sądowy" },
+            { "key": "services.biegly-sadowy.heroLead", "label": "Opis hero", "type": "textarea", "default": "Opinie biegłego sądowego z zakresu techniki samochodowej i wyceny pojazdów. Wsparcie postępowań sądowych w całej Polsce." }
+          ]
+        },
+        {
+          "title": "Treść główna",
+          "fields": [
+            { "key": "services.biegly-sadowy.intro", "label": "Wprowadzenie", "type": "textarea", "default": "Biegły sądowy z zakresu techniki samochodowej to ekspert powoływany przez sąd do sporządzenia opinii w sprawach wymagających wiedzy specjalistycznej. Sporządzamy opinie sądowe z zakresu wyceny pojazdów, ekspertyz powypadkowych, zmian konstrukcyjnych i sporów o odszkodowanie. Współpracujemy z sądami i kancelariami prawnymi w całej Polsce. Opinie sporządzane są zgodnie z zasadami metodyki sądowej i są pełnoprawnym dowodem w postępowaniu." },
+            { "key": "services.biegly-sadowy.benefitsHtml", "label": "Co zyskujesz", "type": "html", "default": "<ul><li>Doświadczenie procesowe – kilkadziesiąt opinii sądowych</li><li>Opinie pisemne i ustne na rozprawach</li><li>Specjalizacja: wyceny, szkody, ekspertyzy powypadkowe</li><li>Współpraca z kancelariami prawnymi i kuratorami</li><li>Możliwość konsultacji prywatnej</li><li>Certyfikat RS001771 – wpis do rejestru biegłych sądów</li></ul>" },
+            { "key": "services.biegly-sadowy.processHtml", "label": "Jak to działa", "type": "html", "default": "<ol><li><strong>Postanowienie</strong> – sąd lub strona dostarcza postanowienie i akta.</li><li><strong>Analiza akt</strong> – zapoznajemy się z aktami, fotografiami, kosztorysami.</li><li><strong>Oględziny</strong> – w razie potrzeby przeprowadzamy oględziny pojazdu.</li><li><strong>Opinia</strong> – sporządzamy opinię pisemną, w razie potrzeby stawiamy się na rozprawie.</li></ol>" },
+            { "key": "services.biegly-sadowy.faqHtml", "label": "FAQ", "type": "html", "default": "<h3>Czy mogę zlecić opinię prywatnie?</h3><p>Tak. Wykonujemy opinie prywatne (pre-procesowe).</p><h3>Ile kosztuje opinia biegłego sądowego?</h3><p>W postępowaniu sądowym stawki wynikają z rozporządzenia MS. Opinia prywatna 800–2500 zł.</p><h3>Czy stawiacie się na rozprawach?</h3><p>Tak, w całej Polsce.</p><h3>Jak długo trwa sporządzenie opinii?</h3><p>14–30 dni od otrzymania akt.</p>" },
+            { "key": "services.biegly-sadowy.extraHtml", "label": "Dodatkowa treść", "type": "html", "default": "<h3>Specjalności z obecnej strony</h3><ul><li>Rzeczoznawstwo samochodowe i technika motoryzacyjna.</li><li>Kosztorysowanie napraw pojazdów w systemie Audatex.</li><li>Wycena wartości pojazdów osobowych i ciężarowych w systemie INFO-EKSPERT.</li><li>Ocena stanu technicznego pojazdów samochodowych.</li></ul>" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -29,18 +29,24 @@ const polandProjection = geoMercator().fitSize([MAP_W, MAP_H], voivodeships);
 const polandPathGen = geoPath(polandProjection);
 const trimSvgPath = (d: string) => d.replace(/-?\d+(?:\.\d+)?/g, (n) => Math.round(parseFloat(n)).toString());
 const round1 = (n: number) => Math.round(n * 10) / 10;
+const voivodeshipTooltipOffsets: Record<string, { dx?: number; dy?: number }> = {
+  opolskie: { dy: 68 },
+};
 const renderedVoivodeships = voivodeships.features.map((feature) => {
   const [cx, cy] = polandPathGen.centroid(feature as Feature<Geometry>);
   const labelX = round1(cx);
   const labelY = round1(cy);
+  const tooltipOffset = voivodeshipTooltipOffsets[feature.properties.nazwa] ?? {};
+  const tooltipX = round1(labelX + (tooltipOffset.dx ?? 0));
+  const tooltipY = round1(Math.max(56, labelY + (tooltipOffset.dy ?? -72)));
   return {
     key: feature.properties.nazwa,
     name: feature.properties.nazwa,
     path: trimSvgPath(polandPathGen(feature as Feature<Geometry>) ?? ''),
     labelX,
     labelY,
-    tooltipX: labelX,
-    tooltipY: labelY,
+    tooltipX,
+    tooltipY,
   };
 });
 type CityTier = 'major' | 'small';
@@ -204,7 +210,7 @@ const serviceProofs = [
         playsinline
         preload="metadata"
       >
-        <source src="/uploads/hero-background-video-v2.mp4" type="video/mp4" media="(min-width: 1024px)" />
+        <source src="/uploads/hero-background-video-v2.mp4" data-admin-src="home.hero.video" type="video/mp4" media="(min-width: 1024px)" />
       </video>
     </div>
     <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_78%_42%,rgba(116,174,236,0.22),transparent_40%),linear-gradient(105deg,rgba(8,25,41,0.78)_0%,rgba(18,52,90,0.42)_48%,rgba(20,55,92,0.1)_100%)]"></div>
@@ -212,13 +218,13 @@ const serviceProofs = [
     <div class="absolute inset-x-0 bottom-0 z-0 h-px bg-white/10"></div>
     <div class="container relative z-10 mx-auto max-w-7xl overflow-hidden px-4 py-20 lg:py-28">
       <div class="w-full max-w-3xl">
-        <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-sky-200">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-sky-200" data-admin-text="home.hero.certificateLabel">
           Certyfikat {business.certificate}
         </p>
-        <h1 class="mb-6 max-w-3xl text-3xl font-bold leading-[1.08] text-white sm:text-4xl md:text-5xl lg:text-6xl">
+        <h1 class="mb-6 max-w-3xl text-3xl font-bold leading-[1.08] text-white sm:text-4xl md:text-5xl lg:text-6xl" data-admin-text="home.hero.title">
           Rzeczoznawca Techniki Samochodowej
         </h1>
-        <p class="mb-8 w-full max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg md:text-xl">
+        <p class="mb-8 w-full max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg md:text-xl" data-admin-text="home.hero.lead">
           Profesjonalne wyceny pojazdów, ekspertyzy powypadkowe, wyceny celno-skarbowe
           oraz opinie biegłego sądowego i skarbowego. Działam w Wielkopolsce, na Dolnym
           Śląsku oraz w całej Polsce.
@@ -226,17 +232,19 @@ const serviceProofs = [
         <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a
             href={`tel:${business.contact.phone}`}
+            data-admin-href="global.contact.phoneTel"
+            data-admin-href-prefix="tel:"
             class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white shadow-xl shadow-brand-950/25 transition hover:bg-brand-500 sm:w-auto"
           >
             <Phone size={18} aria-hidden="true" />
-            {business.contact.phoneDisplay}
+            <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
           </a>
           <a
             href="#kontakt"
             class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur transition hover:bg-white/10 sm:w-auto"
           >
             <MessageCircle size={18} aria-hidden="true" />
-            Wyślij zapytanie
+            <span data-admin-text="home.hero.ctaInquiry">Wyślij zapytanie</span>
           </a>
         </div>
       </div>
@@ -260,8 +268,8 @@ const serviceProofs = [
             <Award size={28} aria-hidden="true" />
           </span>
           <div>
-            <p class="font-semibold text-slate-950">Certyfikat {business.certificate}</p>
-            <p class="text-sm text-slate-600">Wpisany do rejestru rzeczoznawców</p>
+            <p class="font-semibold text-slate-950" data-admin-text="home.usp.item1Title">Certyfikat {business.certificate}</p>
+            <p class="text-sm text-slate-600" data-admin-text="home.usp.item1Text">Wpisany do rejestru rzeczoznawców</p>
           </div>
         </div>
         <div class="flex items-center gap-4">
@@ -269,8 +277,8 @@ const serviceProofs = [
             <Clock size={28} aria-hidden="true" />
           </span>
           <div>
-            <p class="font-semibold text-slate-950">Termin 24-48h</p>
-            <p class="text-sm text-slate-600">Szybkie ekspertyzy bez zbędnego czekania</p>
+            <p class="font-semibold text-slate-950" data-admin-text="home.usp.item2Title">Termin 24-48h</p>
+            <p class="text-sm text-slate-600" data-admin-text="home.usp.item2Text">Szybkie ekspertyzy bez zbędnego czekania</p>
           </div>
         </div>
         <div class="flex items-center gap-4">
@@ -278,8 +286,8 @@ const serviceProofs = [
             <MapPin size={28} aria-hidden="true" />
           </span>
           <div>
-            <p class="font-semibold text-slate-950">Cała Polska</p>
-            <p class="text-sm text-slate-600">Wielkopolska, Dolny Śląsk i pozostałe regiony</p>
+            <p class="font-semibold text-slate-950" data-admin-text="home.usp.item3Title">Cała Polska</p>
+            <p class="text-sm text-slate-600" data-admin-text="home.usp.item3Text">Wielkopolska, Dolny Śląsk i pozostałe regiony</p>
           </div>
         </div>
       </div>
@@ -293,8 +301,8 @@ const serviceProofs = [
     <div class="absolute inset-x-0 bottom-0 h-px bg-slate-950/50"></div>
     <div class="container relative z-10 mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-8">
       <div class="mx-auto mb-8 max-w-3xl text-center lg:mb-10">
-        <h2 class="mb-3 text-3xl font-bold text-white md:text-4xl">Oferta usług</h2>
-        <p class="text-sm font-medium text-slate-300 md:text-base">Profesjonalnie. Rzetelnie. W całej Polsce.</p>
+        <h2 class="mb-3 text-3xl font-bold text-white md:text-4xl" data-admin-text="home.services.heading">Oferta usług</h2>
+        <p class="text-sm font-medium text-slate-300 md:text-base" data-admin-text="home.services.subheading">Profesjonalnie. Rzetelnie. W całej Polsce.</p>
       </div>
 
       <div class="mx-auto grid max-w-6xl grid-cols-2 gap-3 border-b border-sky-200/10 pb-8 sm:grid-cols-3 md:gap-5 lg:max-w-none lg:grid-cols-5 lg:pb-10">
@@ -317,7 +325,7 @@ const serviceProofs = [
 
       <div class="mt-9 grid gap-8 xl:grid-cols-[0.66fr_1.34fr] xl:items-start">
         <div class="mx-auto w-full max-w-xl xl:max-w-none">
-          <h3 class="mb-6 text-2xl font-bold tracking-tight text-white md:text-3xl">Działamy w Polsce</h3>
+          <h3 class="mb-6 text-2xl font-bold tracking-tight text-white md:text-3xl" data-admin-text="home.services.coverageHeading">Działamy w Polsce</h3>
           <ul class="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
             {coverageRows.map((row) => (
               <li class="flex items-center gap-4 rounded-2xl border border-sky-200/10 bg-white/[0.035] px-4 py-3 xl:border-transparent xl:bg-transparent xl:px-0 xl:py-0">
@@ -337,8 +345,8 @@ const serviceProofs = [
             ))}
           </ul>
           <div class="mt-6 rounded-2xl border border-sky-200/10 bg-white/[0.04] p-4 text-sm leading-relaxed text-slate-300">
-            <p class="font-semibold text-white">Siedziba: {business.address.city}</p>
-            <p class="mt-1">Stała obsługa: Wielkopolska i Dolny Śląsk. Pozostałe województwa są możliwe po ustaleniu zakresu, terminu i dojazdu.</p>
+            <p class="font-semibold text-white">Siedziba: <span data-admin-text="global.address.city">{business.address.city}</span></p>
+            <p class="mt-1" data-admin-text="home.services.coverageNote">Stała obsługa: Wielkopolska i Dolny Śląsk. Pozostałe województwa są możliwe po ustaleniu zakresu, terminu i dojazdu.</p>
           </div>
         </div>
 
@@ -351,7 +359,6 @@ const serviceProofs = [
                 const isDolnySlask = v.name === 'dolnośląskie';
                 const isCoreRegion = isWielkopolska || isDolnySlask;
                 const tooltipText = isCoreRegion ? 'Stały region obsługi' : 'Do ustalenia';
-                const tooltipWidth = isCoreRegion ? 210 : 154;
                 return (
                   <g class="group cursor-pointer">
                     <path
@@ -365,31 +372,6 @@ const serviceProofs = [
                     >
                       <title>{`${v.name}: ${tooltipText}`}</title>
                     </path>
-                    <g
-                      class="pointer-events-none opacity-0 transition duration-150 group-hover:opacity-100"
-                      transform={`translate(${v.tooltipX} ${v.tooltipY})`}
-                    >
-                      <rect
-                        x={-(tooltipWidth / 2)}
-                        y="-32"
-                        width={tooltipWidth}
-                        height="44"
-                        rx="12"
-                        fill="#f8f4e8"
-                        stroke="#ffffff"
-                        stroke-width="2"
-                      />
-                      <text
-                        x="0"
-                        y="-8"
-                        text-anchor="middle"
-                        font-size="24"
-                        font-weight="800"
-                        fill="#0f2741"
-                      >
-                        {tooltipText}
-                      </text>
-                    </g>
                   </g>
                 );
               })}
@@ -486,19 +468,67 @@ const serviceProofs = [
                 </g>
               ))}
             </g>
+
+            <g>
+              {renderedVoivodeships.map((v) => {
+                const isWielkopolska = v.name === 'wielkopolskie';
+                const isDolnySlask = v.name === 'dolnośląskie';
+                const isCoreRegion = isWielkopolska || isDolnySlask;
+                const tooltipText = isCoreRegion ? 'Stały region obsługi' : 'Do ustalenia';
+                const tooltipWidth = isCoreRegion ? 270 : 154;
+                return (
+                  <g class="group cursor-pointer">
+                    <path
+                      d={v.path}
+                      fill="transparent"
+                      stroke="none"
+                      pointer-events="all"
+                    >
+                      <title>{`${v.name}: ${tooltipText}`}</title>
+                    </path>
+                    <g
+                      class="pointer-events-none invisible group-hover:visible"
+                      transform={`translate(${v.tooltipX} ${v.tooltipY})`}
+                    >
+                      <rect
+                        x={-(tooltipWidth / 2)}
+                        y="-32"
+                        width={tooltipWidth}
+                        height="44"
+                        rx="12"
+                        fill="#ffffff"
+                        fill-opacity="1"
+                        stroke="#ffffff"
+                        stroke-width="2"
+                      />
+                      <text
+                        x="0"
+                        y="-8"
+                        text-anchor="middle"
+                        font-size="24"
+                        font-weight="800"
+                        fill="#0f2741"
+                      >
+                        {tooltipText}
+                      </text>
+                    </g>
+                  </g>
+                );
+              })}
+            </g>
           </svg>
         </div>
       </div>
 
       <div class="mt-9 grid overflow-hidden rounded-2xl border border-sky-200/10 bg-white/[0.04] shadow-2xl shadow-black/15 md:grid-cols-3 lg:mt-10">
-        {serviceProofs.map(({ icon: ProofIcon, title, text }) => (
+        {serviceProofs.map(({ icon: ProofIcon, title, text }, idx) => (
           <div class="flex min-h-20 items-center gap-3 border-b border-sky-200/10 px-5 py-4 md:border-b-0 md:border-r md:last:border-r-0 lg:px-7">
             <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-sky-200/25 bg-sky-300/10 text-sky-100">
               <ProofIcon size={22} strokeWidth={1.9} aria-hidden="true" />
             </span>
             <span>
-              <span class="block text-sm font-bold leading-tight text-white">{title}</span>
-              <span class="block text-xs leading-snug text-slate-400">{text}</span>
+              <span class="block text-sm font-bold leading-tight text-white" data-admin-text={`home.services.proof${idx + 1}Title`}>{title}</span>
+              <span class="block text-xs leading-snug text-slate-400" data-admin-text={`home.services.proof${idx + 1}Text`}>{text}</span>
             </span>
           </div>
         ))}
@@ -511,9 +541,9 @@ const serviceProofs = [
     <div class="container mx-auto max-w-7xl px-4">
       <div class="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
         <div>
-          <h2 class="mb-4 text-3xl font-bold text-slate-950 md:text-4xl">Skontaktuj się</h2>
+          <h2 class="mb-4 text-3xl font-bold text-slate-950 md:text-4xl" data-admin-text="home.contact.heading">Skontaktuj się</h2>
           <div class="mb-5 h-1 w-12 rounded-full bg-brand-600"></div>
-          <p class="max-w-md leading-relaxed text-slate-600">
+          <p class="max-w-md leading-relaxed text-slate-600" data-admin-text="home.contact.lead">
             Opisz krótko swoją sprawę – odezwę się w ciągu 24h, zazwyczaj znacznie szybciej.
           </p>
         </div>

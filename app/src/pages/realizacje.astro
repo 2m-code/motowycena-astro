@@ -51,8 +51,8 @@ const cases = [
         <span class="mx-2">/</span>
         <span>Realizacje</span>
       </nav>
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">Realizacje</h1>
-      <p class="text-brand-100 max-w-2xl">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4" data-admin-text="realizacje.hero.title">Realizacje</h1>
+      <p class="text-brand-100 max-w-2xl" data-admin-text="realizacje.hero.lead">
         Przykłady zrealizowanych spraw - wyceny, ekspertyzy, opinie sądowe.
       </p>
     </div>
@@ -67,6 +67,7 @@ const cases = [
               {c.images.map((image, imageIndex) => (
                 <img
                   src={image}
+                  data-admin-src={`realizacje.case${idx + 1}.image${imageIndex + 1}`}
                   alt={`${c.title} - zdjęcie ${imageIndex + 1}`}
                   loading={idx === 0 && imageIndex === 0 ? 'eager' : 'lazy'}
                   decoding="async"
@@ -77,23 +78,25 @@ const cases = [
               ))}
             </div>
             <div class="p-6">
-              <p class="text-xs uppercase tracking-wider text-brand-600 font-semibold mb-2">{c.category}</p>
-              <h2 class="font-semibold text-lg mb-2">{c.title}</h2>
-              <p class="text-sm text-gray-600">{c.summary}</p>
+              <p class="text-xs uppercase tracking-wider text-brand-600 font-semibold mb-2" data-admin-text={`realizacje.case${idx + 1}.category`}>{c.category}</p>
+              <h2 class="font-semibold text-lg mb-2" data-admin-text={`realizacje.case${idx + 1}.title`}>{c.title}</h2>
+              <p class="text-sm text-gray-600" data-admin-text={`realizacje.case${idx + 1}.summary`}>{c.summary}</p>
             </div>
           </article>
         ))}
       </div>
 
       <div class="mt-12 text-center bg-gray-50 rounded-2xl p-10">
-        <h2 class="text-2xl font-bold mb-3">Twoja sprawa może być następna</h2>
-        <p class="text-gray-600 mb-6">Każda sprawa jest inna - skontaktuj się i opisz swoją sytuację.</p>
+        <h2 class="text-2xl font-bold mb-3" data-admin-text="realizacje.cta.title">Twoja sprawa może być następna</h2>
+        <p class="text-gray-600 mb-6" data-admin-text="realizacje.cta.lead">Każda sprawa jest inna - skontaktuj się i opisz swoją sytuację.</p>
         <a
           href={`tel:${business.contact.phone}`}
+          data-admin-href="global.contact.phoneTel"
+          data-admin-href-prefix="tel:"
           class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-lg transition"
         >
           <Phone size={18} aria-hidden="true" />
-          {business.contact.phoneDisplay}
+          <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
         </a>
       </div>
     </div>

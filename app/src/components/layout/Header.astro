@@ -13,24 +13,26 @@ const mobileMenuServices = services.map((s) => ({ slug: s.slug, name: s.name }))
     <div class="flex h-16 items-center justify-between lg:h-[4.5rem]">
       <!-- Logo -->
       <a href="/" class="-my-2 flex min-h-[44px] items-center gap-3 py-2 font-bold text-xl text-brand-700 transition hover:text-brand-900">
-        <span class="sr-only">{business.name} – strona główna</span>
-        <img src="/favicon.svg" alt="" width="32" height="32" class="block rounded-lg" style="width: 32px; height: 32px;" loading="eager" decoding="async" />
-        <span aria-hidden="true" class="text-lg font-extrabold tracking-normal text-brand-700">{business.name}</span>
+        <span class="sr-only" data-admin-text="global.business.name">{business.name} – strona główna</span>
+        <img src="/favicon.svg" data-admin-src="global.business.logo" alt="" width="32" height="32" class="block rounded-lg" style="width: 32px; height: 32px;" loading="eager" decoding="async" />
+        <span aria-hidden="true" class="text-lg font-extrabold tracking-normal text-brand-700" data-admin-text="global.business.name">{business.name}</span>
       </a>
 
       <!-- Desktop menu -->
       <nav class="hidden items-center gap-1 lg:flex" aria-label="Menu główne">
         <a href="/" class="rounded-full px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-brand-700">Strona główna</a>
-        <div class="relative group">
+        <div class="group relative">
           <button class="rounded-full px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-brand-700" aria-haspopup="true">
             Usługi ▾
           </button>
-          <div class="invisible absolute right-0 top-full mt-3 w-80 rounded-2xl border border-slate-200 bg-white p-2 opacity-0 shadow-2xl shadow-slate-950/10 transition group-hover:visible group-hover:opacity-100">
-            {services.map((s) => (
-              <a href={serviceUrl(s.slug)} class="block rounded-xl px-4 py-2.5 text-sm text-slate-700 transition hover:bg-brand-50 hover:text-brand-700">
-                {s.name}
-              </a>
-            ))}
+          <div class="invisible absolute right-0 top-full w-80 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+            <div class="rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-950/10">
+              {services.map((s) => (
+                <a href={serviceUrl(s.slug)} class="block rounded-xl px-4 py-2.5 text-sm text-slate-700 transition hover:bg-brand-50 hover:text-brand-700">
+                  {s.name}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
         <a href="/pomoc-prawna/" class="rounded-full px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-brand-700">Pomoc prawna</a>
@@ -43,21 +45,32 @@ const mobileMenuServices = services.map((s) => ({ slug: s.slug, name: s.name }))
       <!-- CTA Phone -->
       <a
         href={`tel:${business.contact.phone}`}
-        class="hidden items-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-900/15 transition hover:bg-brand-800 md:inline-flex"
+        data-admin-href="global.contact.phoneTel"
+        data-admin-href-prefix="tel:"
+        class="hidden items-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-900/15 transition hover:bg-brand-800 lg:inline-flex"
         aria-label={`Zadzwoń: ${business.contact.phoneDisplay}`}
       >
         <Phone size={16} aria-hidden="true" />
-        {business.contact.phoneDisplay}
+        <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
       </a>
 
       <!-- Mobile menu - React island, hydratacja w idle (po LCP). -->
-      <MobileMenu
-        client:idle
-        services={mobileMenuServices}
-        phone={business.contact.phone}
-        phoneDisplay={business.contact.phoneDisplay}
-        whatsapp={business.contact.whatsapp}
-      />
+      <div class="flex items-center gap-2 lg:hidden">
+        <a
+          href={`tel:${business.contact.phone}`}
+          data-admin-href="global.contact.phoneTel"
+          data-admin-href-prefix="tel:"
+          class="inline-flex min-h-10 items-center gap-1.5 rounded-xl bg-brand-700 px-3 text-xs font-semibold text-white shadow-lg shadow-brand-900/15 transition hover:bg-brand-800 sm:text-sm"
+          aria-label={`Zadzwoń: ${business.contact.phoneDisplay}`}
+        >
+          <Phone size={15} aria-hidden="true" />
+          <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
+        </a>
+        <MobileMenu
+          client:idle
+          services={mobileMenuServices}
+        />
+      </div>
 
       <!-- Fallback no-JS: pokazujemy przycisk linkujący do #footer-nav (działa zawsze). -->
       <noscript>

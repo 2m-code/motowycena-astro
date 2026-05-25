@@ -8,9 +8,9 @@ import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
       <!-- Firma -->
       <div>
-        <h3 class="mb-4 text-lg font-bold text-white">{business.name}</h3>
-        <p class="mb-2 text-sm leading-relaxed">{business.legalName}</p>
-        <p class="text-xs text-slate-400">Certyfikat: {business.certificate}</p>
+        <h3 class="mb-4 text-lg font-bold text-white" data-admin-text="global.business.name">{business.name}</h3>
+        <p class="mb-2 text-sm leading-relaxed" data-admin-text="global.business.legalName">{business.legalName}</p>
+        <p class="text-xs text-slate-400">Certyfikat: <span data-admin-text="global.business.certificate">{business.certificate}</span></p>
       </div>
 
       <!-- Usługi -->
@@ -35,6 +35,7 @@ import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
           <li><a href="/pomoc-prawna/" class="inline-block py-2.5 transition hover:text-white">Pomoc prawna</a></li>
           <li><a href="/rzeczoznawca-ostrow-wielkopolski/" class="inline-block py-2.5 transition hover:text-white">Ostrów Wielkopolski</a></li>
           <li><a href="/kontakt/" class="inline-block py-2.5 transition hover:text-white">Kontakt</a></li>
+          <li><a href="/regulamin/" class="inline-block py-2.5 transition hover:text-white">Regulamin</a></li>
           <li><a href="/polityka-prywatnosci/" class="inline-block py-2.5 transition hover:text-white">Polityka prywatności</a></li>
         </ul>
       </div>
@@ -43,29 +44,29 @@ import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
       <div>
         <h3 class="mb-4 font-semibold text-white">Dane kontaktowe</h3>
         <ul class="space-y-3 text-sm">
-          <li class="flex items-start gap-2">
-            <Phone size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
-            <a href={`tel:${business.contact.phone}`} class="inline-block py-2.5 transition hover:text-white">
-              {business.contact.phoneDisplay}
+          <li class="flex items-center gap-2">
+            <Phone size={16} className="flex-shrink-0 text-slate-400" aria-hidden="true" />
+            <a href={`tel:${business.contact.phone}`} data-admin-href="global.contact.phoneTel" data-admin-href-prefix="tel:" class="inline-block py-2.5 transition hover:text-white">
+              <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
             </a>
           </li>
-          <li class="flex items-start gap-2">
-            <MessageCircle size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
+          <li class="flex items-center gap-2">
+            <MessageCircle size={16} className="flex-shrink-0 text-slate-400" aria-hidden="true" />
             <a href={`https://wa.me/${business.contact.whatsapp.replace(/[^0-9]/g, '')}`} class="inline-block py-2.5 transition hover:text-white">
-              WhatsApp: {business.contact.phoneDisplay}
+              WhatsApp: <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
             </a>
           </li>
-          <li class="flex items-start gap-2">
-            <Mail size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
-            <a href={`mailto:${business.contact.email}`} class="inline-block break-all py-2.5 transition hover:text-white">
+          <li class="flex items-center gap-2">
+            <Mail size={16} className="flex-shrink-0 text-slate-400" aria-hidden="true" />
+            <a href={`mailto:${business.contact.email}`} data-admin-href="global.contact.email" data-admin-href-prefix="mailto:" class="inline-block break-all py-2.5 transition hover:text-white" data-admin-text="global.contact.email">
               {business.contact.email}
             </a>
           </li>
-          <li class="flex items-start gap-2">
-            <MapPin size={16} className="mt-0.5 flex-shrink-0 text-slate-400" aria-hidden="true" />
+          <li class="flex items-center gap-2">
+            <MapPin size={16} className="flex-shrink-0 text-slate-400" aria-hidden="true" />
             <address class="not-italic">
-              {business.address.street}<br />
-              {business.address.postalCode} {business.address.city}
+              <span data-admin-text="global.address.street">{business.address.street}</span><br />
+              <span data-admin-text="global.address.postalCode">{business.address.postalCode}</span> <span data-admin-text="global.address.city">{business.address.city}</span>
             </address>
           </li>
         </ul>
@@ -73,18 +74,26 @@ import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
     </div>
 
     <div class="mt-10 border-t border-white/10 pt-8">
-      <h3 class="mb-3 font-semibold text-white">Obszar działania</h3>
+      <h3 class="mb-3 font-semibold text-white" data-admin-text="global.footer.areasTitle">Obszar działania</h3>
       <div class="grid gap-3 text-sm leading-relaxed text-slate-400 md:grid-cols-3">
-        <p><strong class="text-slate-300">Wielkopolska:</strong> {business.serviceAreas.wielkopolska}.</p>
-        <p><strong class="text-slate-300">Dolnośląskie:</strong> {business.serviceAreas.dolnoslaskie}.</p>
-        <p><strong class="text-slate-300">Cała Polska:</strong> {business.serviceAreas.nationwide}.</p>
+        <p><strong class="text-slate-300">Wielkopolska:</strong> <span data-admin-text="global.footer.areaWielkopolska">{business.serviceAreas.wielkopolska}</span>.</p>
+        <p><strong class="text-slate-300">Dolnośląskie:</strong> <span data-admin-text="global.footer.areaDolnoslaskie">{business.serviceAreas.dolnoslaskie}</span>.</p>
+        <p><strong class="text-slate-300">Cała Polska:</strong> <span data-admin-text="global.footer.areaNationwide">{business.serviceAreas.nationwide}</span>.</p>
       </div>
     </div>
 
     <div class="mt-8 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-xs text-slate-400 md:flex-row">
-      <p>© {new Date().getFullYear()} {business.legalName}. Wszelkie prawa zastrzeżone.</p>
+      <p>© {new Date().getFullYear()} <span data-admin-text="global.business.legalName">{business.legalName}</span>. <span data-admin-text="global.footer.copyrightSuffix">Wszelkie prawa zastrzeżone.</span></p>
       <p>
-        Powered by {business.name}
+        Realizacja &amp; Wykonanie:
+        <a
+          href="https://www.2mcode.pl/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block py-1 font-medium text-slate-300 transition hover:text-white hover:underline"
+        >
+          2mcode.pl
+        </a>
       </p>
     </div>
   </div>

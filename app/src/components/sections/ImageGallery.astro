@@ -6,15 +6,17 @@ interface GalleryImage {
 
 interface Props {
   images: GalleryImage[];
+  editKeyPrefix?: string;
 }
 
-const { images } = Astro.props;
+const { images, editKeyPrefix } = Astro.props;
 ---
 
 {images.length === 1 ? (
   <figure class="mt-8 overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
     <img
       src={images[0].src}
+      data-admin-src={editKeyPrefix ? `${editKeyPrefix}.1` : undefined}
       alt={images[0].alt}
       loading="lazy"
       decoding="async"
@@ -23,10 +25,11 @@ const { images } = Astro.props;
   </figure>
 ) : (
   <div class="mt-8 grid gap-3 sm:grid-cols-2">
-    {images.map((image) => (
+    {images.map((image, idx) => (
       <figure class="overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
         <img
           src={image.src}
+          data-admin-src={editKeyPrefix ? `${editKeyPrefix}.${idx + 1}` : undefined}
           alt={image.alt}
           loading="lazy"
           decoding="async"

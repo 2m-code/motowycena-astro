@@ -10,7 +10,8 @@
  * sterowanie po hydratacji, podmieniając statyczny button na interaktywny.
  */
 import { useEffect, useId, useRef, useState } from 'react';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { Menu, X } from 'lucide-react';
 
 interface ServiceLink {
   slug: string;
@@ -19,16 +20,27 @@ interface ServiceLink {
 
 interface Props {
   services: ReadonlyArray<ServiceLink>;
-  phone: string;
-  phoneDisplay: string;
-  whatsapp: string;
 }
 
-export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: Props) {
+const mainLinks = [
+  { href: '/pomoc-prawna/', label: 'Pomoc prawna' },
+  { href: '/realizacje/', label: 'Realizacje' },
+  { href: '/biegly-sadowy/', label: 'Biegły sądowy' },
+  { href: '/biegly-skarbowy/', label: 'Biegły skarbowy' },
+  { href: '/rzeczoznawca-ostrow-wielkopolski/', label: 'Ostrów Wielkopolski' },
+  { href: '/kontakt/', label: 'Kontakt' },
+];
+
+export default function MobileMenu({ services }: Props) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const panelId = useId();
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Blokada scrolla pod drawerem + Escape do zamknięcia
   useEffect(() => {
@@ -53,8 +65,6 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
     };
   }, [open]);
 
-  const whatsappUrl = `https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`;
-
   return (
     <>
       <button
@@ -69,11 +79,11 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
         <Menu size={24} aria-hidden="true" />
       </button>
 
-      {open && (
+      {mounted && open && createPortal(
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-[70] bg-black/50 backdrop-blur-sm"
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
@@ -84,7 +94,7 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
             role="dialog"
             aria-modal="true"
             aria-label="Menu nawigacji"
-            className="fixed inset-y-0 right-0 z-50 flex w-[88%] max-w-sm flex-col bg-white shadow-2xl"
+            className="fixed bottom-0 right-0 top-0 z-[80] flex h-dvh max-h-dvh w-[92vw] max-w-sm flex-col bg-white shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-slate-200 p-4">
               <span className="font-bold text-lg text-brand-700">Menu</span>
@@ -98,73 +108,49 @@ export default function MobileMenu({ services, phone, phoneDisplay, whatsapp }: 
               </button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto px-4 py-4" aria-label="Menu główne mobilne">
-              <ul className="space-y-1">
-                <li>
-                  <a
-                    ref={firstLinkRef}
-                    href="/"
-                    className="block rounded-xl px-3 py-3 text-base font-medium text-slate-800 hover:bg-brand-50"
-                  >
-                    Strona główna
-                  </a>
-                </li>
-                <li className="pt-3">
-                  <p className="mb-1 px-3 text-xs font-bold uppercase tracking-wider text-slate-500">
+            <nav className="flex-1 overflow-y-auto bg-slate-50 px-4 py-4" aria-label="Menu główne mobilne">
+              <div className="space-y-4">
+                <section className="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+                  <p className="px-3 pb-2 pt-1 text-xs font-bold uppercase tracking-wider text-brand-700">
+                    Sekcje
+                  </p>
+                  <ul className="space-y-1">
+                    {mainLinks.map((link, index) => (
+                      <li key={link.href}>
+                        <a
+                          ref={index === 0 ? firstLinkRef : undefined}
+                          href={link.href}
+                          className="block rounded-xl px-4 py-3 text-base font-bold text-slate-900 hover:bg-brand-50 hover:text-brand-800"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                <section className="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+                  <p className="px-3 pb-2 pt-1 text-xs font-bold uppercase tracking-wider text-brand-700">
                     Usługi
                   </p>
-                  <ul className="space-y-0.5">
+                  <ul className="space-y-1">
                     {services.map((s) => (
                       <li key={s.slug}>
                         <a
                           href={`/${s.slug}/`}
-                          className="block rounded-xl px-3 py-2.5 text-sm text-slate-700 hover:bg-brand-50"
+                          className="block rounded-xl px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-brand-50 hover:text-brand-800"
                         >
                           {s.name}
                         </a>
                       </li>
                     ))}
                   </ul>
-                </li>
-                <li className="mt-3 border-t border-slate-200 pt-3">
-                  <a
-                    href="/realizacje/"
-                    className="block rounded-xl px-3 py-3 text-base font-medium text-slate-800 hover:bg-brand-50"
-                  >
-                    Realizacje
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/kontakt/"
-                    className="block rounded-xl px-3 py-3 text-base font-medium text-slate-800 hover:bg-brand-50"
-                  >
-                    Kontakt
-                  </a>
-                </li>
-              </ul>
+                </section>
+              </div>
             </nav>
-
-            <div className="space-y-2 border-t border-slate-200 bg-slate-50 p-4">
-              <a
-                href={`tel:${phone}`}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-3 font-semibold text-white transition hover:bg-brand-800"
-              >
-                <Phone size={18} aria-hidden="true" />
-                {phoneDisplay}
-              </a>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 font-semibold text-white transition hover:bg-emerald-700"
-              >
-                <MessageCircle size={18} aria-hidden="true" />
-                WhatsApp
-              </a>
-            </div>
           </div>
-        </>
+        </>,
+        document.body
       )}
     </>
   );

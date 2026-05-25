@@ -21,6 +21,9 @@ export default defineConfig({
       changefreq: 'monthly',
       priority: 0.7,
       lastmod: new Date(),
+      filter(page) {
+        return !page.includes('/admin/');
+      },
       // Strona główna ma priority 1.0, usługi 0.9, reszta 0.7.
       serialize(item) {
         if (item.url === 'https://www.motowycena.pl/') {

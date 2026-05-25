@@ -1,6 +1,6 @@
 # Motowycena – Nowa strona (Astro 5 + React 19)
 
-Projekt zastępujący WordPress + Elementor obecnej strony `motowycena.pl`. Zoptymalizowany pod SEO, Core Web Vitals i konwersję. **100% statyczny build** + lekkie React islands dla interaktywności + Cloudflare Pages Functions dla formularza.
+Projekt zastępujący WordPress + Elementor obecnej strony `motowycena.pl`. Zoptymalizowany pod SEO, Core Web Vitals i konwersję. **100% statyczny build** + lekkie React islands dla interaktywności + Cloudflare Pages Functions dla formularza i panelu admina.
 
 ## Stack
 
@@ -9,7 +9,7 @@ Projekt zastępujący WordPress + Elementor obecnej strony `motowycena.pl`. Zopt
 - **TypeScript 5.7** – type safety
 - **Tailwind CSS 4** – styling (utility-first, mały bundle)
 - **lucide-react** – ikony SVG
-- **Cloudflare Pages Functions** – serverless endpoint formularza (poza Astro buildem)
+- **Cloudflare Pages Functions** – serverless endpoint formularza i panelu admina (poza Astro buildem)
 
 ## Wymagania
 
@@ -23,6 +23,14 @@ cd app
 npm install
 npm run dev
 # Otwórz http://localhost:4321
+```
+
+Panel admina wymaga lokalnie Cloudflare Pages Functions, więc odpalaj go osobno:
+
+```bash
+cp .dev.vars.example .dev.vars
+npm run dev:admin
+# Otwórz http://127.0.0.1:8788/admin/
 ```
 
 ## Build produkcyjny
@@ -54,7 +62,8 @@ Output: `dist/` – statyczne HTML, gotowe do wrzucenia na dowolny CDN.
 app/
 ├── functions/                    # ⭐ Cloudflare Pages Functions (POZA Astro)
 │   └── api/
-│       └── contact.ts            # serverless endpoint formularza
+│       ├── contact.ts            # serverless endpoint formularza
+│       └── admin/                # login, zapis treści, uploady
 ├── src/
 │   ├── components/
 │   │   ├── seo/                  # SEO.astro + Schema.org JSON-LD
@@ -68,6 +77,7 @@ app/
 │   ├── layouts/
 │   │   └── BaseLayout.astro      # Wspólny HTML, head, header, footer, View Transitions
 │   ├── pages/                    # 16 stron - jeden plik = jeden URL
+│   │   ├── admin.astro           # panel admina pod /admin/
 │   │   ├── index.astro
 │   │   ├── kontakt.astro
 │   │   ├── realizacje.astro
@@ -109,9 +119,9 @@ To zapewnia że URL `/kontakt/` (z ukośnikiem na końcu) działa **bezpośredni
 
 Jedyny "brzydki" URL: `pojazdy-zabytkowe-2.astro` (z sufiksem `-2`). Tak jest w obecnej stronie i tak zostaje.
 
-### `functions/api/contact.ts` – Cloudflare Pages Functions
+### `functions/api/contact.ts` i `functions/api/admin/*` – Cloudflare Pages Functions
 
-Endpoint formularza działa **poza Astro buildem** jako Cloudflare Pages Function. Dzięki temu Astro pozostaje **100% statyczny** (brak adaptera SSR), a formularz działa serverless (cold start <5ms).
+Endpoint formularza i backend panelu admina działają **poza Astro buildem** jako Cloudflare Pages Functions. Dzięki temu Astro pozostaje **100% statyczny** (brak adaptera SSR), a formularz oraz `/admin/` działają serverless.
 
 ## Zmienne środowiskowe
 
@@ -124,9 +134,14 @@ MAIL_FROM=Formularz <noreply@motowycena.pl>
 TURNSTILE_SECRET_KEY=                 # CF anti-spam (SECRET, opcjonalne)
 PUBLIC_TURNSTILE_SITE_KEY=            # public, dla widgeta
 PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN=    # public, RODO-friendly analytics
+ADMIN_SESSION_SECRET=                 # SECRET, min. 32 znaki dla /admin/
+ADMIN_PASSWORD_SHA256=                # hash hasła panelu
+ADMIN_UPLOADS_PUBLIC_URL=             # publiczny URL R2 dla uploadów
 ```
 
 **Bez RESEND_API_KEY** endpoint loguje wiadomość do konsoli (tryb dev). To bezpieczny domyślny stan – nie wysyła maili bez konfiguracji.
+
+Panel admina wymaga także bindingów Cloudflare: `ADMIN_CONTENT` jako KV namespace oraz opcjonalnie `ADMIN_UPLOADS` jako R2 bucket. Szczegóły: [docs/ADMIN-CLOUDFLARE.md](docs/ADMIN-CLOUDFLARE.md).
 
 ## Deploy na Cloudflare Pages
 
@@ -137,9 +152,9 @@ PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN=    # public, RODO-friendly analytics
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
    - **Root directory:** `app`
-4. Environment variables – dodaj `RESEND_API_KEY`, `CONTACT_EMAIL`, etc.
+4. Environment variables – dodaj `RESEND_API_KEY`, `CONTACT_EMAIL`, `ADMIN_SESSION_SECRET`, `ADMIN_PASSWORD_SHA256`, etc.
 5. Custom domain – po wstępnym teście podpiąć `www.motowycena.pl`.
-6. **WAŻNE:** Cloudflare automatycznie znajdzie `functions/api/contact.ts` i wdroży jako worker. Endpoint będzie dostępny pod `https://www.motowycena.pl/api/contact/`.
+6. **WAŻNE:** Cloudflare automatycznie znajdzie `functions/api/contact.ts` oraz `functions/api/admin/*` i wdroży je jako workers.
 
 ## Edycja treści
 
@@ -156,6 +171,9 @@ PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN=    # public, RODO-friendly analytics
 
 ### Treści blog/case studies/opinie
 → `src/content/blog/*.mdx`, `src/content/cases/*.mdx`, `src/content/opinions/*.json` – schemas już zdefiniowane w `src/content/config.ts`.
+
+### Panel admina
+→ `/admin/` – normalna strona Astro do edycji pól oznaczonych `data-admin-*`. Zapis idzie do Cloudflare KV, a publiczny loader podmienia treści po stronie przeglądarki.
 
 ## Performance – co optymalizujemy
 
@@ -182,6 +200,7 @@ PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN=    # public, RODO-friendly analytics
 - [ ] Treści finalne na każdej stronie usługi (✅ szkielet z FAQ + processSteps, klient uzupełnia)
 - [ ] Polityka prywatności zatwierdzona przez radcę prawnego (⚠ szablon czeka na akceptację)
 - [ ] Test formularza kontaktowego (mail dochodzi) → wymaga RESEND_API_KEY
+- [ ] Panel admina: `ADMIN_SESSION_SECRET`, `ADMIN_CONTENT` KV i opcjonalnie `ADMIN_UPLOADS` R2
 - [ ] Lighthouse 95+ na każdej stronie
 - [ ] Test mobile (iPhone, Android)
 - [ ] Cloudflare Turnstile aktywny
@@ -199,6 +218,7 @@ PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN=    # public, RODO-friendly analytics
 - Formularz kontaktowy z walidacją (5 KB bundle, bez zod)
 - Pływający WhatsApp button
 - Endpoint Cloudflare Pages Function (Resend + Turnstile)
+- Panel admina pod `/admin/` bez PHP (Astro + Cloudflare Pages Functions)
 - Sitemap auto-generowany (priority, changefreq, lastmod)
 - robots.txt, manifest, _headers, _redirects
 - SVG assety (favicon, logo, OG, apple-touch-icon, icon-192/512)
@@ -212,6 +232,7 @@ PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN=    # public, RODO-friendly analytics
 - Realne case studies w `/realizacje/`
 - OG images per strona (opcjonalne)
 - Integracja Resend (RESEND_API_KEY w Cloudflare)
+- Konfiguracja panelu admina w Cloudflare (`ADMIN_SESSION_SECRET`, KV, opcjonalnie R2)
 - Polityka prywatności (finalizacja przez radcę prawnego)
 
 📋 **Roadmapa po MVP:**

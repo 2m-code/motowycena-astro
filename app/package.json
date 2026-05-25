@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "dev:admin": "npm run build && HOME=$PWD/.wrangler-home wrangler pages dev dist --compatibility-date=2026-05-25 --port=8788 --inspector-port=0 --show-interactive-dev-session=false --persist-to=.wrangler/state --kv=ADMIN_CONTENT --r2=ADMIN_UPLOADS",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -29,6 +30,7 @@
     "@types/geojson": "^7946.0.16",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "wrangler": "^4.94.0"
   }
 }

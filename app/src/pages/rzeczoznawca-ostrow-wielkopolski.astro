@@ -58,13 +58,13 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
         <span>Rzeczoznawca Ostrów Wielkopolski</span>
       </nav>
 
-      <p class="text-brand-100 text-sm font-semibold uppercase tracking-wider mb-3">
+      <p class="text-brand-100 text-sm font-semibold uppercase tracking-wider mb-3" data-admin-text="ostrow.hero.kicker">
         Ostrów Wielkopolski i powiat ostrowski
       </p>
-      <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" data-admin-html="ostrow.hero.titleHtml">
         Rzeczoznawca samochodowy<br /> <span>Ostrów Wielkopolski</span>
       </h1>
-      <p class="text-lg md:text-xl text-brand-50 leading-relaxed max-w-3xl mb-8">
+      <p class="text-lg md:text-xl text-brand-50 leading-relaxed max-w-3xl mb-8" data-admin-text="ostrow.hero.lead">
         Certyfikowany rzeczoznawca techniki samochodowej z siedzibą w okolicach Ostrowa
         Wielkopolskiego. Wykonuję wyceny pojazdów, ekspertyzy powypadkowe oraz opinie
         biegłego sądowego i skarbowego na terenie miasta i całego powiatu ostrowskiego.
@@ -73,10 +73,12 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
       <div class="flex flex-wrap gap-3">
         <a
           href={`tel:${business.contact.phone}`}
+          data-admin-href="global.contact.phoneTel"
+          data-admin-href-prefix="tel:"
           class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
         >
           <Phone size={18} aria-hidden="true" />
-          {business.contact.phoneDisplay}
+          <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
         </a>
         <a
           href={`https://wa.me/${business.contact.whatsapp.replace(/[^0-9]/g, '')}`}
@@ -98,22 +100,22 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
         <div class="flex items-center gap-3">
           <MapPin className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
           <div>
-            <p class="font-semibold">Siedziba w powiecie</p>
-            <p class="text-sm text-gray-600">Gmina Odolanów, dojazd 24/7</p>
+            <p class="font-semibold" data-admin-text="ostrow.usp.item1Title">Siedziba w powiecie</p>
+            <p class="text-sm text-gray-600" data-admin-text="ostrow.usp.item1Text">Gmina Odolanów, dojazd 24/7</p>
           </div>
         </div>
         <div class="flex items-center gap-3">
           <Award className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
           <div>
-            <p class="font-semibold">Certyfikat {business.certificate}</p>
-            <p class="text-sm text-gray-600">Wpisany do rejestru rzeczoznawców</p>
+            <p class="font-semibold" data-admin-text="ostrow.usp.item2Title">Certyfikat {business.certificate}</p>
+            <p class="text-sm text-gray-600" data-admin-text="ostrow.usp.item2Text">Wpisany do rejestru rzeczoznawców</p>
           </div>
         </div>
         <div class="flex items-center gap-3">
           <Clock className="text-brand-600 flex-shrink-0" size={32} aria-hidden="true" />
           <div>
-            <p class="font-semibold">Termin 24-48h</p>
-            <p class="text-sm text-gray-600">Bez zbędnego czekania</p>
+            <p class="font-semibold" data-admin-text="ostrow.usp.item3Title">Termin 24-48h</p>
+            <p class="text-sm text-gray-600" data-admin-text="ostrow.usp.item3Text">Bez zbędnego czekania</p>
           </div>
         </div>
       </div>
@@ -123,10 +125,10 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
   <!-- DLACZEGO LOKALNIE -->
   <section class="py-16">
     <div class="container mx-auto px-4 max-w-4xl">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6" data-admin-text="ostrow.why.title">
         Dlaczego lokalny rzeczoznawca z Ostrowa Wlkp.?
       </h2>
-      <div class="prose prose-lg max-w-none text-gray-700">
+      <div class="prose prose-lg max-w-none text-gray-700" data-admin-html="ostrow.why.html">
         <p>
           Wybór rzeczoznawcy działającego lokalnie w Ostrowie Wielkopolskim i okolicach ma
           kilka praktycznych zalet. Pierwsza – krótki czas dojazdu i niski koszt
@@ -148,10 +150,10 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
   <!-- USŁUGI W OSTROWIE -->
   <section class="bg-gray-50 py-16">
     <div class="container mx-auto px-4 max-w-5xl">
-      <h2 class="text-2xl md:text-3xl font-bold mb-3 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-3 text-center" data-admin-text="ostrow.services.title">
         Pełny zakres usług w Ostrowie Wielkopolskim
       </h2>
-      <p class="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+      <p class="text-gray-600 text-center mb-10 max-w-2xl mx-auto" data-admin-text="ostrow.services.lead">
         Wszystkie usługi rzeczoznawcy techniki samochodowej dostępne dla klientów z
         Ostrowa Wlkp. i powiatu ostrowskiego.
       </p>
@@ -174,8 +176,8 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
   <!-- OBSŁUGIWANE MIEJSCOWOŚCI -->
   <section class="py-16">
     <div class="container mx-auto px-4 max-w-4xl">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">Obszar działania w powiecie ostrowskim</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6" data-admin-text="ostrow.area.title">Obszar działania w powiecie ostrowskim</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm" data-admin-html="ostrow.area.placesHtml">
         {[
           'Ostrów Wielkopolski',
           'Odolanów',
@@ -196,7 +198,7 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
           </div>
         ))}
       </div>
-      <p class="text-sm text-gray-600 mt-4">
+      <p class="text-sm text-gray-600 mt-4" data-admin-text="ostrow.area.note">
         Nie widzisz swojej miejscowości? Zadzwoń – dojeżdżam także poza powiat ostrowski.
       </p>
     </div>
@@ -205,17 +207,19 @@ import { Phone, MessageCircle, MapPin, Clock, CheckCircle2, Award } from 'lucide
   <!-- CTA -->
   <section class="bg-brand-700 text-white py-16">
     <div class="container mx-auto px-4 max-w-3xl text-center">
-      <h2 class="text-3xl font-bold mb-4">Potrzebujesz rzeczoznawcy w Ostrowie?</h2>
-      <p class="text-brand-100 mb-8 text-lg">
+      <h2 class="text-3xl font-bold mb-4" data-admin-text="ostrow.cta.title">Potrzebujesz rzeczoznawcy w Ostrowie?</h2>
+      <p class="text-brand-100 mb-8 text-lg" data-admin-text="ostrow.cta.lead">
         Zadzwoń lub napisz na WhatsApp. Odpowiedź najczęściej w ciągu kilku godzin.
       </p>
       <div class="flex flex-wrap gap-3 justify-center">
         <a
           href={`tel:${business.contact.phone}`}
+          data-admin-href="global.contact.phoneTel"
+          data-admin-href-prefix="tel:"
           class="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition"
         >
           <Phone size={18} aria-hidden="true" />
-          {business.contact.phoneDisplay}
+          <span data-admin-text="global.contact.phoneDisplay">{business.contact.phoneDisplay}</span>
         </a>
         <a
           href="/kontakt/"
